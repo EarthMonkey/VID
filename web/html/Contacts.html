@@ -1,0 +1,75 @@
+<!-- Created by L.H.S on 2017/1/10. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contacts</title>
+
+    <link href="../css/css_reset.css" rel="stylesheet">
+    <link href="../css/common.css" rel="stylesheet">
+    <link href="../css/contacts.css" rel="stylesheet">
+    <link href="http://cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="nav_bar">
+
+</div>
+
+<!-- 分组标签 -->
+<div class="group_lbl">
+
+    <div class="each_group first_bottom" style="font-weight: bold">我的名片夹</div>
+
+    <div class="each_group" style="font-weight: bold; border-bottom: 1.5px solid #c8c7c7;">所有联系人</div>
+
+    <div id="lbls">
+        <div class="each_group">家人</div>
+        <div class="each_group">公司</div>
+        <div class="each_group">兴趣</div>
+    </div>
+
+    <div class="each_group" style="border-bottom: 2px solid #c8c7c7;">
+        <div class="lbl_add">
+            <hr class="plus_h">
+            <hr class="plus_v">
+        </div>
+    </div>
+
+    <div></div>
+
+</div>
+
+<!-- 联系人列表 -->
+<div class="contacts_list">
+
+    <div class="each_group first_bottom">
+        <i class="fa fa-search"></i>
+        <input id="search" class="search_field" type="text" placeholder='搜索"所有联系人"' onkeyup="search()">
+        <i id="search_cancel" class="fa fa-times"></i>
+    </div>
+
+    <div id="lists">
+
+        <div id="indexA" class="index_A"></div>
+
+        <div class="each_idx">N</div>
+        <div class="each_contact">NJU李昊朔<hr></div>
+
+    </div>
+</div>
+
+<!-- 联系人详情 -->
+<div class="contact_detail">
+
+    <div class="each_group first_bottom">
+        <div class="edit_btn">编辑</div>
+    </div>
+
+</div>
+
+
+<script src="../js/jquery.js"></script>
+<script src="../js/contacts.js"></script>
+</body>
+</html>

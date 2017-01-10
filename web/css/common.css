@@ -1,0 +1,10 @@
+/**
+ * Created by L.H.S on 2017/1/10.
+ */
+
+.nav_bar {
+    height: 50px;
+    width: 100%;
+    background-color: #62a8f6;
+    z-index: 999;
+}
