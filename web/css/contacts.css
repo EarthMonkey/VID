@@ -5,16 +5,19 @@
 html, body {
     height: 100%;
     overflow: hidden;
+    overflow-x: auto;
 }
 
 .group_lbl {
-    width: 220px;
+    width: 17%;
+    min-width: 165px;
     height: 100%;
     background-color: #e4e6e8;
     border-right: 1px solid #d4d6d6;
     display: inline-block;
     vertical-align: top;
-    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .each_group {
@@ -58,17 +61,20 @@ html, body {
 .first_bottom {
     background-color: transparent;
     border-bottom: 2px solid #a6c3d9;
+    position: relative;
 }
 
 .contacts_list {
-    width: 340px;
+    width: 27%;
+    min-width: 260px;
     height: 100%;
     background-color: #f9f9f9;
     border-right: 1px solid #d4d6d6;
     margin-left: -4px;
     display: inline-block;
     vertical-align: top;
-    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
     position: relative;
 }
 
@@ -79,9 +85,9 @@ html, body {
 
 .search_field {
     height: 35px;
-    width: 260px;
+    width: 150px;
     line-height: 30px;
-    font-size: 20px;
+    font-size: 18px;
     outline: none;
     border: none;
     background-color: transparent;
@@ -102,6 +108,8 @@ html, body {
 #search_cancel {
     cursor: pointer;
     display: none;
+    float: right;
+    margin-right: 25px;
 }
 
 .index_A {
@@ -109,8 +117,8 @@ html, body {
     height: 490px;
     border-radius: 10px;
     position: absolute;
+    top: 90px;
     right: 10px;
-    top: 80px;
     transition: 0.3s;
     color: #1981fb;
     text-align: center;
@@ -119,6 +127,7 @@ html, body {
     font-family: "PingFang SC", serif;
     padding-top: 5px;
     cursor: pointer;
+    z-index: 9999;
 }
 
 .index_A:hover {
@@ -145,6 +154,7 @@ html, body {
     font-weight: bold;
     padding-left: 15px;
     position: relative;
+    cursor: default;
 }
 
 .each_contact hr {
@@ -157,12 +167,14 @@ html, body {
 
 
 .contact_detail {
-    position: absolute;
-    left: 560px;
-    right: 0;
+    width: 55.9%;
+    min-width: 510px;
     height: 100%;
+    margin-left: -5px;
     display: inline-block;
     vertical-align: top;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .edit_btn {
@@ -175,4 +187,62 @@ html, body {
 
 .edit_btn:hover {
     color: #2775cf;
+}
+
+.portrait_div {
+    width: 90px;
+    height: 90px;
+    margin-left: 30px;
+    margin-top: 30px;
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.portrait_div img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.contact_name {
+    display: inline;
+    vertical-align: middle;
+    font-size: 40px;
+    font-family: "PingFang SC", serif;
+    font-weight: 300;
+    margin-left: 20px;
+    position: relative;
+    top: 15px;
+}
+
+.contact_info {
+    display: inline-block;
+    vertical-align: bottom;
+    margin-left: 20px;
+    font-size: 18px;
+    font-family: "PingFang SC", serif;
+    line-height: 35px;
+    font-weight: 300;
+    position: relative;
+    top: 33px;
+}
+
+.video_div {
+    width: 205px;
+    height: 150px;
+    background-color: #d8d8d8;
+    display: inline-block;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
+@media screen and (max-width: 970px) {
+
+    .contact_detail {
+        position: absolute;
+        left: 430px;
+        right: 0;
+        height: 615px;
+    }
 }
