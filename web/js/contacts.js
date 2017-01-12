@@ -11,7 +11,7 @@ window.onload = function () {
 
 function search() {
 
-    if ($("#search_cancel").css("display") == "none") {
+    if ($("#search_cancel").css("display") == "none" && $("#search").val() != "") {
         $("#search_cancel").show();
         $("#search_cancel").click(function () {
             $("#search").val("");
@@ -20,6 +20,16 @@ function search() {
     } else {
         if ($("#search").val() == "") {
             $("#search_cancel").hide();
+        }
+    }
+
+    if($("#lists").css("display") != "none" && $("#search").val() != "") {
+        $("#lists").hide();
+        $("#search_list").show();
+    } else {
+        if ($("#search").val() == "") {
+            $("#search_list").hide();
+            $("#lists").show();
         }
     }
 
@@ -84,6 +94,11 @@ function initContacts() {
 
 function enlarge(node) {
 
+    var vid = node.parentNode.getElementsByTagName("video")[0];
+    if (!vid.paused) {
+        vid.pause();
+    }
+
     $("#modal").fadeIn(200);
     $("#main_body").css("-webkit-filter", "blur(3px)");
     $($("#modal").find(".enlarge_btn")).click(function () {
@@ -93,7 +108,6 @@ function enlarge(node) {
     });
 
     var video = $(node).parent("div").find("video");
-    $(video).pause();
     var video_copy = $(video).clone();
 
     $($("#modal").find(".enlarge_modal")).append($(video_copy));
