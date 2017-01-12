@@ -20,6 +20,12 @@ body {
     margin: 80px auto;
 }
 
+.center_div2 {
+    width: 23%;
+    min-width: 300px;
+    margin: auto;
+}
+
 .QQ_box {
     width: 290px;
     height: 30px;
@@ -69,6 +75,18 @@ body {
 .login_btn {
     width: 285px;
     text-align: center;
-    border-radius: 0;
     background-color: #1ab14a;
+}
+
+.register_btn {
+    width: 55px;
+    line-height: 30px;
+    text-align: center;
+    background-color: transparent;
+    border-radius: 5px;
+    border: 1px solid #fff;
+    color: #fff;
+    margin-left: auto;
+    margin-right: auto;
+    cursor: pointer;
 }
