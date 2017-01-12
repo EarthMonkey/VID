@@ -16,7 +16,7 @@
     <div class="logo_div">LOGO</div>
 </div>
 
-<div style="margin-top: 50px; width: 100%; height: 100%;">
+<div id="main_body">
     <!-- 分组标签 -->
     <div class="group_lbl">
 
@@ -92,31 +92,38 @@
             <div id="videos">
 
                 <div class="video_div">
+                    <div class="enlarge_btn" onclick="enlarge(this);">放大</div>
                     <video poster="../image/video_poster.png" controls preload>
                         <source src="https://media.html5media.info/video.iphone.mp4">
                     </video>
-                    <div>测试连接mp4</div>
+                    <div class="video_name">测试连接mp4</div>
                 </div>
 
                 <div class="video_div">
                     <video poster="../image/video_poster.png" controls="controls" preload>
                         <source src="../video/test_mov.mov">
                     </video>
-                    <div>测试本地mov</div>
+                    <div class="video_name">测试本地mov</div>
                 </div>
 
                 <div class="video_div">
                     <video poster="../image/video_poster.png" controls="controls" preload>
                         <source src="../video/test_mp4.mp4">
                     </video>
-                    <div>测试本地mp4</div>
+                    <div class="video_name">测试本地mp4</div>
                 </div>
 
-
-
             </div>
-
         </div>
+    </div>
+</div>
+
+
+<!-- 视频modal -->
+<div id="modal" class="modal_backdrop">
+    <div class="enlarge_modal">
+        <div class="enlarge_btn">关闭</div>
+
 
     </div>
 </div>

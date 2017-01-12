@@ -79,7 +79,27 @@ function initContacts() {
             });
 
         }
-
     }
+}
+
+function enlarge(node) {
+
+    $("#modal").fadeIn(200);
+    $("#main_body").css("-webkit-filter", "blur(3px)");
+    $($("#modal").find(".enlarge_btn")).click(function () {
+        $("#modal").hide();
+        $("#main_body").css("-webkit-filter", "");
+        $($("#modal").find("video")).remove();
+    });
+
+    var video = $(node).parent("div").find("video");
+    $(video).pause();
+    var video_copy = $(video).clone();
+
+    $($("#modal").find(".enlarge_modal")).append($(video_copy));
+    $(video_copy).attr("poster", "");
+    $(video).attr("preload", "metadata");
+    $(video_copy).css("width", "100%");
+    $(video_copy).css("margin", "30px auto");
 
 }
