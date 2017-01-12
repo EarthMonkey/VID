@@ -78,7 +78,6 @@ body {
     background-color: #1ab14a;
 }
 
-<<<<<<< HEAD
 .register_btn {
     width: 55px;
     line-height: 30px;
@@ -90,10 +89,10 @@ body {
     margin-left: auto;
     margin-right: auto;
     cursor: pointer;
-=======
+}
+
 @media screen and (max-width: 1260px){
     .center_div {
         width: 310px;
     }
->>>>>>> 625a981b0a9afd422905133d45da6a449c3e7a80
 }
