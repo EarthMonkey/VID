@@ -7,7 +7,32 @@ body {
     font-size: 40px;
     color: #fff;
     text-align: center;
-    font-weight: bold;
+    font-weight: lighter;
     margin-top: 120px;
     font-family: "Adobe Heiti Std", serif;
+}
+
+.QQ_box {
+    position: relative;
+    top: 48px;
+    left: 270px;
+    width: 340px;
+    height: 30px;
+    line-height: 30px;
+    background: #00a0ee;
+    border-radius: 5px;
+    border: none;
+}
+
+.QQ_icon {
+    width: 23px;
+    height: 26px;
+    margin-left: 10px;
+    margin-top: 2px;
+}
+
+.QQ_text {
+    color: #fff;
+    font-family: sans-serif;
+    font-weight: lighter;
 }
