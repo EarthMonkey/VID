@@ -11,3 +11,11 @@
     left: 0;
     top: 0;
 }
+
+.logo_div {
+    font-size: 25px;
+    color: #fff;
+    font-family: "Arial Rounded MT Bold", serif;
+    margin-left: 15px;
+    line-height: 50px;
+}

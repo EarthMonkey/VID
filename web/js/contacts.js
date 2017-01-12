@@ -37,7 +37,7 @@ function addIndex() {
 
         $(div).click(function () {
             var pos = $("#" + this.innerHTML).offset().top;
-            $(".contacts_list").animate({scrollTop: pos}, 100);
+            $(".contacts_list").animate({scrollTop: pos}, 500);
         });
     }
 

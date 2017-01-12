@@ -165,7 +165,6 @@ html, body {
     right: 0;
 }
 
-
 .contact_detail {
     width: 55.9%;
     min-width: 510px;
@@ -228,13 +227,37 @@ html, body {
     top: 33px;
 }
 
+#videos {
+    margin-top: 100px;
+    margin-left: 30px;
+    padding-bottom: 40px;
+    height: 315px;
+    overflow-y: auto
+}
+
 .video_div {
     width: 205px;
-    height: 150px;
-    background-color: #d8d8d8;
+    height: 190px;
     display: inline-block;
+    vertical-align: top;
     margin-right: 20px;
     margin-bottom: 20px;
+    background-color: #000;
+}
+
+.video_div video,
+.video_div source {
+    width: 205px;
+    height: 150px;
+}
+
+.video_div div {
+    width: 100%;
+    text-align: center;
+    font-family: "PingFang SC", serif;
+    font-size: 18px;
+    line-height: 40px;
+    background-color: #fff;
 }
 
 @media screen and (max-width: 970px) {
