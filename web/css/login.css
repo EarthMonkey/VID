@@ -50,7 +50,7 @@ body {
 }
 
 .textfield {
-    width: 290px;
+    width: 295px;
     height: 30px;
     border: none;
     outline: none;
@@ -67,8 +67,14 @@ body {
 }
 
 .login_btn {
-    width: 285px;
+    width: 290px;
     text-align: center;
     border-radius: 0;
     background-color: #1ab14a;
+}
+
+@media screen and (max-width: 1260px){
+    .center_div {
+        width: 310px;
+    }
 }
