@@ -17,10 +17,61 @@
 </div>
 
 <div id="main_body">
+
+    <!-- 我的名片夹全展开 -->
+    <div id="left_part" class="mine_left" style="display: none">
+        <div class="each_group first_bottom">
+            <div class="edit_btn">编辑</div>
+        </div>
+
+        <div class="portrait_div">
+            <img src="../image/portrait_default.svg">
+        </div>
+
+        <div class="contact_name">李昊朔</div>
+
+    </div>
+
+    <!-- 我的名片夹 -->
+    <div id="mine" class="mine_div" style="display: none">
+
+        <div class="each_group first_bottom">
+            <div class="tip_text" onclick="showMyAll()">
+                <div class="fa fa-angle-double-left"></div>
+                展开全部
+            </div>
+
+            <div class="tip_text" style="float: right; margin-right: 110px; display: none;" onclick="hideMine()">
+                <div class="fa fa-angle-double-left"></div>
+                收起
+            </div>
+            <div class="mine_title">我的名片</div>
+        </div>
+
+        <div class="contact_info" style="margin-top: 10px;">
+
+            <div>备注:&nbsp;<span>南京大学</span></div>
+
+            <div>电话:&nbsp;<span>15250997793</span></div>
+
+            <div>邮箱:&nbsp;<span>howsurely@foxmail.com</span></div>
+
+        </div>
+
+        <div style="width: 100%; overflow: auto">
+            <div id="my_videos">
+
+            </div>
+        </div>
+
+    </div>
+
     <!-- 分组标签 -->
     <div class="group_lbl">
 
-        <div class="each_group first_bottom" style="font-weight: bold">我的名片夹</div>
+        <div class="each_group first_bottom" style="font-weight: bold; cursor: pointer" onclick="showMine()">
+            我的名片夹
+        </div>
 
         <div class="each_group" style="font-weight: bold; border-bottom: 1.5px solid #c8c7c7;">所有联系人</div>
 
@@ -52,6 +103,7 @@
 
         <div id="lists" style="padding-bottom: 50px;">
 
+            <!-- 右侧索引 -->
             <div id="indexA" class="index_A"></div>
 
             <!--
@@ -65,11 +117,12 @@
 
         <div id="search_list" style="padding-bottom: 50px; display: none;">
             <div class="no_search">无搜索结果</div>
+
         </div>
     </div>
 
     <!-- 联系人详情 -->
-    <div class="contact_detail">
+    <div id="detail_part" class="contact_detail">
 
         <div class="each_group first_bottom">
             <div class="edit_btn">编辑</div>
@@ -95,28 +148,13 @@
 
             <div id="videos">
 
-                <div class="video_div">
+                <!-- copy样本 -->
+                <div class="video_div" id="video_copy" style="display: none;">
                     <div class="enlarge_btn" onclick="enlarge(this);">放大</div>
                     <video poster="../image/video_poster.png" controls preload>
                         <source src="https://media.html5media.info/video.iphone.mp4">
                     </video>
-                    <div class="video_name">测试连接mp4</div>
-                </div>
-
-                <div class="video_div">
-                    <div class="enlarge_btn" onclick="enlarge(this);">放大</div>
-                    <video poster="../image/video_poster.png" controls="controls" preload>
-                        <source src="../video/test_mov.mov">
-                    </video>
-                    <div class="video_name">测试本地mov</div>
-                </div>
-
-                <div class="video_div">
-                    <div class="enlarge_btn" onclick="enlarge(this);">放大</div>
-                    <video poster="../image/video_poster.png" controls="controls" preload>
-                        <source src="../video/test_mp4.mp4">
-                    </video>
-                    <div class="video_name">测试本地mp4</div>
+                    <div class="video_name">测试mp4视频</div>
                 </div>
 
             </div>

@@ -16,6 +16,13 @@ html, body {
     -moz-transition: 0.1s;
     -o-transition: 0.1s;
     transition: 0.1s;
+    position: relative;
+}
+
+@media screen and (max-width: 830px) {
+    #main_body {
+        width: 827px;
+    }
 }
 
 .group_lbl {
@@ -201,6 +208,7 @@ html, body {
     font-size: 20px;
     font-family: "Microsoft Sans Serif", serif;
     font-weight: lighter;
+    display: inline;
     cursor: pointer;
 }
 
@@ -322,7 +330,7 @@ html, body {
     position: relative;
 }
 
-@media screen and (max-width: 680px){
+@media screen and (max-width: 680px) {
     .enlarge_modal {
         width: 99%;
     }
@@ -347,4 +355,75 @@ html, body {
         right: 0;
         height: 615px;
     }
+}
+
+.mine_div {
+    width: 55.9%;
+    /*min-width: 400px;*/
+    height: 100%;
+    display: inline-block;
+    margin-right: -5px;
+    vertical-align: top;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-box-shadow: 10px 0 7px rgba(51, 51, 51, 0.7);
+    -moz-box-shadow: 10px 0 7px rgba(51, 51, 51, 0.7);
+    box-shadow: 10px 0 7px rgba(51, 51, 51, 0.7);
+    position: relative;
+    z-index: 1039;
+}
+
+@media screen and (max-width: 1100px) {
+    .mine_div {
+        -webkit-transition: 0.3s;
+        -moz-transition: 0.3s;
+        -o-transition: 0.3s;
+        transition: 0.3s;
+        width: 400px;
+    }
+}
+
+.mine_title {
+    font-family: "Microsoft Sans Serif", sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 45px;
+    position: absolute;
+    right: 25px;
+}
+
+.mine_left {
+    width: 280px;
+    height: 100%;
+    display: inline-block;
+    margin-right: -5px;
+    vertical-align: top;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+#my_videos {
+    margin-top: 70px;
+    /*width: 690px;*/
+    height: 200px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    margin-left: 20px;
+}
+
+.tip_text {
+    color: #afafaf;
+    font-size: 18px;
+    line-height: 45px;
+    float: left;
+    margin-left: 5px;
+    cursor: pointer;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+}
+
+.tip_text:hover {
+    color: #3d3e3e;
 }
