@@ -1,7 +1,7 @@
 /**
  * Created by TQ on 17/01/11.
  */
-// 0切换到登录；1切换到注册
+// 0切换到登录；1切换到忘记密码
 function change(syb) {
     Ids = ["login", "forget_password"];
     var current = (syb + 1) % 2;
