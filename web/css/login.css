@@ -13,7 +13,7 @@ body {
 }
 
 .center_div {
-    width: 50%;
+    width: 55%;
     min-width: 300px;
     padding-top: 10px;
     padding-bottom: 20px;
@@ -72,10 +72,31 @@ body {
     box-shadow: 0 0 8px 3px #79a3c3;
 }
 
+.login_tip {
+    color:#fff;
+    font-size: 14px;
+    margin-bottom: 5px;
+    margin-left: 240px;
+    opacity: 0.7;
+    cursor: pointer;
+    font-family: "PingFang SC", serif;
+    display: inline;
+}
+
+.login_tip:hover {
+    padding-bottom:1px;
+    border-bottom:1px solid #fff;
+}
+
 .login_btn {
     width: 290px;
     text-align: center;
     background-color: #1ab14a;
+    font-family: "PingFang SC", serif;
+}
+
+.login_btn:hover {
+    opacity: 0.7;
 }
 
 .register_btn {
@@ -89,6 +110,19 @@ body {
     margin-left: auto;
     margin-right: auto;
     cursor: pointer;
+    opacity: 0.7;
+    font-family: "PingFang SC", serif;
+}
+
+.register_btn:hover{
+    opacity: 1;
+}
+
+.reset_tip {
+    color: #fff;
+    font-family: "PingFang SC", serif;
+    font-size: 16px;
+    margin-bottom: 20px;
 }
 
 @media screen and (max-width: 1260px){

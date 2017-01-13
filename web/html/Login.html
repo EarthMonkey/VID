@@ -21,7 +21,7 @@
 <div class="center_div">
 
     <!-- 左半部分 -->
-    <div class="left_part" style="margin-right: 40px;">
+    <div class="left_part" style="margin-right: 60px;">
         <div class="QQ_box">
             <img style="width: 20px; margin-right: 11px;" src="../image/qq_icon.png">
             用QQ登录
@@ -38,24 +38,45 @@
         </div>
     </div>
 
-    <!-- 右半部分 -->
-    <div class="left_part">
+    <!-- 右半部分 登录 -->
+    <div id = "login" class="left_part">
 
         <div style="margin-bottom: 20px;">
             <input class="textfield" type="text" placeholder="Email or Username">
         </div>
 
-        <div style="margin-bottom: 20px;">
+        <div style="margin-bottom: 3px;">
             <input class="textfield" type="text" placeholder="password">
         </div>
 
-        <div class="QQ_box login_btn">登录</div>
+        <div class="login_tip" onclick="change(1)">
+            忘记密码?
+        </div>
 
-        <div class="register_btn">注册</div>
+        <div class="QQ_box login_btn" style="margin-top: 5px">登录</div>
+
+        <div class="register_btn" onclick="window.location.href='Register.html'">注册</div>
+
+    </div>
+
+    <!-- 右半部分 忘记密码 -->
+    <div id = "forget_password" class="left_part" style="display: none">
+        <div class="reset_tip">
+            请输入您的邮箱:
+        </div>
+
+        <div>
+            <input class="textfield" type="text" placeholder="Email">
+        </div>
+
+        <div class="QQ_box login_btn" style="margin-top: 20px">发送</div>
+
+        <div class="register_btn" onclick="change(0)">登录</div>
 
     </div>
 
 </div>
-
+<script src="../js/login.js"></script>
+<script src="../js/jquery.js"></script>
 </body>
 </html>
