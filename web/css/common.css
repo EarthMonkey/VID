@@ -1,0 +1,21 @@
+/**
+ * Created by L.H.S on 2017/1/10.
+ */
+
+.nav_bar {
+    height: 50px;
+    width: 100%;
+    background-color: #62a8f6;
+    z-index: 9999;
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+
+.logo_div {
+    font-size: 25px;
+    color: #fff;
+    font-family: "Arial Rounded MT Bold", serif;
+    margin-left: 15px;
+    line-height: 50px;
+}
