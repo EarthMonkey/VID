@@ -67,12 +67,15 @@
     <!-- 数据库连接池 -->
     <property name="dataSource" ref="local"></property>
     <!-- 加载mybatis的配置文件 -->
+
     <property name="configLocation" value = "classpath:mybatisConfig.xml"></property>
+
+    <property name="mapperLocations" value = "classpath:mapper/*.xml"></property>
   </bean>
 
   <!-- mapper扫描器 -->
   <bean class = "org.mybatis.spring.mapper.MapperScannerConfigurer">
-    <property name="basePackage" value="com.ssm.mapper"></property>
+    <property name="basePackage" value="com.vid.dao"></property>
     <property name="sqlSessionFactoryBeanName" value = "sqlSessionFactory"></property>
   </bean>
 
