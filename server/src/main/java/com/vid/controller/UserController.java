@@ -29,4 +29,17 @@ public class UserController {
 
     }
 
+    @RequestMapping("/insert")
+    @ResponseBody
+    public String insert(User user){
+
+        try {
+            userService.insertUser(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "ok";
+
+    }
+
 }

@@ -11,14 +11,14 @@
 
 <!--当项目正式启用时再启用log4j记录日志文件-->
 
-  <!--<context-param>-->
-    <!--<param-name>log4jConfigLocation</param-name>-->
-    <!--<param-value>classpath:log4j.properties</param-value>-->
-  <!--</context-param>-->
-  <!--&lt;!&ndash;使用监听加载log4j的配置文件&ndash;&gt;-->
-  <!--<listener>-->
-    <!--<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>-->
-  <!--</listener>-->
+  <context-param>
+    <param-name>log4jConfigLocation</param-name>
+    <param-value>classpath:log4j.properties</param-value>
+  </context-param>
+  <!--使用监听加载log4j的配置文件-->
+  <listener>
+    <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+  </listener>
 
 
 
