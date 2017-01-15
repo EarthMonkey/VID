@@ -13,4 +13,8 @@
     <select id="getUser" resultType="User" parameterType="java.lang.String">
         select * from user where name=#{name}
     </select>
+
+    <select id="getUsers" resultType="User" parameterType="java.lang.String">
+        select * from user
+    </select>
 </mapper>
