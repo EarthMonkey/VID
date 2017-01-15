@@ -12,11 +12,7 @@
     </settings>
 
     <typeAliases>
-        <package name="com.vld.model"/>
+        <package name="com.vid.model"/>
     </typeAliases>
 
-
-    <mappers>
-        <mapper resource="mappers/UserMapper.xml" />
-    </mappers>
 </configuration>
