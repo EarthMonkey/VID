@@ -5,3 +5,5 @@
 # MAC #
 .DB_Store
 
+
+server/src/main/resources/db.properties
