@@ -21,7 +21,7 @@
 
 <div class="welcome" style="margin-top: 80px">CREATE A Vid ACCOUNT</div>
 
-<div class="center_div" style="width: 23%; margin-top: 30px">
+<div class="center_div" style="width: 23%; margin-top: 20px">
     <!-- 上半部分 -->
     <div>
         <div class="QQ_box" style="margin-bottom: 15px;">
@@ -29,12 +29,12 @@
             用QQ登录
         </div>
 
-        <div class="QQ_box" style="background: #72d19a; margin-bottom: 15px;">
+        <div class="QQ_box" style="background: #75c138; margin-bottom: 15px;">
             <img src="../image/wechat_icon.png">
             用微信登录
         </div>
 
-        <div class="QQ_box" style="background: #fafe3f; margin-bottom: 40px">
+        <div class="QQ_box" style="background: #f3ce49; margin-bottom: 40px">
             <img src="../image/sina_icon.png">
             用新浪微博登录
         </div>
@@ -42,21 +42,29 @@
 
     <!-- 下半部分 -->
     <div>
-        <div style="margin-bottom: 15px;">
-            <input class="textfield" type="text" placeholder="Sign up with E-mail or Mobilephone">
+        <div style="margin-bottom: 15px; position: relative;">
+            <input class="textfield" type="text" placeholder="E-mail or Mobilephone">
         </div>
-        <div style="margin-bottom: 15px;">
-            <input class="textfield" type="text" placeholder="Create a password">
+
+        <div style="margin-bottom: 15px; position: relative;">
+            <input class="textfield" type="password" placeholder="Create a password">
         </div>
-        <div style="margin-bottom: 15px;">
+
+        <div style="margin-bottom: 15px; position: relative;">
+            <input class="textfield" type="password" placeholder="Repeat your password">
+        </div>
+
+        <div style="margin-bottom: 15px; position: relative;">
             <input class="textfield" type="text" placeholder="Your name">
         </div>
 
-        <div class="QQ_box login_btn">注册</div>
+        <div class="QQ_box login_btn" onclick="register()">注册</div>
 
         <div class="register_btn" onclick="window.location.href='Login.html'">登录</div>
     </div>
 </div>
 
+<script src="../js/login.js"></script>
+<script src="../js/jquery.js"></script>
 </body>
 </html>
