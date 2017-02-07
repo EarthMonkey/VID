@@ -23,9 +23,7 @@ function changeAd(index) {
     var ads = $(".each_ad");
     var dots = $(".ad_dot").find(".each_dot");
 
-    $(ads[LAST_AD]).animate({
-        width: "hide"
-    }, 200);
+    $(ads[LAST_AD]).hide();
     $(ads[index]).animate({
         width: "show"
     }, 200);
@@ -35,4 +33,24 @@ function changeAd(index) {
     $(dots[index]).css("background-color", "#2b2b2b");
 
     LAST_AD = index;
+}
+
+function slideCheck() {
+    $(".part_one").on("swipeleft", function () {
+        changeDot(1);
+    });
+    $(".part_one").on("swiperight", function () {
+        changeDot(0);
+    });
+
+    $(".part_three").on("swipeleft", function () {
+        if ($(".ad_dot").css("display") != "none" && (LAST_AD + 1) < 5) {
+            changeAd(LAST_AD + 1);
+        }
+    });
+    $(".part_three").on("swiperight", function () {
+        if ($(".ad_dot").css("display") != "none" && (LAST_AD - 1) > -1) {
+            changeAd(LAST_AD - 1);
+        }
+    });
 }
