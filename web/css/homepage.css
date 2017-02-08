@@ -1,0 +1,228 @@
+body, html {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.part_one {
+    width: 100%;
+    height: auto;
+    position: relative;
+}
+
+.img_left {
+    width: 90%;
+    -webkit-box-shadow: 10px -8px 7px rgba(51, 51, 51, 0.7);
+    -moz-box-shadow: 10px -8px 7px rgba(51, 51, 51, 0.7);
+    box-shadow: 10px -8px 7px rgba(51, 51, 51, 0.7);
+}
+
+.img_right {
+    width: 90%;
+    padding-bottom: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    -webkit-box-shadow: -10px -8px 7px rgba(51, 51, 51, 0.7);
+    -moz-box-shadow: -10px -8px 7px rgba(51, 51, 51, 0.7);
+    box-shadow: -10px -2px 7px rgb(51, 51, 51);
+    z-index: -10;
+}
+
+.introduce_text {
+    width: 100%;
+    position: absolute;
+    top: 15%;
+    left: 0;
+}
+
+.img_right img,
+.img_left img,
+.introduce_text img {
+    width: 100%;
+}
+
+.register_btn {
+    width: 52px;
+    font-size: 25px;
+    line-height: 30px;
+    color: #fff;
+    text-align: center;
+    border-bottom: 2px solid #fff;
+    font-family: "ZHSRXT", "PingFang SC", serif;
+    position: absolute;
+    left: 45%;
+    bottom: 15%;
+    cursor: pointer;
+}
+
+.login_btn {
+    color: #090d12;
+    border-bottom: 2px solid #090d12;
+    left: 42%;
+}
+
+.dot_div {
+    position: absolute;
+    left: 46%;
+    bottom: 8%;
+}
+
+.each_dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #fff;
+    display: inline-block;
+    vertical-align: bottom;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.part_two {
+    width: 100%;
+    padding-top: 50px;
+    padding-bottom: 20px;
+    background-color: #fff;
+    margin-top: -5px;
+    font-size: 16px;
+    font-weight: 300;
+    font-family: "ZHSRXT", "PingFang SC", serif;
+    color: #aaa8a8;
+    text-align: center;
+    letter-spacing: 3px;
+}
+
+.info_detail {
+    width: 70%;
+    margin: 30px auto;
+    text-align: left;
+}
+
+.part_three {
+    color: #fff;
+    padding-bottom: 70px;
+    position: relative;
+    background: url('../image/home_bg_3.png') no-repeat;
+    background-size: 100%;
+}
+
+.bg_img {
+    width: 100%;
+    height: 450px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -10;
+}
+
+.ads_div {
+    margin-top: 60px;
+}
+
+.each_ad {
+    width: 160px;
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.each_ad img {
+    width: 50px;
+}
+
+.ad_detail {
+    font-size: 12px;
+    font-weight: 200;
+    letter-spacing: 1px;
+    text-align: left;
+    margin-top: 20px;
+}
+
+.ad_dot {
+    display: none;
+}
+
+@media screen and (max-width: 990px) {
+    .part_three {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .ads_div {
+        margin-top: -20px;
+    }
+
+    .each_ad {
+        display: none;
+    }
+
+    .ad_dot {
+        display: inherit;
+        margin: 10px auto;
+    }
+
+    .pre_detail {
+        display: none;
+    }
+}
+
+.upload_lbl {
+    width: 120px;
+    font-size: 24px;
+    border-bottom: 1px solid #aaa8a8;
+    margin: 20px auto;
+
+}
+
+.part_five {
+    width: 100%;
+    font-weight: 200;
+    background: url('../image/home_bg_5.png') no-repeat;
+    background-size: 100%;
+    padding-top: 8%;
+    padding-bottom: 10%;
+}
+
+.code_lbl {
+    width: 120px;
+    font-family: "PingFang SC", serif;
+    font-size: 24px;
+    border-bottom: 1px solid #fff;
+    color: #fff;
+    cursor: pointer;
+    margin-left: 8%;
+}
+
+.share_lbl {
+    font-family: "PingFang SC", serif;
+    font-size: 40px;
+    color: #fff;
+    letter-spacing: 37px;
+    margin-left: 8%;
+    margin-top: 2%;
+}
+
+@media screen and (max-width: 400px) {
+    .code_lbl {
+        font-size: 20px;
+    }
+
+    .share_lbl {
+        font-size: 28px;
+    }
+}
+
+.qq_img {
+    margin-left: 8%;
+    margin-top: 2%;
+}
+
+.qq_img img {
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 8px;
+}
+

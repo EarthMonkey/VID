@@ -16,7 +16,105 @@
     <div class="logo_div">LOGO</div>
 </div>
 
+<!-- 第一部分 -->
+<div class="part_one">
+    <div class="img_left">
+        <img src="../image/home_bg1_left.png" onclick="changeDot(0)">
+        <div class="register_btn" onclick="window.location.href='Register.html'">注册</div>
+    </div>
+    <div class="img_right">
+        <img src="../image/home_bg1_right.png">
+        <div class="register_btn login_btn" onclick="window.location.href='Login.html'">登录</div>
+    </div>
+    <div class="introduce_text">
+        <img src="../image/introduce_text_white.png">
+    </div>
+    <!-- 翻页 -->
+    <div class="dot_div">
+        <div class="each_dot" style="background-color: #2b2b2b" onclick="changeDot(0)"></div>
+        <div class="each_dot" onclick="changeDot(1)"></div>
+    </div>
+</div>
 
+<!-- 第二部分 -->
+<div class="part_two">
+    <div style="font-size: 40px; line-height: 60px;">产品介绍</div>
+    <div class="info_detail">
+        Vid是一个微视频名片社交应用，让用户能用微视频的形式展示自己。<br>
+        <br>
+        这款应用允许用户录制一段30秒的微视频代替传统的文字名片，适用于商务场合的社交活动,如招聘求职、职业交流等。<br>
+        <br>
+        它提供功能强大、各式各样的视频模板，能让用户轻松制作出理想的视频名片，操作简单，易于上手。<br>
+        <br>
+        微视频制作完成后存储在云端，同时生成一个二维码，方便用户分享到各个社交平台。
+    </div>
+</div>
 
+<!-- 第三部分 -->
+<div class="part_two part_three">
+    <div style="font-size: 40px; line-height: 60px; margin-bottom: 25px;">产品优势</div>
+    <div class="pre_detail">提供功能强大、各式各样的视频模板，能让用户轻松制作出理想的视频名片，操作简单，易于上手。<br>
+    微视频制作完成后存储在云端，同时生成一个二维码，方便用户分享到各个社交平台。</div>
+
+    <div class="ads_div">
+        <div class="each_ad" style="display: inline-block;">
+            <img src="../image/advantage_1.png">
+            <div class="ad_detail">利用声音、影像等资讯了解个人或企业的精神、文化和发展状况，有效提高个人或企业品牌张力与市场拓展力。</div>
+        </div>
+        <div class="each_ad">
+            <img src="../image/advantage_2.png">
+            <div class="ad_detail">展示真实图像，信息传递更加丰富准确，在信息交流的过程中给对方留下更深印象。</div>
+        </div>
+        <div class="each_ad">
+            <img src="../image/advantage_3.png">
+            <div class="ad_detail">微视频名片容量小，占用流量小，可以更加方便快捷的进行传送和发布，可以应用在PC和移动互联。</div>
+        </div>
+        <div class="each_ad">
+            <img src="../image/advantage_4.png">
+            <div class="ad_detail">微视频名片制作精美，更能显示出一个人或企业的品位和档次。</div>
+        </div>
+        <div class="each_ad">
+            <img src="../image/advantage_5.png">
+            <div class="ad_detail">用户上手方便快捷，金钱和时间成本低，更容易被接受。</div>
+        </div>
+    </div>
+
+    <div class="ad_dot">
+        <div class="each_dot" style="background-color: #2b2b2b" onclick="changeAd(0)"></div>
+        <div class="each_dot" onclick="changeAd(1)"></div>
+        <div class="each_dot" onclick="changeAd(2)"></div>
+        <div class="each_dot" onclick="changeAd(3)"></div>
+        <div class="each_dot" onclick="changeAd(4)"></div>
+    </div>
+</div>
+
+<!-- 第四部分 -->
+<div class="part_two" style="padding-top: 70px; padding-bottom: 70px;">
+    <div style="font-size: 40px; line-height: 60px;">上传您的视频</div>
+    <div style="margin: 50px auto">
+        <img src="../image/upload_bg.png">
+    </div>
+    <div class="upload_lbl">UPLOAD</div>
+</div>
+
+<!-- 第五部分 -->
+<div class="part_five">
+    <!--<img class="bg_img" src="../image/home_bg_5.png">-->
+
+    <div class="code_lbl">生成二维码</div>
+    <div class="share_lbl">分享</div>
+    <div class="qq_img">
+        <img src="../image/sina_icon.png">
+        <img src="../image/wechat_icon.png">
+        <img src="../image/qq_icon.png" style="width: 25px;">
+    </div>
+</div>
+
+<div id="bottom" class="bottom_nav"></div>
+
+<script src="../js/jquery.js"></script>
+<script src="../js/homepage.js"></script>
+<script src="../js/jquery.mobile-1.4.5.min.js"></script>
+<script>slideCheck();</script>
 </body>
 </html>
