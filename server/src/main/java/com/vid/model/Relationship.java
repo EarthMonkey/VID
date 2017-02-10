@@ -15,6 +15,8 @@ public class Relationship {
     int groupid;
 //    视频id(冗余存储)
     int videoid;
+    //备注姓名
+    String notename;
 //    视频名称(冗余存储)
     String videoname;
 //    视频URL(冗余存储)
