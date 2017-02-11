@@ -10,9 +10,22 @@ import java.util.List;
  * Change everywhere
  */
 public interface UserMapper {
-    public void insertUser(User user);
 
-    public User getUser(String name);
+    /**
+     * 新建用户
+     *
+     * @param user 用户实体类，初始值仅包含三项
+     *             手机号/邮箱 + 用户名 + 密码
+     */
+    void insertUser(User user);
 
-    public List<User> getUsers();
+    /**
+     * 根据手机号/邮箱/用户名查询用户信息
+     *
+     * @param id 手机号或邮箱或用户名
+     * @return 无查询结果返回null
+     */
+    User getUser(String id);
+
+    List<User> getUsers();
 }

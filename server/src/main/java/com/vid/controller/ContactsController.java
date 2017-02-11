@@ -1,13 +1,15 @@
 package com.vid.controller;
 
 import com.vid.config.MsgInfo;
-import com.vid.model.User;
+import com.vid.model.ContactProfile;
 import com.vid.service.ContactsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 /**
  * Created by song on 17-2-6.
@@ -15,130 +17,127 @@ import javax.annotation.Resource;
  * 联系人相关
  */
 @Controller
-@RequestMapping("/contacts")
+@RequestMapping(value = "/contacts", method = RequestMethod.POST)
 public class ContactsController {
 
     @Resource
     ContactsService contactsService;
 
     /**
-     * 根据id获取所有联系人
+     * 获取所有联系人
      *
-     * @param id 用户id(邮箱/手机号)
+     * @return
      */
     @RequestMapping("/all")
     @ResponseBody
-    public MsgInfo getAllContacts(String id) {
-        return new MsgInfo(true, "test");
+    public MsgInfo getAllContacts(HttpSession session) {
+        String username = (String) session.getAttribute("username");
+
+        return contactsService.getAllContacts(username);
     }
 
     /**
-     * 获取联系人信息
+     * 手动新建联系人，自己填写各项信息，没有视频
+     * <p>
+     * TODO profile -> ContactProfile
      *
-     * @param id 联系人id
      * @return
      */
-    @RequestMapping("/info")
+    @RequestMapping("/new")
     @ResponseBody
-    public MsgInfo getContactInfo(String id) {
-        return null;
+    public MsgInfo createContact(HttpSession session, String profile) {
+        String username = (String) session.getAttribute("username");
+        ContactProfile contactProfile = new ContactProfile();
+
+        return contactsService.createContact(username, contactProfile);
     }
 
     /**
-     * 添加联系人
-     * TODO 是否分配id
-     * @param name
+     * 根据视频新建联系人
+     *
+     * @param name    联系人备注
+     * @param videoID 视频id
      * @return
      */
-    public MsgInfo AddContact(String name) {
-        return null;
+    @RequestMapping("/new/video")
+    @ResponseBody
+    public MsgInfo createContact(HttpSession session, String name, String videoID) {
+        String username = (String) session.getAttribute("username");
+
+        return contactsService.createContact(username, name, videoID);
+    }
+
+    /**
+     * 根据视频添加到已有联系人
+     *
+     * @param contactName 已有联系人在系统中的用户名
+     * @param videoID     视频id
+     * @return
+     */
+    @RequestMapping("/add")
+    @ResponseBody
+    public MsgInfo addToExistingContact(HttpSession session, String contactName, String videoID) {
+        String username = (String) session.getAttribute("username");
+
+        return contactsService.addToExistingContact(username, contactName, videoID);
+    }
+
+    /**
+     * 根据联系人id获取联系人信息
+     *
+     * @param contactName 联系人在系统中的用户名
+     * @return
+     */
+    @RequestMapping("/profile")
+    @ResponseBody
+    public MsgInfo getContactProfile(HttpSession session, String contactName) {
+        String username = (String) session.getAttribute("username");
+
+        return contactsService.getContactsInfo(username, contactName);
     }
 
     /**
      * 编辑联系人信息
      *
-     * @param id   联系人id
-     * @param user
+     * @param contactName 联系人在系统中的用户名
+     * @param profile     联系人信息
      * @return
      */
     @RequestMapping("/edit")
     @ResponseBody
-    public MsgInfo editContactInfo(String id, User user) {
-        return null;
+    public MsgInfo editContactInfo(HttpSession session, String contactName, String profile) {
+        String username = (String) session.getAttribute("username");
+        ContactProfile contactProfile = new ContactProfile();
+        // TODO profile
+
+        return contactsService.editContactInfo(username, contactProfile);
     }
 
     /**
      * 删除联系人
      *
-     * @param id 联系人id
+     * @param contactName 联系人id
      * @return
      */
     @RequestMapping("/remove")
     @ResponseBody
-    public MsgInfo removeContact(String id) {
-        return null;
+    public MsgInfo removeContact(HttpSession session, String contactName) {
+        String username = (String) session.getAttribute("username");
+
+        return contactsService.removeContact(username, contactName);
     }
 
     /**
-     * 增加分组
+     * 搜索联系人
      *
-     * @param name 分组名称
+     * @param content 搜索内容
      * @return
      */
-    @RequestMapping("/group/add")
+    @RequestMapping("/search")
     @ResponseBody
-    public MsgInfo addGroup(String name) {
-        return null;
-    }
+    public MsgInfo searchContact(HttpSession session, String content) {
+        String username = (String) session.getAttribute("username");
 
-    /**
-     * 修改分组名称
-     *
-     * @param original 原组名
-     * @param name     修改后的组名
-     * @return
-     */
-    @RequestMapping("/group/edit")
-    @ResponseBody
-    public MsgInfo editGroup(String original, String name) {
-        return null;
-    }
-
-    /**
-     * 删除分组
-     *
-     * @param name 组名
-     * @return
-     */
-    @RequestMapping("/group/remove")
-    @ResponseBody
-    public MsgInfo removeGroup(String name) {
-        return null;
-    }
-
-    /**
-     * 为联系人分组
-     *
-     * @param id        联系人id
-     * @param groupName 组名
-     * @return
-     */
-    @RequestMapping("/group/group")
-    public MsgInfo groupContact(String id, String groupName) {
-        return null;
-    }
-
-    /**
-     * 将某个联系人从一个分组移动到另一个分组
-     *
-     * @param id          联系人id
-     * @param original    原组名
-     * @param destination 目标组名
-     * @return
-     */
-    @RequestMapping("/group/move")
-    @ResponseBody
-    public MsgInfo moveContact(String id, String original, String destination) {
-        return null;
+        return contactsService.searchContact(username, content);
     }
 }

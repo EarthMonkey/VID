@@ -23,7 +23,7 @@
     <!--</bean>-->
 
     <!--Jackson 相关-->
-    <bean id="stringConverter"
+    <bean username="stringConverter"
           class="org.springframework.http.converter.StringHttpMessageConverter">
         <property name="supportedMediaTypes">
             <list>
@@ -31,7 +31,7 @@
             </list>
         </property>
     </bean>
-    <bean id="jsonConverter"
+    <bean username="jsonConverter"
           class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
     <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
         <property name="messageConverters">

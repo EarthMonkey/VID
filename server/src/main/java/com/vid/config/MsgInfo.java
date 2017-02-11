@@ -55,4 +55,13 @@ public class MsgInfo {
     public void setObject(Object object) {
         this.object = object;
     }
+
+    @Override
+    public String toString() {
+        return "MsgInfo{" +
+                "status=" + status +
+                ", info='" + info + '\'' +
+                ", object=" + object +
+                '}';
+    }
 }
