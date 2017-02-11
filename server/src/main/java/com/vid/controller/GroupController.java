@@ -21,7 +21,7 @@ import java.util.List;
 public class GroupController {
 
     @Resource
-    GroupService groupService;
+    private GroupService groupService;
 
     /**
      * 增加分组

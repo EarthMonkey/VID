@@ -5,8 +5,6 @@ import com.vid.dao.ContactsMapper;
 import com.vid.model.Contact;
 import com.vid.model.ContactProfile;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -18,12 +16,10 @@ import java.util.List;
  * 联系人相关
  */
 @Service
-@EnableTransactionManagement
-@Transactional(rollbackFor = Exception.class)
 public class ContactsService {
 
     @Resource
-    ContactsMapper contactsMapper;
+    private ContactsMapper contactsMapper;
 
     /**
      * 获取所有联系人

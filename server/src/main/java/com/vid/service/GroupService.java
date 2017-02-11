@@ -4,8 +4,6 @@ import com.vid.config.MsgInfo;
 import com.vid.dao.ContactsMapper;
 import com.vid.dao.GroupMapper;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -16,15 +14,13 @@ import java.util.List;
  * 分组相关
  */
 @Service
-@EnableTransactionManagement
-@Transactional(rollbackFor = Exception.class)
 public class GroupService {
 
     @Resource
-    GroupMapper groupMapper;
+    private GroupMapper groupMapper;
 
     @Resource
-    ContactsMapper contactsMapper;
+    private ContactsMapper contactsMapper;
 
     /**
      * 添加分组

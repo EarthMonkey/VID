@@ -21,7 +21,7 @@ import javax.servlet.http.HttpSession;
 public class ContactsController {
 
     @Resource
-    ContactsService contactsService;
+    private ContactsService contactsService;
 
     /**
      * 获取所有联系人
