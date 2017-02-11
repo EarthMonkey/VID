@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -23,14 +24,14 @@ public class ContactsService {
 
     /**
      * 获取所有联系人
-     *
+     * TODO 联系人排序
      * @param username 用户名
      * @return
      */
     public MsgInfo getAllContacts(String username) {
-//        List<Contact> contacts = contactsMapper.getAllContacts(username);
+        List<Contact> contacts = contactsMapper.getAllContacts(username);
 
-//        contacts.sort(Comparator.comparing(Contact::getName));
+        contacts.sort(Comparator.comparing(Contact::getName));
 
         List<Contact> contactList = new ArrayList<>(10);
 

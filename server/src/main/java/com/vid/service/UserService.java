@@ -35,12 +35,14 @@ public class UserService {
         User user = userMapper.getUser(id);
 
         if (user != null) {
-            return new MsgInfo(false, "用户名已经被注册");
+            return new MsgInfo(false, "用户名已存在");
         }
 
-        userMapper.insertUser(new User(id, SHA256.encrypt(password), name));
-
-        return new MsgInfo(true, "注册成功");
+        if (userMapper.insertUser(new User(id, SHA256.encrypt(password), name))) {
+            return new MsgInfo(true, "注册成功");
+        } else {
+            return new MsgInfo(false, "注册失败");
+        }
     }
 
     /**

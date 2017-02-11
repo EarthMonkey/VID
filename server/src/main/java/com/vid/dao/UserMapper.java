@@ -1,6 +1,7 @@
 package com.vid.dao;
 
 import com.vid.model.User;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -9,6 +10,7 @@ import java.util.List;
  * Mail:wujiayi@lgdreamer.com
  * Change everywhere
  */
+@Service
 public interface UserMapper {
 
     /**
@@ -16,8 +18,17 @@ public interface UserMapper {
      *
      * @param user 用户实体类，初始值仅包含三项
      *             手机号/邮箱 + 用户名 + 密码
+     * @return 新建成功返回true，否则返回false
      */
-    void insertUser(User user);
+    boolean insertUser(User user);
+
+    /**
+     * 更新用户信息
+     *
+     * @param user 更新后的user对象
+     * @return 更新成功返回true，否则返回false
+     */
+    boolean updateUser(User user);
 
     /**
      * 根据手机号/邮箱/用户名查询用户信息
@@ -27,5 +38,12 @@ public interface UserMapper {
      */
     User getUser(String id);
 
-    List<User> getUsers();
+    /**
+     * 设置头像url
+     *
+     * @param username    用户名
+     * @param portraitURL 头像url
+     * @return 设置成功返回true，否则返回false
+     */
+    boolean setPortraitURL(String username, String portraitURL);
 }
