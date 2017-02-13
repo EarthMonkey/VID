@@ -18,9 +18,9 @@ public interface UserMapper {
      *
      * @param user 用户实体类，初始值仅包含三项
      *             手机号/邮箱 + 用户名 + 密码
-     * @return 新建成功返回true，否则返回false
+     * @return 返回用户的id，插入失败返回 ""
      */
-    boolean insertUser(User user);
+    String insertUser(User user);
 
     /**
      * 更新用户信息

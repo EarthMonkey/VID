@@ -10,7 +10,7 @@ public class Contact {
     /**
      * 联系人姓名（备注）
      */
-    private String name;
+    private String noteName;
 
     /**
      * 联系人分组
@@ -26,18 +26,18 @@ public class Contact {
         /*do nothing*/
     }
 
-    public Contact(String name, String group, String username) {
-        this.name = name;
+    public Contact(String noteName, String group, String username) {
+        this.noteName = noteName;
         this.group = group;
         this.username = username;
     }
 
-    public String getName() {
-        return name;
+    public String getNoteName() {
+        return noteName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNoteName(String noteName) {
+        this.noteName = noteName;
     }
 
     public String getGroup() {
@@ -59,7 +59,7 @@ public class Contact {
     @Override
     public String toString() {
         return "Contact{" +
-                "name='" + name + '\'' +
+                "noteName='" + noteName + '\'' +
                 ", group='" + group + '\'' +
                 ", username='" + username + '\'' +
                 '}';

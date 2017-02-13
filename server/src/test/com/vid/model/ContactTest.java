@@ -17,7 +17,7 @@ public class ContactTest {
         
 
         contactList.forEach(System.out::println);
-        contactList.sort(Comparator.comparing(Contact::getName));
+        contactList.sort(Comparator.comparing(Contact::getNoteName));
         contactList.forEach(System.out::println);
     }
 }

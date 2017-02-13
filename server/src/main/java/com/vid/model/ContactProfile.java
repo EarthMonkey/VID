@@ -10,9 +10,9 @@ import java.util.List;
 public class ContactProfile {
 
     /**
-     * 姓名（备注）
+     * 备注姓名
      */
-    private String name;
+    private String noteName;
 
     /**
      * 系统中的用户名，若不是系统用户，此项为 ""
@@ -53,24 +53,23 @@ public class ContactProfile {
         /*do nothing*/
     }
 
-    public ContactProfile(String name, String contactName, String group, String phoneNum,
-                          String email, String industry, String interest, List<Video> videoList) {
-        this.name = name;
-        this.contactName = contactName;
+    public ContactProfile(String noteName, String group, User user, List<Video> videoList) {
+        this.noteName = noteName;
+        this.contactName = user.getUsername();
         this.group = group;
-        this.phoneNum = phoneNum;
-        this.email = email;
-        this.industry = industry;
-        this.interest = interest;
+        this.phoneNum = user.getShowtelephone();
+        this.email = user.getShowemail();
+        this.industry = user.getIndustry();
+        this.interest = user.getInterest();
         this.videoList = videoList;
     }
 
-    public String getName() {
-        return name;
+    public String getNoteName() {
+        return noteName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNoteName(String noteName) {
+        this.noteName = noteName;
     }
 
     public String getContactName() {
@@ -132,7 +131,7 @@ public class ContactProfile {
     @Override
     public String toString() {
         return "ContactProfile{" +
-                "name='" + name + '\'' +
+                "noteName='" + noteName + '\'' +
                 ", contactName='" + contactName + '\'' +
                 ", group='" + group + '\'' +
                 ", phoneNum='" + phoneNum + '\'' +

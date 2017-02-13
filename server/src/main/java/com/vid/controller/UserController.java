@@ -1,18 +1,16 @@
 package com.vid.controller;
 
 import com.vid.config.MsgInfo;
-import com.vid.model.User;
+import com.vid.model.AllContacts;
 import com.vid.service.UserService;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
-import java.util.Iterator;
 
 /**
  * Created by Jiayiwu on 17/1/15.
@@ -20,10 +18,11 @@ import java.util.Iterator;
  * Change everywhere
  */
 @Controller
+@RequestMapping(method = RequestMethod.POST)
 public class UserController {
 
     @Resource
-    UserService userService;
+    private UserService userService;
 
     /**
      * 注册
@@ -35,9 +34,9 @@ public class UserController {
      * 1. 注册成功： MsgInfo{"status":true,"info":"注册成功","object":null}
      * 2. 用户名已存在： MsgInfo{"status":false,"info":"用户名已存在","object":null}
      */
-    @RequestMapping(value = "register", method = RequestMethod.POST)
+    @RequestMapping(value = "/register")
     @ResponseBody
-    public MsgInfo register(String id, String password, String name) {
+    public MsgInfo register(@RequestParam String id, @RequestParam String password, @RequestParam String name) {
         return userService.register(id, password, name);
     }
 
@@ -47,18 +46,18 @@ public class UserController {
      * @param id       邮箱/手机号/用户名
      * @param password 密码
      * @return 登录结果，包括
-     * 1. 登录成功： MsgInfo{"status":true,"info":"登录成功","object":user{...}}
+     * 1. 登录成功： MsgInfo{"status":true,"info":"登录成功","object": @code AllContacts}
      * 2. 用户名不存在： MsgInfo{"status":false,"info":"用户名不存在","object":null}
      * 3. 密码错误： MsgInfo{"status":false,"info":"密码错误","object":null}
      */
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/login")
     @ResponseBody
-    public MsgInfo login(HttpSession session, String id, String password) {
+    public MsgInfo login(HttpSession session, @RequestParam String id, @RequestParam String password) {
         MsgInfo msgInfo = userService.login(id, password);
 
         if (msgInfo.getStatus()) {
             session.setAttribute("user", msgInfo.getObject());
-            session.setAttribute("username", ((User) msgInfo.getObject()).getUsername());
+            session.setAttribute("username", ((AllContacts) msgInfo.getObject()).getUsername());
         }
 
         return msgInfo;
@@ -69,15 +68,15 @@ public class UserController {
      *
      * @return 登录状态，包括
      * 1. 未登录： MsgInfo{"status":false,"info":"未登录","object":null}
-     * 2. 已登录： MsgInfo{"status":true,"info":"已登录","object":user{...}}
+     * 2. 已登录： MsgInfo{"status":true,"info":"已登录","object":null}
      */
-    @RequestMapping(value = "/isLogin", method = RequestMethod.POST)
+    @RequestMapping(value = "/isLogin")
     @ResponseBody
     public MsgInfo isLogin(HttpSession session) {
         if (session.getAttribute("user") == null) {
             return new MsgInfo(false, "未登录");
         } else {
-            return new MsgInfo(true, "已登录", session.getAttribute("user"));
+            return new MsgInfo(true, "已登录");
         }
     }
 
@@ -88,7 +87,7 @@ public class UserController {
      * 1. 登出成功： MsgInfo{"status":true,"info":"登出成功","object":null}
      * 2. 用户未登录 MsgInfo{"status":false,"info":"用户未登录","object":null}
      */
-    @RequestMapping(value = "/logout", method = RequestMethod.POST)
+    @RequestMapping(value = "/logout")
     @ResponseBody
     public MsgInfo logout(HttpSession session) {
         if (session.getAttribute("user") != null) {
@@ -108,9 +107,9 @@ public class UserController {
      * 1. 邮件发送成功： MsgInfo{"status":true,"info":"邮件发送成功","object":null}
      * 2. 邮箱未注册： MsgInfo{"status":false,"info":"用户名不存在","object":null}
      */
-    @RequestMapping(value = "/findPass", method = RequestMethod.POST)
+    @RequestMapping(value = "/findPass")
     @ResponseBody
-    public MsgInfo findPass(HttpSession session, String id) {
+    public MsgInfo findPass(HttpSession session, @RequestParam String id) {
         return userService.findPass(id);
     }
 
@@ -120,9 +119,9 @@ public class UserController {
      * @param id 邮箱/手机号
      * @return 验证结果
      */
-    @RequestMapping(value = "/verifyMail", method = RequestMethod.POST)
+    @RequestMapping(value = "/verifyMail")
     @ResponseBody
-    public MsgInfo verifyMail(String id) {
+    public MsgInfo verifyMail(@RequestParam String id) {
         return null;
     }
 
@@ -132,9 +131,9 @@ public class UserController {
      * @param password 新密码
      * @return
      */
-    @RequestMapping(value = "/resetPass", method = RequestMethod.POST)
+    @RequestMapping(value = "/resetPass")
     @ResponseBody
-    public MsgInfo resetPass(HttpSession session, String password) {
+    public MsgInfo resetPass(HttpSession session, @RequestParam String password) {
         return null;
     }
 }

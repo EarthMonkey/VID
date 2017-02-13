@@ -1,7 +1,11 @@
 package com.vid.service;
 
 import com.vid.config.MsgInfo;
+import com.vid.dao.ContactsMapper;
+import com.vid.dao.GroupMapper;
 import com.vid.dao.UserMapper;
+import com.vid.model.AllContacts;
+import com.vid.model.Contact;
 import com.vid.model.User;
 import com.vid.utils.SHA256;
 import org.springframework.stereotype.Service;
@@ -9,6 +13,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by Jiayiwu on 17/1/15.
@@ -21,7 +26,13 @@ import javax.annotation.Resource;
 public class UserService {
 
     @Resource
-    UserMapper userMapper;
+    private UserMapper userMapper;
+
+    @Resource
+    private ContactsMapper contactsMapper;
+
+    @Resource
+    private GroupMapper groupMapper;
 
     /**
      * 用户注册
@@ -38,7 +49,7 @@ public class UserService {
             return new MsgInfo(false, "用户名已存在");
         }
 
-        if (userMapper.insertUser(new User(id, SHA256.encrypt(password), name))) {
+        if (!"".equals(userMapper.insertUser(new User(id, SHA256.encrypt(password), name)))) {
             return new MsgInfo(true, "注册成功");
         } else {
             return new MsgInfo(false, "注册失败");
@@ -60,10 +71,12 @@ public class UserService {
         }
 
         if (SHA256.encrypt(password).equals(user.getPassword())) {
-            // 返回结果前将密码置为null
-            user.setPassword(null);
+            List<Contact> contactList = contactsMapper.getAllContacts(user.getUsername());
+            List<String> groupList = groupMapper.getAllGroup(user.getUsername());
 
-            return new MsgInfo(true, "登录成功", user);
+            AllContacts allContacts = new AllContacts(user.getUsername(), contactList, groupList);
+
+            return new MsgInfo(true, "登录成功", allContacts);
         } else {
             return new MsgInfo(false, "密码错误");
         }

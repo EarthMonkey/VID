@@ -6,6 +6,7 @@ import com.vid.service.ContactsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
@@ -26,7 +27,7 @@ public class ContactsController {
     /**
      * 获取所有联系人
      *
-     * @return
+     * @return MsgInfo{"status":true,"info":"","object":{"groupList":[],"contacts":[[],[],...,[]]}}
      */
     @RequestMapping("/all")
     @ResponseBody
@@ -38,18 +39,19 @@ public class ContactsController {
 
     /**
      * 手动新建联系人，自己填写各项信息，没有视频
-     * <p>
-     * TODO profile -> ContactProfile
      *
-     * @return
+     * @param profile json格式的联系人信息
+     * @return 包括
+     * 1. 联系人已存在： MsgInfo{"status":false,"info":"联系人已存在","object":null}
+     * 2. profile参数错误： MsgInfo{"status":false,"info":"参数错误","object":null}
+     * 3. 新建成功： MsgInfo{"status":true,"info":"新建成功","object":null}
      */
     @RequestMapping("/new")
     @ResponseBody
-    public MsgInfo createContact(HttpSession session, String profile) {
+    public MsgInfo createContact(HttpSession session, @RequestParam String profile) {
         String username = (String) session.getAttribute("username");
-        ContactProfile contactProfile = new ContactProfile();
 
-        return contactsService.createContact(username, contactProfile);
+        return contactsService.createContact(username, profile);
     }
 
     /**
@@ -61,10 +63,10 @@ public class ContactsController {
      */
     @RequestMapping("/new/video")
     @ResponseBody
-    public MsgInfo createContact(HttpSession session, String name, String videoID) {
+    public MsgInfo createContactWithVideo(HttpSession session, String name, String videoID) {
         String username = (String) session.getAttribute("username");
 
-        return contactsService.createContact(username, name, videoID);
+        return contactsService.createContactWithVideo(username, name, videoID);
     }
 
     /**
@@ -83,17 +85,17 @@ public class ContactsController {
     }
 
     /**
-     * 根据联系人id获取联系人信息
+     * 根据联系人备注获取联系人信息
      *
-     * @param contactName 联系人在系统中的用户名
+     * @param noteName 联系人的备注姓名
      * @return
      */
     @RequestMapping("/profile")
     @ResponseBody
-    public MsgInfo getContactProfile(HttpSession session, String contactName) {
+    public MsgInfo getContactProfile(HttpSession session, String noteName) {
         String username = (String) session.getAttribute("username");
 
-        return contactsService.getContactsInfo(username, contactName);
+        return contactsService.getContactsInfo(username, noteName);
     }
 
     /**

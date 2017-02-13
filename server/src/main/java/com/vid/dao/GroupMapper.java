@@ -21,6 +21,15 @@ public interface GroupMapper {
     List<String> getAllGroup(String username);
 
     /**
+     * 获得联系人所在分组的组名
+     *
+     * @param username 用户名
+     * @param noteName 联系人的备注姓名
+     * @return 所在分组的组名，若未分组，返回 ""
+     */
+    String getGroup(String username, String noteName);
+
+    /**
      * 添加分组
      *
      * @param username  用户名

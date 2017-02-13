@@ -1,5 +1,6 @@
 package com.vid.dao;
 
+import com.vid.model.User;
 import com.vid.model.Video;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,14 @@ public interface VideoMapper {
      * @return 视频列表，若无视频，返回size为0的list
      */
     List<Video> getAllVideos(String username);
+
+    /**
+     * 根据videoID得到Video对象
+     *
+     * @param videoID videoID（对应id）
+     * @return Video对象，若不存在，返回null
+     */
+    Video getVideoByID(String videoID);
 
     /**
      * 新增视频
