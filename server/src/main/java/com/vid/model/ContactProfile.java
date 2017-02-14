@@ -15,9 +15,9 @@ public class ContactProfile {
     private String noteName;
 
     /**
-     * 系统中的用户名，若不是系统用户，此项为 ""
+     * 联系人的userID
      */
-    private String contactName;
+    private int contactID;
 
     /**
      * 分组
@@ -45,7 +45,7 @@ public class ContactProfile {
     private String interest;
 
     /**
-     * 视频列表
+     * 视频url列表
      */
     private List<Video> videoList;
 
@@ -55,7 +55,7 @@ public class ContactProfile {
 
     public ContactProfile(String noteName, String group, User user, List<Video> videoList) {
         this.noteName = noteName;
-        this.contactName = user.getUsername();
+        this.contactID = user.getId();
         this.group = group;
         this.phoneNum = user.getShowtelephone();
         this.email = user.getShowemail();
@@ -72,12 +72,12 @@ public class ContactProfile {
         this.noteName = noteName;
     }
 
-    public String getContactName() {
-        return contactName;
+    public int getContactID() {
+        return contactID;
     }
 
-    public void setContactName(String contactName) {
-        this.contactName = contactName;
+    public void setContactID(int contactID) {
+        this.contactID = contactID;
     }
 
     public String getGroup() {
@@ -132,7 +132,7 @@ public class ContactProfile {
     public String toString() {
         return "ContactProfile{" +
                 "noteName='" + noteName + '\'' +
-                ", contactName='" + contactName + '\'' +
+                ", contactID='" + contactID + '\'' +
                 ", group='" + group + '\'' +
                 ", phoneNum='" + phoneNum + '\'' +
                 ", email='" + email + '\'' +

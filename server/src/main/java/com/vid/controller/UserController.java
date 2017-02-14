@@ -56,8 +56,7 @@ public class UserController {
         MsgInfo msgInfo = userService.login(id, password);
 
         if (msgInfo.getStatus()) {
-            session.setAttribute("user", msgInfo.getObject());
-            session.setAttribute("username", ((AllContacts) msgInfo.getObject()).getUsername());
+            session.setAttribute("userID", ((AllContacts) msgInfo.getObject()).getUserID());
         }
 
         return msgInfo;
@@ -73,7 +72,7 @@ public class UserController {
     @RequestMapping(value = "/isLogin")
     @ResponseBody
     public MsgInfo isLogin(HttpSession session) {
-        if (session.getAttribute("user") == null) {
+        if (session.getAttribute("userID") == null) {
             return new MsgInfo(false, "未登录");
         } else {
             return new MsgInfo(true, "已登录");
@@ -90,8 +89,8 @@ public class UserController {
     @RequestMapping(value = "/logout")
     @ResponseBody
     public MsgInfo logout(HttpSession session) {
-        if (session.getAttribute("user") != null) {
-            session.removeAttribute("user");
+        if (session.getAttribute("userID") != null) {
+            session.removeAttribute("userID");
 
             return new MsgInfo(true, "登出成功");
         } else {

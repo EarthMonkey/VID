@@ -33,17 +33,25 @@ public interface UserMapper {
     /**
      * 根据手机号/邮箱/用户名查询用户信息
      *
-     * @param id 手机号或邮箱或用户名
+     * @param id 手机号或邮箱或用户名，不同于userID
      * @return 无查询结果返回null
      */
     User getUser(String id);
 
     /**
+     * 根据userID获取user对象
+     *
+     * @param userID userID，对应id字段
+     * @return user对象，无查询结果返回null
+     */
+    User getUserByID(int userID);
+
+    /**
      * 设置头像url
      *
-     * @param username    用户名
+     * @param userID      userID，对应id字段
      * @param portraitURL 头像url
      * @return 设置成功返回true，否则返回false
      */
-    boolean setPortraitURL(String username, String portraitURL);
+    boolean setPortraitURL(int userID, String portraitURL);
 }

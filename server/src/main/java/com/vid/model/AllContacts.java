@@ -14,7 +14,12 @@ import java.util.*;
 public class AllContacts {
 
     /**
-     * 用户名
+     * userID，对应id字段
+     */
+    private int userID;
+
+    /**
+     * 系统用户名
      */
     private String username;
 
@@ -79,14 +84,27 @@ public class AllContacts {
         }
     }
 
-    public AllContacts(String username, List<Contact> contactList, List<String> groupList) {
-        this.username = username;
+    public AllContacts(int userID, List<Contact> contactList, List<String> groupList) {
+        this(userID, "", contactList, groupList);
+    }
+
+    public AllContacts(int userID, String userName, List<Contact> contactList, List<String> groupList) {
+        this.userID = userID;
+        this.username = userName;
         this.groupList = groupList;
 
         // 初始化
         init(contactList);
         // 排序
         sortContacts();
+    }
+
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
     }
 
     public String getUsername() {
@@ -116,7 +134,8 @@ public class AllContacts {
     @Override
     public String toString() {
         return "AllContacts{" +
-                "username='" + username + '\'' +
+                "userID=" + userID +
+                ", username='" + username + '\'' +
                 ", groupList=" + groupList +
                 ", contacts=" + Arrays.toString(contacts) +
                 '}';

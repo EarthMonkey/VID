@@ -6,7 +6,6 @@ import com.vid.dao.GroupMapper;
 import com.vid.dao.UserMapper;
 import com.vid.dao.VideoMapper;
 import com.vid.model.*;
-import com.vid.utils.ObjectMerge;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
@@ -37,13 +36,13 @@ public class ContactsService {
     /**
      * 获取所有联系人
      *
-     * @param username 用户名
+     * @param userID userID，对应id字段
      */
-    public MsgInfo getAllContacts(String username) {
-        List<Contact> contactList = contactsMapper.getAllContacts(username);
-        List<String> groupList = groupMapper.getAllGroup(username);
+    public MsgInfo getAllContacts(int userID) {
+        List<Contact> contactList = contactsMapper.getAllContacts(userID);
+        List<String> groupList = groupMapper.getAllGroup(userID);
 
-        AllContacts allContacts = new AllContacts(username, contactList, groupList);
+        AllContacts allContacts = new AllContacts(userID, contactList, groupList);
 
         return new MsgInfo(true, "", allContacts);
     }
@@ -51,17 +50,13 @@ public class ContactsService {
     /**
      * 手动新建联系人，自己填写各项信息，没有视频
      *
-     * @param username 用户名
-     * @param profile  json格式的联系人信息，可能仅包含部分信息
+     * @param userID，对应id字段
+     * @param profile       json格式的联系人信息，可能仅包含部分信息
      */
-    public MsgInfo createContact(String username, String profile) {
+    public MsgInfo createContact(int userID, String profile) {
         try {
             JSONObject jsonObject = new JSONObject(profile);
             String noteName = jsonObject.getString("name");
-
-            if (contactsMapper.hasContact(username, noteName)) {
-                return new MsgInfo(false, "联系人已存在");
-            }
 
             User user = new User();
             user.setShowtelephone(jsonObject.getString("phoneNum"));
@@ -69,7 +64,7 @@ public class ContactsService {
             user.setIndustry(jsonObject.getString("industry"));
             user.setInterest(jsonObject.getString("interest"));
 
-            if (contactsMapper.addContact(username, noteName, user)) {
+            if (contactsMapper.addContact(userID, noteName, user)) {
                 return new MsgInfo(true, "新建成功");
             } else {
                 return new MsgInfo(false, "新建失败");
@@ -82,68 +77,75 @@ public class ContactsService {
     /**
      * 根据视频新建联系人
      *
-     * @param username 用户名
-     * @param name     联系人姓名（备注）
-     * @param videoID  视频id
+     * @param userID  userID，对应id字段
+     * @param name    联系人姓名（备注）
+     * @param videoID 视频id
      * @return
      */
-    public MsgInfo createContactWithVideo(String username, String name, String videoID) {
+    public MsgInfo createContactWithVideo(int userID, String name, int videoID) {
         Video video = videoMapper.getVideoByID(videoID);
         if (video == null) {
             return new MsgInfo(false, "视频不存在");
         }
 
         // TODO add user info
-        if (contactsMapper.addContactWithVideo(username, name, videoID)) {
+        if (contactsMapper.addContactWithVideo(userID, video.getOwnerid(), name, videoID)) {
             return new MsgInfo(true, "添加成功");
         } else {
             return new MsgInfo(false, "添加失败");
         }
     }
 
-    /**
-     * 根据视频添加到已有联系人
-     *
-     * @param username    用户名
-     * @param contactName 联系人在系统中的用户名
-     * @param videoID     视频id
-     * @return
-     */
-    public MsgInfo addToExistingContact(String username, String contactName, String videoID) {
-        if (userMapper.getUser(contactName) == null) {
-            return new MsgInfo(false, "联系人不存在");
-        }
-
-        if (!contactsMapper.isContacts(username, contactName)) {
-            return new MsgInfo(false, "联系人不存在");
-        }
-
-        if (videoMapper.getVideoByID(videoID) == null) {
-            return new MsgInfo(false, "视频不存在");
-        }
-
-        if (contactsMapper.addToExistingContact(username, contactName, videoID)) {
-            return new MsgInfo(true, "添加成功");
-        } else {
-            return new MsgInfo(false, "添加失败");
-        }
-    }
+//    /**
+//     * 根据视频添加到已有联系人
+//     *
+//     * @param username    用户名
+//     * @param contactName 联系人在系统中的用户名
+//     * @param videoID     视频id
+//     * @return
+//     */
+//    public MsgInfo addToExistingContact(String username, String contactName, String videoID) {
+//        if (userMapper.getUser(contactName) == null) {
+//            return new MsgInfo(false, "联系人不存在");
+//        }
+//
+//        if (!contactsMapper.isContacts(username, contactName)) {
+//            return new MsgInfo(false, "联系人不存在");
+//        }
+//
+//        if (videoMapper.getVideoByID(videoID) == null) {
+//            return new MsgInfo(false, "视频不存在");
+//        }
+//
+//        if (contactsMapper.addToExistingContact(username, contactName, videoID)) {
+//            return new MsgInfo(true, "添加成功");
+//        } else {
+//            return new MsgInfo(false, "添加失败");
+//        }
+//    }
 
     /**
      * 获得联系人信息
      *
-     * @param username 用户名
-     * @param noteName 联系人的备注姓名
+     * @param userID    userID，对应id字段
+     * @param contactID 联系人的userID
      * @return
      */
-    public MsgInfo getContactsInfo(String username, String noteName) {
-        if (!contactsMapper.hasContact(username, noteName)) {
+    public MsgInfo getContactsInfo(int userID, int contactID) {
+        if (userMapper.getUserByID(contactID) == null) {
             return new MsgInfo(false, "联系人不存在");
         }
 
-        String groupName = groupMapper.getGroup(username, noteName);
-        User user = contactsMapper.getContact(username, noteName);
-        List<Video> videoList = videoMapper.getAllVideos(user.getUsername());
+        if (!contactsMapper.isContacts(userID, contactID)) {
+            return new MsgInfo(false, "非联系人");
+        }
+
+        // 备注
+        String noteName = contactsMapper.getNoteName(userID, contactID);
+        // 分组列表
+        String groupName = groupMapper.getGroup(userID, contactID);
+        User user = userMapper.getUserByID(contactID);
+        List<Video> videoList = contactsMapper.getAllVideos(userID, contactID);
 
         return new MsgInfo(true, "", new ContactProfile(noteName, groupName, user, videoList));
     }
@@ -151,33 +153,60 @@ public class ContactsService {
     /**
      * 编辑联系人信息
      *
-     * @param username 用户名
-     * @param profile  联系人信息
+     * @param userID    userID，对应id字段
+     * @param contactID 联系人的userID
+     * @param profile   json格式的联系人信息
      * @return
      */
-    public MsgInfo editContactInfo(String username, ContactProfile profile) {
-        return null;
+    public MsgInfo editContactInfo(int userID, int contactID, String profile) {
+        if (userMapper.getUserByID(contactID) == null) {
+            return new MsgInfo(false, "联系人不存在");
+        }
+
+        if (!contactsMapper.isContacts(userID, contactID)) {
+            return new MsgInfo(false, "非联系人");
+        }
+
+        String noteName, phoneNum, email, industry, interest;
+        try {
+            JSONObject jsonObject = new JSONObject(profile);
+
+            noteName = jsonObject.getString("noteName");
+            phoneNum = jsonObject.getString("phoneNum");
+            email = jsonObject.getString("email");
+            industry = jsonObject.getString("industry");
+            interest = jsonObject.getString("interest");
+
+            if (contactsMapper.editContactProfile(userID, contactID, noteName, phoneNum, email, industry, interest)) {
+                return new MsgInfo(true, "修改成功");
+            } else {
+                return new MsgInfo(false, "修改失败");
+            }
+        } catch (JSONException e) {
+            return new MsgInfo(false, "参数错误");
+        }
     }
 
     /**
      * 删除联系人
      *
-     * @param username    用户名
-     * @param contactName 联系人在系统中的用户名
+     * @param userID    userID，对应id字段
+     * @param contactID 联系人的userID
      * @return
      */
-    public MsgInfo removeContact(String username, String contactName) {
-        return null;
-    }
+    public MsgInfo removeContact(int userID, int contactID) {
+        if (userMapper.getUserByID(contactID) == null) {
+            return new MsgInfo(false, "联系人不存在");
+        }
 
-    /**
-     * 搜索联系人
-     *
-     * @param username      用户名
-     * @param searchContent 搜索内容
-     * @return
-     */
-    public MsgInfo searchContact(String username, String searchContent) {
-        return null;
+        if (!contactsMapper.isContacts(userID, contactID)) {
+            return new MsgInfo(false, "非联系人");
+        }
+
+        if (contactsMapper.removeContact(userID, contactID)) {
+            return new MsgInfo(true, "删除成功");
+        } else {
+            return new MsgInfo(false, "删除失败");
+        }
     }
 }

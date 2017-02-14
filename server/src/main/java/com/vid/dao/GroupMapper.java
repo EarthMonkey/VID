@@ -15,66 +15,66 @@ public interface GroupMapper {
     /**
      * 获取所有分组名称
      *
-     * @param username 用户名
+     * @param userID，对应id字段
      * @return 分组列表，无分组返回size为0的list
      */
-    List<String> getAllGroup(String username);
+    List<String> getAllGroup(int userID);
 
     /**
      * 获得联系人所在分组的组名
      *
-     * @param username 用户名
-     * @param noteName 联系人的备注姓名
-     * @return 所在分组的组名，若未分组，返回 ""
+     * @param userID    userID，对应id字段
+     * @param contactID 联系人的userID
+     * @return 所在分组的组名，若未分组，返回size为0的list
      */
-    String getGroup(String username, String noteName);
+    String getGroup(int userID, int contactID);
 
     /**
      * 添加分组
      *
-     * @param username  用户名
+     * @param userID    userID，对应id字段
      * @param groupName 组名
      * @return 添加成功返回true，否则返回false
      */
-    boolean addGroup(String username, String groupName);
+    boolean addGroup(int userID, String groupName);
 
     /**
      * 重命名分组
      *
-     * @param username 用户名
-     * @param origin   原组名
-     * @param now      修改后的组名
+     * @param userID userID，对应id字段
+     * @param origin 原组名
+     * @param now    修改后的组名
      * @return 修改成功返回true，否则返回false
      */
-    boolean renameGroup(String username, String origin, String now);
+    boolean renameGroup(int userID, String origin, String now);
 
     /**
      * 删除分组
      *
-     * @param username  用户名
+     * @param userID    userID，对应id字段
      * @param groupName 组名
      * @return 删除成功返回true，否则返回false
      */
-    boolean removeGroup(String username, String groupName);
+    boolean removeGroup(int userID, String groupName);
 
     /**
      * 为联系人分组
      *
-     * @param username    用户名
-     * @param contactName 联系人在系统中的用户名
-     * @param groupName   组名
+     * @param userID    userID，对应id字段
+     * @param contactID 联系人的userID
+     * @param groupName 组名
      * @return 分组成功返回true，否则返回false
      */
-    boolean groupContact(String username, String contactName, String groupName);
+    boolean groupContact(int userID, int contactID, String groupName);
 
     /**
      * 将某个联系人从一个分组移动到另一个分组
      *
-     * @param username    用户名
-     * @param contactName 联系人在系统中的用户名
-     * @param origin      原分组
-     * @param target      目标分组
+     * @param userID    userID，对应id字段
+     * @param contactID 联系人的userID
+     * @param origin    原分组
+     * @param target    目标分组
      * @return 移动成功返回true，否则返回false
      */
-    boolean moveContact(String username, String contactName, String origin, String target);
+    boolean moveContact(int userID, int contactID, String origin, String target);
 }

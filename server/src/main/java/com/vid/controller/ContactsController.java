@@ -32,9 +32,9 @@ public class ContactsController {
     @RequestMapping("/all")
     @ResponseBody
     public MsgInfo getAllContacts(HttpSession session) {
-        String username = (String) session.getAttribute("username");
+        int userID = (int) session.getAttribute("userID");
 
-        return contactsService.getAllContacts(username);
+        return contactsService.getAllContacts(userID);
     }
 
     /**
@@ -49,13 +49,13 @@ public class ContactsController {
     @RequestMapping("/new")
     @ResponseBody
     public MsgInfo createContact(HttpSession session, @RequestParam String profile) {
-        String username = (String) session.getAttribute("username");
+        int userID = (int) session.getAttribute("userID");
 
-        return contactsService.createContact(username, profile);
+        return contactsService.createContact(userID, profile);
     }
 
     /**
-     * 根据视频新建联系人
+     * 根据视频添加联系人
      *
      * @param name    联系人备注
      * @param videoID 视频id
@@ -63,83 +63,67 @@ public class ContactsController {
      */
     @RequestMapping("/new/video")
     @ResponseBody
-    public MsgInfo createContactWithVideo(HttpSession session, String name, String videoID) {
-        String username = (String) session.getAttribute("username");
+    public MsgInfo createContactWithVideo(HttpSession session, @RequestParam String name, @RequestParam int videoID) {
+        int userID = (int) session.getAttribute("userID");
 
-        return contactsService.createContactWithVideo(username, name, videoID);
+        return contactsService.createContactWithVideo(userID, name, videoID);
     }
 
-    /**
-     * 根据视频添加到已有联系人
-     *
-     * @param contactName 已有联系人在系统中的用户名
-     * @param videoID     视频id
-     * @return
-     */
-    @RequestMapping("/add")
-    @ResponseBody
-    public MsgInfo addToExistingContact(HttpSession session, String contactName, String videoID) {
-        String username = (String) session.getAttribute("username");
-
-        return contactsService.addToExistingContact(username, contactName, videoID);
-    }
+//    /**
+//     * 根据视频添加到已有联系人
+//     *
+//     * @param contactName 已有联系人在系统中的用户名
+//     * @param videoID     视频id
+//     * @return
+//     */
+//    @RequestMapping("/add")
+//    @ResponseBody
+//    public MsgInfo addToExistingContact(HttpSession session, String contactName, String videoID) {
+//        String username = (String) session.getAttribute("username");
+//
+//        return contactsService.addToExistingContact(username, contactName, videoID);
+//    }
 
     /**
      * 根据联系人备注获取联系人信息
      *
-     * @param noteName 联系人的备注姓名
+     * @param contactID 联系人的userID
      * @return
      */
     @RequestMapping("/profile")
     @ResponseBody
-    public MsgInfo getContactProfile(HttpSession session, String noteName) {
-        String username = (String) session.getAttribute("username");
+    public MsgInfo getContactProfile(HttpSession session, @RequestParam int contactID) {
+        int userID = (int) session.getAttribute("userID");
 
-        return contactsService.getContactsInfo(username, noteName);
+        return contactsService.getContactsInfo(userID, contactID);
     }
 
     /**
      * 编辑联系人信息
      *
-     * @param contactName 联系人在系统中的用户名
-     * @param profile     联系人信息
+     * @param contactID 联系人的userID
+     * @param profile   json格式的联系人信息
      * @return
      */
     @RequestMapping("/edit")
     @ResponseBody
-    public MsgInfo editContactInfo(HttpSession session, String contactName, String profile) {
-        String username = (String) session.getAttribute("username");
-        ContactProfile contactProfile = new ContactProfile();
-        // TODO profile
+    public MsgInfo editContactInfo(HttpSession session, @RequestParam int contactID, @RequestParam String profile) {
+        int userID = (int) session.getAttribute("userID");
 
-        return contactsService.editContactInfo(username, contactProfile);
+        return contactsService.editContactInfo(userID, contactID, profile);
     }
 
     /**
      * 删除联系人
      *
-     * @param contactName 联系人id
+     * @param contactID 联系人的userID
      * @return
      */
     @RequestMapping("/remove")
     @ResponseBody
-    public MsgInfo removeContact(HttpSession session, String contactName) {
-        String username = (String) session.getAttribute("username");
+    public MsgInfo removeContact(HttpSession session, @RequestParam int contactID) {
+        int userID = (int) session.getAttribute("userID");
 
-        return contactsService.removeContact(username, contactName);
-    }
-
-    /**
-     * 搜索联系人
-     *
-     * @param content 搜索内容
-     * @return
-     */
-    @RequestMapping("/search")
-    @ResponseBody
-    public MsgInfo searchContact(HttpSession session, String content) {
-        String username = (String) session.getAttribute("username");
-
-        return contactsService.searchContact(username, content);
+        return contactsService.removeContact(userID, contactID);
     }
 }

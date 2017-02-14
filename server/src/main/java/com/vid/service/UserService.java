@@ -59,7 +59,7 @@ public class UserService {
     /**
      * 用户登录
      *
-     * @param id       用户手机号或邮箱
+     * @param id       用户手机号或邮箱或用户名
      * @param password 密码
      * @return 登录结果
      */
@@ -71,10 +71,10 @@ public class UserService {
         }
 
         if (SHA256.encrypt(password).equals(user.getPassword())) {
-            List<Contact> contactList = contactsMapper.getAllContacts(user.getUsername());
-            List<String> groupList = groupMapper.getAllGroup(user.getUsername());
+            List<Contact> contactList = contactsMapper.getAllContacts(user.getId());
+            List<String> groupList = groupMapper.getAllGroup(user.getId());
 
-            AllContacts allContacts = new AllContacts(user.getUsername(), contactList, groupList);
+            AllContacts allContacts = new AllContacts(user.getId(), user.getUsername(), contactList, groupList);
 
             return new MsgInfo(true, "登录成功", allContacts);
         } else {

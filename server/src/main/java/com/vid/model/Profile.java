@@ -7,38 +7,26 @@ package com.vid.model;
  */
 public class Profile {
 
-    private String userName;
-
     private String name;
 
     private String phoneNum;
 
     private String email;
 
+    private String industry;
+
+    private String interest;
+
     public Profile() {
         /*do nothing*/
     }
 
     public Profile(User user) {
-        this.userName = user.getUsername();
         this.name = user.getName();
         this.phoneNum = user.getShowtelephone();
         this.email = user.getShowemail();
-    }
-
-    public Profile(String userName, String name, String phoneNum, String email) {
-        this.userName = userName;
-        this.name = name;
-        this.phoneNum = phoneNum;
-        this.email = email;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
+        this.industry = user.getIndustry();
+        this.interest = user.getInterest();
     }
 
     public String getName() {
@@ -65,13 +53,30 @@ public class Profile {
         this.email = email;
     }
 
+    public String getIndustry() {
+        return industry;
+    }
+
+    public void setIndustry(String industry) {
+        this.industry = industry;
+    }
+
+    public String getInterest() {
+        return interest;
+    }
+
+    public void setInterest(String interest) {
+        this.interest = interest;
+    }
+
     @Override
     public String toString() {
         return "Profile{" +
-                "userName='" + userName + '\'' +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", phoneNum='" + phoneNum + '\'' +
                 ", email='" + email + '\'' +
+                ", industry='" + industry + '\'' +
+                ", interest='" + interest + '\'' +
                 '}';
     }
 }
