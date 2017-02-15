@@ -1,11 +1,7 @@
 package com.vid.controller;
 
 import com.vid.config.MsgInfo;
-import com.vid.model.Profile;
-import com.vid.model.User;
 import com.vid.service.ProfileService;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,7 +10,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
-import java.util.Iterator;
 
 /**
  * Created by song on 17-2-11.

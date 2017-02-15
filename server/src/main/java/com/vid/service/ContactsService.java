@@ -78,9 +78,8 @@ public class ContactsService {
      * 根据视频新建联系人
      *
      * @param userID  userID，对应id字段
-     * @param name    联系人姓名（备注）
+     * @param name    联系人姓名
      * @param videoID 视频id
-     * @return
      */
     public MsgInfo createContactWithVideo(int userID, String name, int videoID) {
         Video video = videoMapper.getVideoByID(videoID);
@@ -88,9 +87,14 @@ public class ContactsService {
             return new MsgInfo(false, "视频不存在");
         }
 
-        // TODO add user info
-        if (contactsMapper.addContactWithVideo(userID, video.getOwnerid(), name, videoID)) {
-            return new MsgInfo(true, "添加成功");
+        int contactID = video.getOwnerid();
+
+        if (contactsMapper.addContactWithVideo(userID, contactID, name, videoID)) {
+            String group = groupMapper.getGroup(userID, contactID);
+            User contact = userMapper.getUserByID(contactID);
+            List<Video> videoList = contactsMapper.getAllVideos(userID, contactID);
+
+            return new MsgInfo(true, "添加成功", new ContactProfile(name, group, contact, videoList));
         } else {
             return new MsgInfo(false, "添加失败");
         }
@@ -129,7 +133,6 @@ public class ContactsService {
      *
      * @param userID    userID，对应id字段
      * @param contactID 联系人的userID
-     * @return
      */
     public MsgInfo getContactsInfo(int userID, int contactID) {
         if (userMapper.getUserByID(contactID) == null) {
@@ -156,7 +159,6 @@ public class ContactsService {
      * @param userID    userID，对应id字段
      * @param contactID 联系人的userID
      * @param profile   json格式的联系人信息
-     * @return
      */
     public MsgInfo editContactInfo(int userID, int contactID, String profile) {
         if (userMapper.getUserByID(contactID) == null) {
@@ -192,7 +194,6 @@ public class ContactsService {
      *
      * @param userID    userID，对应id字段
      * @param contactID 联系人的userID
-     * @return
      */
     public MsgInfo removeContact(int userID, int contactID) {
         if (userMapper.getUserByID(contactID) == null) {

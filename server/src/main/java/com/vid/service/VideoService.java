@@ -1,6 +1,7 @@
 package com.vid.service;
 
 import com.vid.config.MsgInfo;
+import com.vid.dao.ContactsMapper;
 import com.vid.dao.VideoMapper;
 import com.vid.model.Video;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,46 @@ public class VideoService {
 
     @Resource
     private VideoMapper videoMapper;
+
+    @Resource
+    private ContactsMapper contactsMapper;
+
+    /**
+     * 获取视频信息
+     *
+     * @param videoID 视频ID
+     */
+    public MsgInfo getVideoInfo(int videoID) {
+        Video video = videoMapper.getVideoByID(videoID);
+
+        if (video != null) {
+            return new MsgInfo(true, "", video);
+        } else {
+            return new MsgInfo(false, "视频不存在");
+        }
+    }
+
+    /**
+     * 获取视频信息
+     *
+     * @param userID  登录用户的userID
+     * @param videoID 视频ID
+     */
+    public MsgInfo getVideoInfo(int userID, int videoID) {
+        MsgInfo msgInfo = getVideoInfo(videoID);
+
+        if (msgInfo.getStatus()) {
+            if (contactsMapper.isContacts(userID, videoID)) {
+                String noteName = contactsMapper.getNoteName(userID, videoID);
+
+                msgInfo.setInfo(noteName);
+            } else {
+                msgInfo.setInfo("非联系人");
+            }
+        }
+
+        return msgInfo;
+    }
 
     /**
      * 获得用户所有视频

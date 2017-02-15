@@ -24,6 +24,37 @@ public class VideoController {
     private VideoService videoService;
 
     /**
+     * 获取视频信息，用户未登录
+     *
+     * @param videoID 视频ID
+     * @return 包括：
+     * 1. {"status":true,"info":"","object":Video}
+     * 2. {"status":false,"info":"视频不存在","object":null}
+     */
+    @RequestMapping("/info/1")
+    @ResponseBody
+    public MsgInfo getVideoInfo(@RequestParam int videoID) {
+        return videoService.getVideoInfo(videoID);
+    }
+
+    /**
+     * 获取视频信息，用户已登录
+     *
+     * @param videoID 视频ID
+     * @return 包括：
+     * 1. {"status":true,"info":noteName,"object":Video}
+     * 2. {"status":true,"info":"非联系人","object":Video}
+     * 3. {"status":false,"info":"视频不存在","object":null}
+     */
+    @RequestMapping("/info/2")
+    @ResponseBody
+    public MsgInfo getVideoInfo(HttpSession session, @RequestParam int videoID) {
+        int userID = (int) session.getAttribute("userID");
+
+        return videoService.getVideoInfo(userID, videoID);
+    }
+
+    /**
      * 获取所有视频
      *
      * @return {"status":true,"info":"","object":[Video]}

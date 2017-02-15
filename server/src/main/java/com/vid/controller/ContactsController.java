@@ -1,7 +1,6 @@
 package com.vid.controller;
 
 import com.vid.config.MsgInfo;
-import com.vid.model.ContactProfile;
 import com.vid.service.ContactsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,10 +55,13 @@ public class ContactsController {
 
     /**
      * 根据视频添加联系人
+     * 若已经是联系人，则添加到已有联系人
      *
      * @param name    联系人备注
      * @param videoID 视频id
-     * @return
+     * @return 包括：
+     * 1. {"status":true,"info":"添加成功","object":ContactProfile}
+     * 2. {"status":false,"info":"视频不存在","object":null}
      */
     @RequestMapping("/new/video")
     @ResponseBody
@@ -85,10 +87,13 @@ public class ContactsController {
 //    }
 
     /**
-     * 根据联系人备注获取联系人信息
+     * 根据联系人id获取联系人信息
      *
      * @param contactID 联系人的userID
-     * @return
+     * @return 包括：
+     * 1. {"status":true,"info":"","object":ContactProfile}
+     * 2. {"status":false,"info":"联系人不存在","object":null}
+     * 3. {"status":false,"info":"非联系人","object":null}
      */
     @RequestMapping("/profile")
     @ResponseBody
@@ -103,7 +108,11 @@ public class ContactsController {
      *
      * @param contactID 联系人的userID
      * @param profile   json格式的联系人信息
-     * @return
+     * @return 包括：
+     * 1. {"status":true,"info":"修改成功","object":null}
+     * 2. {"status":false,"info":"联系人不存在","object":null}
+     * 3. {"status":false,"info":"非联系人","object":null}
+     * 4. {"status":false,"info":"参数错误","object":null}
      */
     @RequestMapping("/edit")
     @ResponseBody
@@ -117,7 +126,10 @@ public class ContactsController {
      * 删除联系人
      *
      * @param contactID 联系人的userID
-     * @return
+     * @return 包括：
+     * 1. {"status":true,"info":"删除成功","object":null}
+     * 2. {"status":false,"info":"联系人不存在","object":null}
+     * 3. {"status":false,"info":"非联系人","object":null}
      */
     @RequestMapping("/remove")
     @ResponseBody

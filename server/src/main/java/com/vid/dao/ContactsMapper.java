@@ -37,7 +37,7 @@ public interface ContactsMapper {
      *
      * @param userID    userID，对应id字段
      * @param contactID 联系人的userID
-     * @return 若是，返回true，否则返回false
+     * @return 备注姓名
      */
     String getNoteName(int userID, int contactID);
 

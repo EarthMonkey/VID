@@ -19,5 +19,6 @@ public class AllContactsTest {
         contactList.add(new Contact("宋", "朋友", "123"));
         contactList.add(new Contact("李", "朋友", "123"));
         contactList.add(new Contact("怡情", "朋友", "123"));
-    }
+
+   }
 }

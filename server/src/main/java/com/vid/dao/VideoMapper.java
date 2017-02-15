@@ -1,6 +1,5 @@
 package com.vid.dao;
 
-import com.vid.model.User;
 import com.vid.model.Video;
 import org.springframework.stereotype.Service;
 

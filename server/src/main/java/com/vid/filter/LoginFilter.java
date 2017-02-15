@@ -8,8 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
+import java.util.StringTokenizer;
 
 /**
  * Created by song on 17-2-11.
@@ -20,27 +22,27 @@ import java.util.Properties;
 public class LoginFilter implements Filter {
 
     /**
-     * login对应的url
+     * 忽略的url列表
      */
-    private static String loginURL = null;
+    private List<String> ignoreURL;
 
-    static {
+    public void init(FilterConfig filterConfig) throws ServletException {
         Properties properties = new Properties();
 
         try {
             InputStream inputStream = LoginFilter.class.getClassLoader()
                     .getResourceAsStream("url.properties");
-
             properties.load(inputStream);
 
-            loginURL = properties.getProperty("login");
+            StringTokenizer tokenizer = new StringTokenizer(properties.getProperty("ignore"));
+            ignoreURL = new ArrayList<>(tokenizer.countTokens());
+
+            while (tokenizer.hasMoreTokens()) {
+                ignoreURL.add(tokenizer.nextToken());
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public void init(FilterConfig filterConfig) throws ServletException {
-       /*do nothing*/
     }
 
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
@@ -49,14 +51,14 @@ public class LoginFilter implements Filter {
         // 访问的url
         String url = request.getServletPath();
 
-        // 判断url是否为 /login
+        // 判断url是否需要忽略
         // 若是，不做处理
         // 否则，判断用户是否登录
-//        if (!loginURL.equals(url)) {
+//        if (!ignoreURL.equals(url)) {
 //            HttpSession session = request.getSession(false);
 
-            // TODO 删除桩数据
-            injectUser(request);
+        // TODO 删除桩数据
+        injectUser(request);
 
 //            if (session == null || session.getAttribute("user") == null) {
 //                PrintWriter out = servletResponse.getWriter();

@@ -8,12 +8,14 @@ import com.vid.model.AllContacts;
 import com.vid.model.Contact;
 import com.vid.model.User;
 import com.vid.utils.SHA256;
+import com.vid.utils.mail.MailFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Jiayiwu on 17/1/15.
@@ -86,9 +88,36 @@ public class UserService {
      * 找回密码
      *
      * @param id 用户名/邮箱/密码
-     * @return
      */
     public MsgInfo findPass(String id) {
-        return null;
+        User user = userMapper.getUser(id);
+
+        if (user == null) {
+            return new MsgInfo(false, "用户不存在");
+        }
+
+        // 随机数，用于识别邮件的真实性
+        String random = SHA256.encrypt(new Random().nextLong() + "");
+
+        // 由于需要传userID和random，所以临时使用MsgInfo.info进行传值
+        if (MailFactory.findPass(user.getBindingemail(), user.getId(), user.getUsername(), random)) {
+            return new MsgInfo(true, "" + user.getId(), random);
+        } else {
+            return new MsgInfo(false, "邮件发送失败");
+        }
+    }
+
+    /**
+     * 重置密码
+     *
+     * @param userID   userID
+     * @param password 密码
+     */
+    public MsgInfo resetPass(int userID, String password) {
+        if (userMapper.resetPass(userID, password)) {
+            return new MsgInfo(true, "重置成功");
+        } else {
+            return new MsgInfo(false, "重置失败");
+        }
     }
 }

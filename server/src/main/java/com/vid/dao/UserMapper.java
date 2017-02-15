@@ -3,8 +3,6 @@ package com.vid.dao;
 import com.vid.model.User;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 /**
  * Created by Jiayiwu on 17/1/15.
  * Mail:wujiayi@lgdreamer.com
@@ -29,6 +27,15 @@ public interface UserMapper {
      * @return 更新成功返回true，否则返回false
      */
     boolean updateUser(User user);
+
+    /**
+     * 重置密码
+     *
+     * @param userID   userID
+     * @param password 密码
+     * @return 成功返回true，否则返回false
+     */
+    boolean resetPass(int userID, String password);
 
     /**
      * 根据手机号/邮箱/用户名查询用户信息

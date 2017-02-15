@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -109,30 +110,62 @@ public class UserController {
     @RequestMapping(value = "/findPass")
     @ResponseBody
     public MsgInfo findPass(HttpSession session, @RequestParam String id) {
-        return userService.findPass(id);
+        MsgInfo msgInfo = userService.findPass(id);
+
+        if (msgInfo.getStatus()) {
+            ServletContext context = session.getServletContext();
+            context.setAttribute("findPass_" + msgInfo.getInfo(), msgInfo.getObject());
+
+            msgInfo.setInfo("发送成功");
+            msgInfo.setObject(null);
+        }
+
+        return msgInfo;
     }
 
     /**
      * 验证邮件
      *
-     * @param id 邮箱/手机号
-     * @return 验证结果
+     * @param userID userID
+     * @param random 随机数，用于识别邮件
+     * @return 包括：
+     * 1. {"status":true,"info":"验证通过","object":null}
+     * 2. {"status":false,"info":"验证失败","object":null}
      */
     @RequestMapping(value = "/verifyMail")
     @ResponseBody
-    public MsgInfo verifyMail(@RequestParam String id) {
-        return null;
+    public MsgInfo verifyMail(HttpSession session, @RequestParam int userID, @RequestParam String random) {
+        ServletContext context = session.getServletContext();
+
+        if (random.equals(context.getAttribute("findPass_" + userID))) {
+            context.removeAttribute("findPass_" + userID);
+            session.setAttribute("resetPass", userID);
+
+            return new MsgInfo(true, "验证通过");
+        }
+
+        return new MsgInfo(false, "验证失败");
     }
 
     /**
      * 充值密码
      *
      * @param password 新密码
-     * @return
+     * @return 包括:
+     * 1. {"status":true,"info":"重置成功","object":null}
+     * 2. {"status":false,"info":"重置失败","object":null}
      */
     @RequestMapping(value = "/resetPass")
     @ResponseBody
     public MsgInfo resetPass(HttpSession session, @RequestParam String password) {
-        return null;
+        int userID = (int) session.getAttribute("resetPass");
+
+        MsgInfo msgInfo = userService.resetPass(userID, password);
+
+        if (msgInfo.getStatus()) {
+            session.removeAttribute("resetPass");
+        }
+
+        return msgInfo;
     }
 }
