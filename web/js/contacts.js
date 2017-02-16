@@ -8,6 +8,8 @@ window.onload = function () {
     addIndex();
     initContacts();
     getVideos();
+    initGroups();
+    slideRight();
 };
 
 function search() {
@@ -219,4 +221,129 @@ function showMyAll() {
     var tips = mine.getElementsByClassName("tip_text");
     $(tips[1]).show();
     $(tips[0]).hide();
+}
+
+// 增加分组
+function addGroup() {
+    $("#groupModal").fadeIn();
+    $("#main_body").css("-webkit-filter", "blur(3px)");
+
+    var inputField = $("#groupModal").find("input");
+    inputField.val("");
+
+    var tagI = $("#groupModal").find("i");
+    $(tagI[0]).click(function () {
+        var groupName = inputField.val();
+        if (groupName == "") {
+            inputField.focus();
+        } else {
+            // 存储新分组
+
+            var newGroup = $("<div class='each_group'></div>");
+            newGroup.html($("#group_copy").html());
+            newGroup.find("span").html(groupName);
+            $("#lbls").append(newGroup);
+            $("#main_body").css("-webkit-filter", "");
+            $("#groupModal").hide();
+        }
+    });
+
+    $(tagI[1]).click(function () {
+        $("#main_body").css("-webkit-filter", "");
+        $("#groupModal").hide();
+    });
+}
+
+
+function initGroups() {
+
+    var groupName = ["家人", "公司", "兴趣"];
+
+    var parent = $("#lbls");
+    var copy = $("#group_copy");
+
+    for (var i = 0; i < 3; i++) {
+        var group = $("<div class='each_group'></div>");
+        group.html(copy.html());
+        group.find("span").html(groupName[i]);
+
+        parent.append(group);
+    }
+}
+
+function modGroup(node) {
+
+    var nameOld = $(node).find("span").html();
+
+    $("#groupModal").fadeIn();
+    $("#main_body").css("-webkit-filter", "blur(3px)");
+
+    var inputField = $("#groupModal").find("input");
+    inputField.val(nameOld);
+
+    var tagI = $("#groupModal").find("i");
+    $(tagI[0]).click(function () {
+        var groupName = inputField.val();
+        if (groupName == "") {
+            inputField.focus();
+        } else {
+            // 更新分组名称
+
+            $(node).find("span").html(groupName);
+            $("#main_body").css("-webkit-filter", "");
+            $("#groupModal").hide();
+        }
+    });
+
+    $(tagI[1]).click(function () {
+        $("#main_body").css("-webkit-filter", "");
+        $("#groupModal").hide();
+    });
+}
+
+function delGroup(node) {
+
+    $("#confirmModal").fadeIn();
+    $("#main_body").css("-webkit-filter", "blur(3px)");
+
+    var btn = $("#confirmModal").find(".con_modal_btn");
+
+    $(btn[0]).click(function () {
+        // 删除分组
+        $(node).remove();
+        $("#confirmModal").hide();
+        $("#main_body").css("-webkit-filter", "");
+    });
+
+    $(btn[1]).click(function () {
+        $("#confirmModal").hide();
+        $("#main_body").css("-webkit-filter", "");
+    });
+}
+
+function slideRight() {
+
+    var groups = $("#lbls").find(".each_group");
+
+    for (var i = 0; i < groups.length; i++) {
+        $(groups[i]).on("swiperight", function () {
+            var tagI = $(this).find("i");
+            $(tagI[0]).animate({
+                width: "show"
+            }, 500);
+            $(tagI[1]).animate({
+                width: "show"
+            }, 500);
+        });
+
+        $(groups[i]).on("swipeleft", function () {
+            var tagI = $(this).find("i");
+            $(tagI[0]).animate({
+                width: "hide"
+            }, 300);
+            $(tagI[1]).animate({
+                width: "hide"
+            }, 300);
+        });
+    }
 }

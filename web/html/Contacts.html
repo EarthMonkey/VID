@@ -79,13 +79,15 @@
         <div class="each_group" style="font-weight: bold; border-bottom: 1.5px solid #c8c7c7;">所有联系人</div>
 
         <div id="lbls">
-            <div class="each_group">家人</div>
-            <div class="each_group">公司</div>
-            <div class="each_group">兴趣</div>
+            <div id="group_copy" class="each_group" style="display: none;">
+                <i class="fa fa-pencil-square-o" onclick="modGroup(this.parentNode)"></i>
+                <i class="fa fa-trash-o" style="margin-right: 5px;" onclick="delGroup(this.parentNode)"></i>
+                <span>家人</span>
+            </div>
         </div>
 
         <div class="each_group" style="border-bottom: 2px solid #c8c7c7;">
-            <div class="lbl_add">
+            <div class="lbl_add" onclick="addGroup()">
                 <hr class="plus_h">
                 <hr class="plus_v">
             </div>
@@ -170,13 +172,34 @@
 <div id="modal" class="modal_backdrop">
     <div class="enlarge_modal">
         <div class="enlarge_btn">关闭</div>
+    </div>
+</div>
 
+<!-- 增加/修改分组modal -->
+<div id="groupModal" class="modal_backdrop" style="background: rgba(255, 255, 255, 0.4);">
+    <div class="group_modal">
+        <input class="group_field" type="text" placeholder="请输入分组名称">
+        <div class="confirm_btn">
+            <i class="fa fa-check"></i>
+            <i class="fa fa-times" style="margin-left: 15px;"></i>
+        </div>
+    </div>
+</div>
 
+<!-- 是否确认删除分组 -->
+<div id="confirmModal" class="modal_backdrop" style="background: rgba(255, 255, 255, 0.4);">
+    <div class="group_modal" style="color: #2b2b2b">
+        <div style="padding-top: 10px; margin-left: 10px;">是否确认删除该分组?</div>
+        <div style="margin-left: 75px;">
+            <div class="con_modal_btn">删除</div>
+            <div class="con_modal_btn">取消</div>
+        </div>
     </div>
 </div>
 
 <script src="../js/jquery.js"></script>
 <script src="../js/contacts.js"></script>
 <script src="../js/html5media.min.js"></script>
+<script src="../js/jquery.mobile-1.4.5.min.js"></script>
 </body>
 </html>
