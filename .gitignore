@@ -7,3 +7,5 @@
 
 
 server/src/main/resources/db.properties
+
+server/src/main/java/com/vid/controller/TestController.java

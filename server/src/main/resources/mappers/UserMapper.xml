@@ -5,10 +5,44 @@
 <mapper namespace="com.vid.mapper.UserMapper">
     <!-- 这里namespace必须是UserMapper接口的路径” -->
     <insert id="insertUser" parameterType="User" useGeneratedKeys="true" keyProperty="id">
-        insert into user(username,name,password,imgpath,bindingemail,showemail,bindingtelephone,showtelephone,industry,interest)
-        values(#{username},#{name},#{password},#{imgpath},#{bindingemail},#{showemail},#{bindingtelephone},#{showtelephone},#{industry},
+        INSERT INTO user(name,password,imgpath,bindingemail,showemail,bindingtelephone,showtelephone,industry,interest)
+        VALUES (#{name},#{password},#{imgpath},#{bindingemail},#{showemail},#{bindingtelephone},#{showtelephone},#{industry},
         #{interest})
         <!-- 这里sql结尾不能加分号，否则报“ORA-00911”的错误 -->
     </insert>
 
+    <update id="updateUser" parameterType="User">
+        UPDATE user SET
+        name = #{name},
+        password = #{password},
+        imgpath = #{imgpath},
+        bindingemail = #{bindingemail},
+        showemail = #{showemail},
+        bindingtelephone = #{bindingtelephone},
+        showtelephone = #{showtelephone},
+        industry = #{industry},
+        interest = #{interest}
+        WHERE id = #{id}
+    </update>
+
+    <update id="resetPass">
+        UPDATE user SET  password = #{1} WHERE id = #{0}
+    </update>
+
+
+    <select id="getUserByEmail"  resultType="User">
+        SELECT * FROM user where bindingemail = #{0}
+    </select>
+
+    <select id="getUserByTelephone"  resultType="User">
+        SELECT * FROM user where bindingtelephone = #{0}
+    </select>
+
+    <select id="getUserById"  resultType="User">
+        SELECT * FROM user where id = #{0}
+    </select>
+
+    <update id="setPortraitURL">
+        UPDATE user SET imgpath = #{1} WHERE id = #{0}
+    </update>
 </mapper>
