@@ -11,7 +11,7 @@ import java.util.List;
  * video相关
  */
 @Service
-public interface VideoMapper {
+public interface VideoDao {
 
     /**
      * 获取用户所有视频

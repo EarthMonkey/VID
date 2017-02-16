@@ -31,7 +31,7 @@ public class ContactsController {
     @RequestMapping("/all")
     @ResponseBody
     public MsgInfo getAllContacts(HttpSession session) {
-        int userID = (int) session.getAttribute("userID");
+        int userID = (Integer) session.getAttribute("userID");
 
         return contactsService.getAllContacts(userID);
     }
@@ -48,7 +48,7 @@ public class ContactsController {
     @RequestMapping("/new")
     @ResponseBody
     public MsgInfo createContact(HttpSession session, @RequestParam String profile) {
-        int userID = (int) session.getAttribute("userID");
+        int userID = (Integer) session.getAttribute("userID");
 
         return contactsService.createContact(userID, profile);
     }
@@ -66,7 +66,7 @@ public class ContactsController {
     @RequestMapping("/new/video")
     @ResponseBody
     public MsgInfo createContactWithVideo(HttpSession session, @RequestParam String name, @RequestParam int videoID) {
-        int userID = (int) session.getAttribute("userID");
+        int userID = (Integer) session.getAttribute("userID");
 
         return contactsService.createContactWithVideo(userID, name, videoID);
     }
@@ -98,7 +98,7 @@ public class ContactsController {
     @RequestMapping("/profile")
     @ResponseBody
     public MsgInfo getContactProfile(HttpSession session, @RequestParam int contactID) {
-        int userID = (int) session.getAttribute("userID");
+        int userID = (Integer) session.getAttribute("userID");
 
         return contactsService.getContactsInfo(userID, contactID);
     }
@@ -117,7 +117,7 @@ public class ContactsController {
     @RequestMapping("/edit")
     @ResponseBody
     public MsgInfo editContactInfo(HttpSession session, @RequestParam int contactID, @RequestParam String profile) {
-        int userID = (int) session.getAttribute("userID");
+        int userID = (Integer) session.getAttribute("userID");
 
         return contactsService.editContactInfo(userID, contactID, profile);
     }
@@ -134,7 +134,7 @@ public class ContactsController {
     @RequestMapping("/remove")
     @ResponseBody
     public MsgInfo removeContact(HttpSession session, @RequestParam int contactID) {
-        int userID = (int) session.getAttribute("userID");
+        int userID = (Integer) session.getAttribute("userID");
 
         return contactsService.removeContact(userID, contactID);
     }

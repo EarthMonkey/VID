@@ -13,7 +13,7 @@ import java.util.List;
  * 联系人相关
  */
 @Service
-public interface ContactsMapper {
+public interface ContactsDao {
 
     /**
      * 获取所有联系人
@@ -48,7 +48,7 @@ public interface ContactsMapper {
      * @param userID    userID，对应id字段
      * @param contactID 联系人的userID
      * @return 视频列表，若无视频，返回size为0的list
-     * @see VideoMapper#getAllVideos(int)
+     * @see VideoDao#getAllVideos(int)
      */
     List<Video> getAllVideos(int userID, int contactID);
 

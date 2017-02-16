@@ -1,7 +1,7 @@
 package com.vid.service;
 
 import com.vid.config.MsgInfo;
-import com.vid.dao.UserMapper;
+import com.vid.dao.UserDao;
 import com.vid.model.Profile;
 import com.vid.model.User;
 import org.json.JSONException;
@@ -19,7 +19,7 @@ import javax.annotation.Resource;
 public class ProfileService {
 
     @Resource
-    private UserMapper userMapper;
+    private UserDao userDao;
 
     /**
      * 获取用户信息
@@ -27,7 +27,7 @@ public class ProfileService {
      * @param userID 用户的userID
      */
     public MsgInfo getProfile(int userID) {
-        User user = userMapper.getUserByID(userID);
+        User user = userDao.getUserByID(userID);
 
         if (user != null) {
             return new MsgInfo(true, "", new Profile(user));
@@ -43,7 +43,7 @@ public class ProfileService {
      * @param profile json格式用户信息
      */
     public MsgInfo updateProfile(int userID, String profile) {
-        User user = userMapper.getUserByID(userID);
+        User user = userDao.getUserByID(userID);
 
         try {
             JSONObject jsonObject = new JSONObject(profile);
@@ -54,7 +54,7 @@ public class ProfileService {
             user.setIndustry(jsonObject.getString("industry"));
             user.setInterest(jsonObject.getString("interest"));
 
-            if (userMapper.updateUser(user)) {
+            if (userDao.updateUser(user)) {
                 return new MsgInfo(true, "更新成功");
             } else {
                 return new MsgInfo(false, "更新失败");
@@ -71,7 +71,7 @@ public class ProfileService {
      * @param portraitURL 头像url
      */
     public MsgInfo uploadPortrait(int userID, String portraitURL) {
-        if (userMapper.setPortraitURL(userID, portraitURL)) {
+        if (userDao.setPortraitURL(userID, portraitURL)) {
             return new MsgInfo(true, "上传成功");
         } else {
             return new MsgInfo(false, "上传失败");

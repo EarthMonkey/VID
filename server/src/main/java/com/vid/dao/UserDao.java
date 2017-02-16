@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
  * Change everywhere
  */
 @Service
-public interface UserMapper {
+public interface UserDao {
 
     /**
      * 新建用户
