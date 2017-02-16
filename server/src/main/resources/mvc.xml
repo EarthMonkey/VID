@@ -11,9 +11,10 @@
             http://www.springframework.org/schema/context
             http://www.springframework.org/schema/context/spring-context.xsd">
     <!--
-        使Spring支持自动检测组件，如注解的Controller
+        使Spring支持自动检测组件，如注解的Service
     -->
-
+    <context:component-scan base-package="com.vid.service"/>
+    <context:component-scan base-package="com.vid.dao"/>
 
 
     <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->

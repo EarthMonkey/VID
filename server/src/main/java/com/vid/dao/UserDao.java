@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
  * Mail:wujiayi@lgdreamer.com
  * Change everywhere
  */
-@Service
 public interface UserDao {
 
     /**

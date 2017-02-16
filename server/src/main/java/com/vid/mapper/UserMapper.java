@@ -1,4 +1,4 @@
-package mapper;
+package com.vid.mapper;
 
 import com.vid.model.User;
 

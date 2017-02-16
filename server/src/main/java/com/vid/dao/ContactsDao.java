@@ -12,7 +12,6 @@ import java.util.List;
  * <p>
  * 联系人相关
  */
-@Service
 public interface ContactsDao {
 
     /**

@@ -9,7 +9,6 @@ import java.util.List;
  * <p>
  * 分组相关
  */
-@Service
 public interface GroupDao {
 
     /**

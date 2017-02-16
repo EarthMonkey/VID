@@ -10,7 +10,6 @@ import java.util.List;
  * <p>
  * video相关
  */
-@Service
 public interface VideoDao {
 
     /**
