@@ -35,7 +35,7 @@ public interface VideoDao {
      * @param videoName 视频名称
      * @param size      视频大小
      * @param videoURL  视频url
-     * @return videoID
+     * @return videoID 成功返回视频ID 失败返回-1
      */
     int insertVideo(int userID, String videoName, long size, String videoURL);
 

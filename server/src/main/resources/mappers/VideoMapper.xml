@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vid.mapper.VideoMapper">
+    <!-- 这里namespace必须是UserMapper接口的路径” -->
+    <select id="getAllVideos"  resultType="Video">
+        SELECT * FROM video where ownerid = #{0}
+    </select>
+
+    <select id="getVideoByID"  resultType="Video">
+        SELECT * FROM video where id = #{0}
+    </select>
+
+    <insert id="insertVideo" parameterType="User" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO video(ownerid,name,size,url)
+        VALUES (#{ownerid},#{name},#{size},#{url})
+        <!-- 这里sql结尾不能加分号，否则报“ORA-00911”的错误 -->
+    </insert>
+
+    <delete id="removeVideo">
+        DELETE  FROM video WHERE id = #{0}
+    </delete>
+</mapper>
