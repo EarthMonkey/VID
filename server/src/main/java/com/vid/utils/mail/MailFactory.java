@@ -1,7 +1,10 @@
 package com.vid.utils.mail;
 
+import com.vid.utils.SHA256;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 
 /**
  * Created by song on 17-2-15.

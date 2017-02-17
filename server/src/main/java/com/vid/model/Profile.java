@@ -7,6 +7,8 @@ package com.vid.model;
  */
 public class Profile {
 
+    private int userID;
+
     private String name;
 
     private String phoneNum;
@@ -22,11 +24,20 @@ public class Profile {
     }
 
     public Profile(User user) {
+        this.userID = user.getId();
         this.name = user.getName();
         this.phoneNum = user.getShowtelephone();
         this.email = user.getShowemail();
         this.industry = user.getIndustry();
         this.interest = user.getInterest();
+    }
+
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
     }
 
     public String getName() {
@@ -72,7 +83,8 @@ public class Profile {
     @Override
     public String toString() {
         return "Profile{" +
-                "name='" + name + '\'' +
+                "userID=" + userID +
+                ", name='" + name + '\'' +
                 ", phoneNum='" + phoneNum + '\'' +
                 ", email='" + email + '\'' +
                 ", industry='" + industry + '\'' +

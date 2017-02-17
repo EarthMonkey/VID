@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -54,19 +55,19 @@ public class LoginFilter implements Filter {
         // 判断url是否需要忽略
         // 若是，不做处理
         // 否则，判断用户是否登录
-//        if (!ignoreURL.equals(url)) {
-//            HttpSession session = request.getSession(false);
+        if (!ignoreURL.contains(url)) {
+            HttpSession session = request.getSession(false);
 
-        // TODO 删除桩数据
-        injectUser(request);
+//         TODO 删除桩数据
+//        injectUser(request);
 
-//            if (session == null || session.getAttribute("user") == null) {
-//                PrintWriter out = servletResponse.getWriter();
-//
-//                out.print("{\"status\":false,\"info\":\"用户未登录\",\"object\":null}");
-//                return;
-//            }
-//        }
+            if (session == null || session.getAttribute("user") == null) {
+                PrintWriter out = servletResponse.getWriter();
+
+                out.print("{\"status\":false,\"info\":\"用户未登录\",\"object\":null}");
+                return;
+            }
+        }
 
         filterChain.doFilter(servletRequest, servletResponse);
     }

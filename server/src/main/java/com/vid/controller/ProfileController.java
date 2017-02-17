@@ -27,7 +27,7 @@ public class ProfileController {
      * 获取我的名片夹信息
      *
      * @return 包括：
-     * 1. MsgInfo{"status":true,"info":${username},"object":profile}
+     * 1. MsgInfo{"status":true,"info":"","object":profile}
      * 2. MsgInfo{"status":false,"info":"用户不存在","object":null}
      */
     @RequestMapping
