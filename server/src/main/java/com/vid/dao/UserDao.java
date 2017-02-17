@@ -8,8 +8,7 @@ import org.springframework.stereotype.Service;
  * Mail:wujiayi@lgdreamer.com
  * Change everywhere
  */
-@Service
-public interface UserMapper {
+public interface UserDao {
 
     /**
      * 新建用户

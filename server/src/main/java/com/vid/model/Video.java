@@ -16,6 +16,16 @@ public class Video {
 //    七牛返回的视频地址
     String url;
 
+    public Video() {
+    }
+
+    public Video(int ownerid, String name, long size, String url) {
+        this.ownerid = ownerid;
+        this.name = name;
+        this.size = size;
+        this.url = url;
+    }
+
     public int getId() {
         return id;
     }

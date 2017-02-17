@@ -1,8 +1,8 @@
 package com.vid.service;
 
 import com.vid.config.MsgInfo;
-import com.vid.dao.ContactsMapper;
-import com.vid.dao.GroupMapper;
+import com.vid.dao.ContactsDao;
+import com.vid.dao.GroupDao;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -17,10 +17,10 @@ import java.util.List;
 public class GroupService {
 
     @Resource
-    private GroupMapper groupMapper;
+    private GroupDao groupDao;
 
     @Resource
-    private ContactsMapper contactsMapper;
+    private ContactsDao contactsDao;
 
     /**
      * 添加分组
@@ -29,13 +29,13 @@ public class GroupService {
      * @param groupName 组名
      */
     public MsgInfo addGroup(int userID, String groupName) {
-        List<String> groupList = groupMapper.getAllGroup(userID);
+        List<String> groupList = groupDao.getAllGroup(userID);
 
         if (groupList.contains(groupName)) {
             return new MsgInfo(false, "分组已存在");
         }
 
-        if (groupMapper.addGroup(userID, groupName)) {
+        if (groupDao.addGroup(userID, groupName)) {
             return new MsgInfo(true, "添加成功");
         }
 
@@ -50,14 +50,14 @@ public class GroupService {
      * @param now    修改后的组名
      */
     public MsgInfo renameGroup(int userID, String origin, String now) {
-        List<String> groupList = groupMapper.getAllGroup(userID);
+        List<String> groupList = groupDao.getAllGroup(userID);
 
         if (groupList.contains(origin)) {
             if (groupList.contains(now)) {
                 return new MsgInfo(false, "组名已存在");
             }
 
-            if (groupMapper.renameGroup(userID, origin, now)) {
+            if (groupDao.renameGroup(userID, origin, now)) {
                 return new MsgInfo(true, "修改成功");
             }
         }
@@ -72,10 +72,10 @@ public class GroupService {
      * @param groupName 组名
      */
     public MsgInfo removeGroup(int userID, String groupName) {
-        List<String> groupList = groupMapper.getAllGroup(userID);
+        List<String> groupList = groupDao.getAllGroup(userID);
 
         if (groupList.contains(groupName)) {
-            if (groupMapper.removeGroup(userID, groupName)) {
+            if (groupDao.removeGroup(userID, groupName)) {
                 return new MsgInfo(true, "删除成功");
             }
         }
@@ -93,17 +93,17 @@ public class GroupService {
      */
     public MsgInfo groupContact(int userID, int contactID, String groupName) {
         // 判断是否为联系人
-        if (!contactsMapper.isContacts(userID, contactID)) {
+        if (!contactsDao.isContacts(userID, contactID)) {
             return new MsgInfo(false, "非联系人");
         }
 
         // 判断分组是否存在
-        List<String> groupList = groupMapper.getAllGroup(userID);
+        List<String> groupList = groupDao.getAllGroup(userID);
         if (!groupList.contains(groupName)) {
             return new MsgInfo(false, "分组不存在");
         }
 
-        if (groupMapper.groupContact(userID, contactID, groupName)) {
+        if (groupDao.groupContact(userID, contactID, groupName)) {
             return new MsgInfo(true, "分组成功");
         }
 
@@ -121,12 +121,12 @@ public class GroupService {
      */
     public MsgInfo moveContact(int userID, int contactID, String origin, String target) {
         // 判断是否为联系人
-        if (!contactsMapper.isContacts(userID, contactID)) {
+        if (!contactsDao.isContacts(userID, contactID)) {
             return new MsgInfo(false, "非联系人");
         }
 
         // 判断分组是否存在
-        List<String> groupList = groupMapper.getAllGroup(userID);
+        List<String> groupList = groupDao.getAllGroup(userID);
         if (!groupList.contains(origin)) {
             return new MsgInfo(false, "原组不存在");
         }
@@ -134,7 +134,7 @@ public class GroupService {
             return new MsgInfo(false, "目标分组不存在");
         }
 
-        if (groupMapper.moveContact(userID, contactID, origin, target)) {
+        if (groupDao.moveContact(userID, contactID, origin, target)) {
             return new MsgInfo(true, "移动成功");
         }
 

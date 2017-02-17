@@ -33,7 +33,7 @@ public class ProfileController {
     @RequestMapping
     @ResponseBody
     public MsgInfo getProfile(HttpSession session) {
-        int userID = (int) session.getAttribute("userID");
+        int userID = (Integer) session.getAttribute("userID");
 
         return profileService.getProfile(userID);
     }
@@ -50,7 +50,7 @@ public class ProfileController {
     @RequestMapping(value = "/edit")
     @ResponseBody
     public MsgInfo editProfile(HttpSession session, @RequestParam String profile) {
-        int userID = (int) session.getAttribute("userID");
+        int userID = (Integer) session.getAttribute("userID");
 
         return profileService.updateProfile(userID, profile);
     }
@@ -66,7 +66,7 @@ public class ProfileController {
     @RequestMapping("/portrait/upload")
     @ResponseBody
     public MsgInfo uploadPortrait(HttpSession session, @RequestParam String url) {
-        int userID = (int) session.getAttribute("userID");
+        int userID = (Integer) session.getAttribute("userID");
 
         return profileService.uploadPortrait(userID, url);
     }

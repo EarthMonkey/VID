@@ -158,7 +158,7 @@ public class UserController {
     @RequestMapping(value = "/resetPass")
     @ResponseBody
     public MsgInfo resetPass(HttpSession session, @RequestParam String password) {
-        int userID = (int) session.getAttribute("resetPass");
+        int userID = (Integer) session.getAttribute("resetPass");
 
         MsgInfo msgInfo = userService.resetPass(userID, password);
 

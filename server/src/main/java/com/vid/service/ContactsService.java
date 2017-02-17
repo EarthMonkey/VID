@@ -1,10 +1,10 @@
 package com.vid.service;
 
 import com.vid.config.MsgInfo;
-import com.vid.dao.ContactsMapper;
-import com.vid.dao.GroupMapper;
-import com.vid.dao.UserMapper;
-import com.vid.dao.VideoMapper;
+import com.vid.dao.ContactsDao;
+import com.vid.dao.GroupDao;
+import com.vid.dao.UserDao;
+import com.vid.dao.VideoDao;
 import com.vid.model.*;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,16 +22,16 @@ import java.util.List;
 public class ContactsService {
 
     @Resource
-    private UserMapper userMapper;
+    private UserDao userDao;
 
     @Resource
-    private ContactsMapper contactsMapper;
+    private ContactsDao contactsDao;
 
     @Resource
-    private GroupMapper groupMapper;
+    private GroupDao groupDao;
 
     @Resource
-    private VideoMapper videoMapper;
+    private VideoDao videoDao;
 
     /**
      * 获取所有联系人
@@ -39,8 +39,8 @@ public class ContactsService {
      * @param userID userID，对应id字段
      */
     public MsgInfo getAllContacts(int userID) {
-        List<Contact> contactList = contactsMapper.getAllContacts(userID);
-        List<String> groupList = groupMapper.getAllGroup(userID);
+        List<Contact> contactList = contactsDao.getAllContacts(userID);
+        List<String> groupList = groupDao.getAllGroup(userID);
 
         AllContacts allContacts = new AllContacts(userID, contactList, groupList);
 
@@ -64,7 +64,7 @@ public class ContactsService {
             user.setIndustry(jsonObject.getString("industry"));
             user.setInterest(jsonObject.getString("interest"));
 
-            if (contactsMapper.addContact(userID, noteName, user)) {
+            if (contactsDao.addContact(userID, noteName, user)) {
                 return new MsgInfo(true, "新建成功");
             } else {
                 return new MsgInfo(false, "新建失败");
@@ -82,17 +82,17 @@ public class ContactsService {
      * @param videoID 视频id
      */
     public MsgInfo createContactWithVideo(int userID, String name, int videoID) {
-        Video video = videoMapper.getVideoByID(videoID);
+        Video video = videoDao.getVideoByID(videoID);
         if (video == null) {
             return new MsgInfo(false, "视频不存在");
         }
 
         int contactID = video.getOwnerid();
 
-        if (contactsMapper.addContactWithVideo(userID, contactID, name, videoID)) {
-            String group = groupMapper.getGroup(userID, contactID);
-            User contact = userMapper.getUserByID(contactID);
-            List<Video> videoList = contactsMapper.getAllVideos(userID, contactID);
+        if (contactsDao.addContactWithVideo(userID, contactID, name, videoID)) {
+            String group = groupDao.getGroup(userID, contactID);
+            User contact = userDao.getUserByID(contactID);
+            List<Video> videoList = contactsDao.getAllVideos(userID, contactID);
 
             return new MsgInfo(true, "添加成功", new ContactProfile(name, group, contact, videoList));
         } else {
@@ -135,20 +135,20 @@ public class ContactsService {
      * @param contactID 联系人的userID
      */
     public MsgInfo getContactsInfo(int userID, int contactID) {
-        if (userMapper.getUserByID(contactID) == null) {
+        if (userDao.getUserByID(contactID) == null) {
             return new MsgInfo(false, "联系人不存在");
         }
 
-        if (!contactsMapper.isContacts(userID, contactID)) {
+        if (!contactsDao.isContacts(userID, contactID)) {
             return new MsgInfo(false, "非联系人");
         }
 
         // 备注
-        String noteName = contactsMapper.getNoteName(userID, contactID);
+        String noteName = contactsDao.getNoteName(userID, contactID);
         // 分组列表
-        String groupName = groupMapper.getGroup(userID, contactID);
-        User user = userMapper.getUserByID(contactID);
-        List<Video> videoList = contactsMapper.getAllVideos(userID, contactID);
+        String groupName = groupDao.getGroup(userID, contactID);
+        User user = userDao.getUserByID(contactID);
+        List<Video> videoList = contactsDao.getAllVideos(userID, contactID);
 
         return new MsgInfo(true, "", new ContactProfile(noteName, groupName, user, videoList));
     }
@@ -161,11 +161,11 @@ public class ContactsService {
      * @param profile   json格式的联系人信息
      */
     public MsgInfo editContactInfo(int userID, int contactID, String profile) {
-        if (userMapper.getUserByID(contactID) == null) {
+        if (userDao.getUserByID(contactID) == null) {
             return new MsgInfo(false, "联系人不存在");
         }
 
-        if (!contactsMapper.isContacts(userID, contactID)) {
+        if (!contactsDao.isContacts(userID, contactID)) {
             return new MsgInfo(false, "非联系人");
         }
 
@@ -179,7 +179,7 @@ public class ContactsService {
             industry = jsonObject.getString("industry");
             interest = jsonObject.getString("interest");
 
-            if (contactsMapper.editContactProfile(userID, contactID, noteName, phoneNum, email, industry, interest)) {
+            if (contactsDao.editContactProfile(userID, contactID, noteName, phoneNum, email, industry, interest)) {
                 return new MsgInfo(true, "修改成功");
             } else {
                 return new MsgInfo(false, "修改失败");
@@ -196,15 +196,15 @@ public class ContactsService {
      * @param contactID 联系人的userID
      */
     public MsgInfo removeContact(int userID, int contactID) {
-        if (userMapper.getUserByID(contactID) == null) {
+        if (userDao.getUserByID(contactID) == null) {
             return new MsgInfo(false, "联系人不存在");
         }
 
-        if (!contactsMapper.isContacts(userID, contactID)) {
+        if (!contactsDao.isContacts(userID, contactID)) {
             return new MsgInfo(false, "非联系人");
         }
 
-        if (contactsMapper.removeContact(userID, contactID)) {
+        if (contactsDao.removeContact(userID, contactID)) {
             return new MsgInfo(true, "删除成功");
         } else {
             return new MsgInfo(false, "删除失败");

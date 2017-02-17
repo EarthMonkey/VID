@@ -9,8 +9,7 @@ import java.util.List;
  * <p>
  * 分组相关
  */
-@Service
-public interface GroupMapper {
+public interface GroupDao {
 
     /**
      * 获取所有分组名称

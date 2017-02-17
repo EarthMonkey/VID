@@ -1,9 +1,9 @@
 package com.vid.service;
 
 import com.vid.config.MsgInfo;
-import com.vid.dao.ContactsMapper;
-import com.vid.dao.GroupMapper;
-import com.vid.dao.UserMapper;
+import com.vid.dao.ContactsDao;
+import com.vid.dao.GroupDao;
+import com.vid.dao.UserDao;
 import com.vid.model.AllContacts;
 import com.vid.model.Contact;
 import com.vid.model.User;
@@ -28,13 +28,13 @@ import java.util.Random;
 public class UserService {
 
     @Resource
-    private UserMapper userMapper;
+    private UserDao userDao;
 
     @Resource
-    private ContactsMapper contactsMapper;
+    private ContactsDao contactsDao;
 
     @Resource
-    private GroupMapper groupMapper;
+    private GroupDao groupDao;
 
     /**
      * 用户注册
@@ -45,13 +45,13 @@ public class UserService {
      * @return 注册结果
      */
     public MsgInfo register(String id, String password, String name) {
-        User user = userMapper.getUser(id);
+        User user = userDao.getUser(id);
 
         if (user != null) {
             return new MsgInfo(false, "用户名已存在");
         }
 
-        if (!"".equals(userMapper.insertUser(new User(id, SHA256.encrypt(password), name)))) {
+        if (!"".equals(userDao.insertUser(new User(id, SHA256.encrypt(password), name)))) {
             return new MsgInfo(true, "注册成功");
         } else {
             return new MsgInfo(false, "注册失败");
@@ -66,15 +66,15 @@ public class UserService {
      * @return 登录结果
      */
     public MsgInfo login(String id, String password) {
-        User user = userMapper.getUser(id);
+        User user = userDao.getUser(id);
 
         if (user == null) {
             return new MsgInfo(false, "用户名不存在");
         }
 
         if (SHA256.encrypt(password).equals(user.getPassword())) {
-            List<Contact> contactList = contactsMapper.getAllContacts(user.getId());
-            List<String> groupList = groupMapper.getAllGroup(user.getId());
+            List<Contact> contactList = contactsDao.getAllContacts(user.getId());
+            List<String> groupList = groupDao.getAllGroup(user.getId());
 
             AllContacts allContacts = new AllContacts(user.getId(), user.getUsername(), contactList, groupList);
 
@@ -90,7 +90,7 @@ public class UserService {
      * @param id 用户名/邮箱/密码
      */
     public MsgInfo findPass(String id) {
-        User user = userMapper.getUser(id);
+        User user = userDao.getUser(id);
 
         if (user == null) {
             return new MsgInfo(false, "用户不存在");
@@ -114,7 +114,7 @@ public class UserService {
      * @param password 密码
      */
     public MsgInfo resetPass(int userID, String password) {
-        if (userMapper.resetPass(userID, password)) {
+        if (userDao.resetPass(userID, password)) {
             return new MsgInfo(true, "重置成功");
         } else {
             return new MsgInfo(false, "重置失败");

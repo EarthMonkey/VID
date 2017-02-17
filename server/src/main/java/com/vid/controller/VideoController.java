@@ -49,7 +49,7 @@ public class VideoController {
     @RequestMapping("/info/2")
     @ResponseBody
     public MsgInfo getVideoInfo(HttpSession session, @RequestParam int videoID) {
-        int userID = (int) session.getAttribute("userID");
+        int userID = (Integer) session.getAttribute("userID");
 
         return videoService.getVideoInfo(userID, videoID);
     }
@@ -62,7 +62,7 @@ public class VideoController {
     @RequestMapping("/all")
     @ResponseBody
     public MsgInfo getAllVideos(HttpSession session) {
-        int userID = (int) session.getAttribute("userID");
+        int userID = (Integer) session.getAttribute("userID");
 
         return videoService.getAllVideos(userID);
     }
@@ -77,7 +77,7 @@ public class VideoController {
     @RequestMapping("/upload")
     @ResponseBody
     public MsgInfo uploadVideo(HttpSession session, @RequestParam String name, long size, @RequestParam String url) {
-        int userID = (int) session.getAttribute("userID");
+        int userID = (Integer) session.getAttribute("userID");
 
         return videoService.uploadVideo(userID, name, size, url);
     }
@@ -94,8 +94,11 @@ public class VideoController {
     @RequestMapping("/remove")
     @ResponseBody
     public MsgInfo removeVideo(HttpSession session, @RequestParam int videoID) {
-        int userID = (int) session.getAttribute("userID");
+        int userID = (Integer) session.getAttribute("userID");
 
         return videoService.removeVideo(userID, videoID);
     }
+
+
+
 }
