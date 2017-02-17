@@ -32,7 +32,7 @@ public class UserController {
      * @param password 密码
      * @param name     用户名
      * @return 注册结果，包括
-     * 1. 注册成功： MsgInfo{"status":true,"info":"注册成功","object":null}
+     * 1. 注册成功： MsgInfo{"status":true,"info":"邮件发送成功","object":null}
      * 2. 用户名已存在： MsgInfo{"status":false,"info":"用户名已存在","object":null}
      */
     @RequestMapping(value = "/register")
@@ -102,7 +102,7 @@ public class UserController {
     /**
      * 找回密码，发送验证邮件
      *
-     * @param id 用户名/邮箱/手机号
+     * @param id 邮箱/手机号
      * @return 邮件发送结果， 包括
      * 1. 邮件发送成功： MsgInfo{"status":true,"info":"邮件发送成功","object":null}
      * 2. 邮箱未注册： MsgInfo{"status":false,"info":"用户名不存在","object":null}
@@ -132,9 +132,9 @@ public class UserController {
      * 1. {"status":true,"info":"验证通过","object":null}
      * 2. {"status":false,"info":"验证失败","object":null}
      */
-    @RequestMapping(value = "/verifyMail")
+    @RequestMapping(value = "/verifyMail/findPass")
     @ResponseBody
-    public MsgInfo verifyMail(HttpSession session, @RequestParam int userID, @RequestParam String random) {
+    public MsgInfo verifyMail(HttpSession session, int userID, @RequestParam String random) {
         ServletContext context = session.getServletContext();
 
         if (random.equals(context.getAttribute("findPass_" + userID))) {
@@ -154,11 +154,16 @@ public class UserController {
      * @return 包括:
      * 1. {"status":true,"info":"重置成功","object":null}
      * 2. {"status":false,"info":"重置失败","object":null}
+     * 3. {"status":false,"info":"未验证邮件","object":null}
      */
     @RequestMapping(value = "/resetPass")
     @ResponseBody
     public MsgInfo resetPass(HttpSession session, @RequestParam String password) {
-        int userID = (Integer) session.getAttribute("resetPass");
+        Integer userID = (Integer) session.getAttribute("resetPass");
+
+        if (userID == null) {
+            return new MsgInfo(false, "未验证邮件");
+        }
 
         MsgInfo msgInfo = userService.resetPass(userID, password);
 

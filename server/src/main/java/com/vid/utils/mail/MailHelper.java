@@ -21,6 +21,8 @@ public class MailHelper {
 
     private static Properties properties;
 
+    private static Authenticator authenticator;
+
     static {
         try {
             properties = new Properties();
@@ -30,6 +32,13 @@ public class MailHelper {
 
             userName = properties.getProperty("mail.smtp.user");
             password = properties.getProperty("mail.smtp.password");
+
+            authenticator = new Authenticator() {
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(userName, password);
+                }
+            };
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -40,20 +49,36 @@ public class MailHelper {
     }
 
     /**
-     * 发送邮件
+     * 发送纯文本邮件
      *
      * @param receiver 收件人邮箱
      * @param content  邮件内容
      * @return 发送成功返回true，否则返回false
      */
-    public static boolean sendMail(String receiver, String subject, String content) {
-        Authenticator authenticator = new Authenticator() {
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(userName, password);
-            }
-        };
+    public static boolean sendTextMail(String receiver, String subject, String content) {
+        return sendMail("text/plain;charset=UTF8", receiver, subject, content);
+    }
 
+    /**
+     * 发送html邮件
+     *
+     * @param receiver 收件人邮箱
+     * @param content  邮件内容
+     * @return 发送成功返回true，否则返回false
+     */
+    public static boolean sendHtmlMail(String receiver, String subject, String content) {
+        return sendMail("text/html;charset=UTF8", receiver, subject, content);
+    }
+
+    /**
+     * 发送邮件
+     *
+     * @param contentType 文本类型（纯文本/html）
+     * @param receiver    收件人邮箱
+     * @param content     邮件内容
+     * @return 发送成功返回true，否则返回false
+     */
+    private static boolean sendMail(String contentType, String receiver, String subject, String content) {
         Session mailSession = Session.getInstance(properties, authenticator);
 
         MimeMessage message = new MimeMessage(mailSession);
@@ -65,7 +90,7 @@ public class MailHelper {
             // 邮件主题
             message.setSubject(subject);
             // 邮件内容
-            message.setText(content);
+            message.setContent(content, contentType);
             message.setSentDate(new Date());
             // 发送邮件
             Transport.send(message);

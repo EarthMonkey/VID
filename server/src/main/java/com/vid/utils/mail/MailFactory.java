@@ -1,10 +1,7 @@
 package com.vid.utils.mail;
 
-import com.vid.utils.SHA256;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Random;
 
 /**
  * Created by song on 17-2-15.
@@ -12,8 +9,24 @@ import java.util.Random;
  * 邮件工厂
  */
 public class MailFactory {
+
     private MailFactory() {
         /*do nothing*/
+    }
+
+    /**
+     * 发送验证邮件
+     *
+     * @param mail   收件人邮箱
+     * @param random 随机数，用于链接识别
+     * @return 发送成功返回true，否则返回false
+     */
+    public static boolean verifyMail(String mail, String random) {
+        String subject = "VID用户验证";
+
+        String content = "<div style='border: solid 5px black;'>中文测试</div>";
+
+        return MailHelper.sendHtmlMail(mail, subject, content);
     }
 
     /**
@@ -38,6 +51,11 @@ public class MailFactory {
                 "VID账号团队\n" +
                 new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
 
-        return MailHelper.sendMail(mail, subject, content);
+        return MailHelper.sendTextMail(mail, subject, content);
+    }
+
+    public static void main(String[] args) {
+        System.out.println(verifyMail("141250111@smail.nju.edu.cn", "123"));
+//        System.out.println(findPass("141250111@smail.nju.edu.cn", 141, "bedisdover", "123"));
     }
 }
