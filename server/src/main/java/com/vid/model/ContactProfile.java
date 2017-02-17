@@ -22,7 +22,7 @@ public class ContactProfile {
     /**
      * 分组
      */
-    private String group;
+    private Group group;
 
     /**
      * 电话号
@@ -53,7 +53,7 @@ public class ContactProfile {
         /*do nothing*/
     }
 
-    public ContactProfile(String noteName, String group, User user, List<Video> videoList) {
+    public ContactProfile(String noteName, Group group, User user, List<Video> videoList) {
         this.noteName = noteName;
         this.contactID = user.getId();
         this.group = group;
@@ -80,11 +80,11 @@ public class ContactProfile {
         this.contactID = contactID;
     }
 
-    public String getGroup() {
+    public Group getGroup() {
         return group;
     }
 
-    public void setGroup(String group) {
+    public void setGroup(Group group) {
         this.group = group;
     }
 

@@ -1,5 +1,6 @@
 package com.vid.dao;
 
+import com.vid.model.Group;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,37 +13,42 @@ import java.util.List;
 @Repository
 public class GroupDaoImpl implements GroupDao {
     @Override
-    public List<String> getAllGroup(int userID) {
+    public List<Group> getAllGroup(int userID) {
         return null;
     }
 
     @Override
-    public String getGroup(int userID, int contactID) {
+    public int getOwner(int groupID) {
+        return 0;
+    }
+
+    @Override
+    public Group getGroup(int userID, int contactID) {
         return null;
     }
 
     @Override
-    public boolean addGroup(int userID, String groupName) {
+    public int addGroup(int userID, String groupName) {
+        return 0;
+    }
+
+    @Override
+    public boolean renameGroup(int groupID, String name) {
         return false;
     }
 
     @Override
-    public boolean renameGroup(int userID, String origin, String now) {
+    public boolean removeGroup(int groupID) {
         return false;
     }
 
     @Override
-    public boolean removeGroup(int userID, String groupName) {
+    public boolean groupContact(int userID, int contactID, int groupID) {
         return false;
     }
 
     @Override
-    public boolean groupContact(int userID, int contactID, String groupName) {
-        return false;
-    }
-
-    @Override
-    public boolean moveContact(int userID, int contactID, String origin, String target) {
+    public boolean moveContact(int userID, int contactID, int origin, int target) {
         return false;
     }
 }

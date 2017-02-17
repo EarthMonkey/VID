@@ -26,7 +26,7 @@ public class AllContacts {
     /**
      * 用户所有分组组名列表
      */
-    private List<String> groupList;
+    private List<Group> groupList;
 
     /**
      * 所有联系人列表，按联系人姓名首字母分为27个list
@@ -84,11 +84,11 @@ public class AllContacts {
         }
     }
 
-    public AllContacts(int userID, List<Contact> contactList, List<String> groupList) {
+    public AllContacts(int userID, List<Contact> contactList, List<Group> groupList) {
         this(userID, "", contactList, groupList);
     }
 
-    public AllContacts(int userID, String userName, List<Contact> contactList, List<String> groupList) {
+    public AllContacts(int userID, String userName, List<Contact> contactList, List<Group> groupList) {
         this.userID = userID;
         this.username = userName;
         this.groupList = groupList;
@@ -115,11 +115,11 @@ public class AllContacts {
         this.username = username;
     }
 
-    public List<String> getGroupList() {
+    public List<Group> getGroupList() {
         return groupList;
     }
 
-    public void setGroupList(List<String> groupList) {
+    public void setGroupList(List<Group> groupList) {
         this.groupList = groupList;
     }
 

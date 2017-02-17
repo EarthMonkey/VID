@@ -40,7 +40,7 @@ public class ContactsService {
      */
     public MsgInfo getAllContacts(int userID) {
         List<Contact> contactList = contactsDao.getAllContacts(userID);
-        List<String> groupList = groupDao.getAllGroup(userID);
+        List<Group> groupList = groupDao.getAllGroup(userID);
 
         AllContacts allContacts = new AllContacts(userID, contactList, groupList);
 
@@ -90,7 +90,7 @@ public class ContactsService {
         int contactID = video.getOwnerid();
 
         if (contactsDao.addContactWithVideo(userID, contactID, name, videoID)) {
-            String group = groupDao.getGroup(userID, contactID);
+            Group group = groupDao.getGroup(userID, contactID);
             User contact = userDao.getUserByID(contactID);
             List<Video> videoList = contactsDao.getAllVideos(userID, contactID);
 
@@ -146,11 +146,11 @@ public class ContactsService {
         // 备注
         String noteName = contactsDao.getNoteName(userID, contactID);
         // 分组列表
-        String groupName = groupDao.getGroup(userID, contactID);
+        Group group = groupDao.getGroup(userID, contactID);
         User user = userDao.getUserByID(contactID);
         List<Video> videoList = contactsDao.getAllVideos(userID, contactID);
 
-        return new MsgInfo(true, "", new ContactProfile(noteName, groupName, user, videoList));
+        return new MsgInfo(true, "", new ContactProfile(noteName, group, user, videoList));
     }
 
     /**

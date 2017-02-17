@@ -3,6 +3,7 @@ package com.vid.service;
 import com.vid.config.MsgInfo;
 import com.vid.dao.ContactsDao;
 import com.vid.dao.GroupDao;
+import com.vid.model.Group;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -22,6 +23,16 @@ public class GroupService {
     @Resource
     private ContactsDao contactsDao;
 
+    private boolean hasGroupName(List<Group> groupList, String groupName) {
+        for (Group group : groupList) {
+            if (groupName.equals(group.getName())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     /**
      * 添加分组
      *
@@ -29,17 +40,15 @@ public class GroupService {
      * @param groupName 组名
      */
     public MsgInfo addGroup(int userID, String groupName) {
-        List<String> groupList = groupDao.getAllGroup(userID);
+        List<Group> groupList = groupDao.getAllGroup(userID);
 
-        if (groupList.contains(groupName)) {
-            return new MsgInfo(false, "分组已存在");
+        if (hasGroupName(groupList, groupName)) {
+            return new MsgInfo(false, "已存在同名分组");
         }
 
-        if (groupDao.addGroup(userID, groupName)) {
-            return new MsgInfo(true, "添加成功");
-        }
+        int groupID = groupDao.addGroup(userID, groupName);
 
-        return new MsgInfo(false, "未知错误");
+        return new MsgInfo(true, "添加成功", groupID);
     }
 
     /**
@@ -50,7 +59,7 @@ public class GroupService {
      * @param now    修改后的组名
      */
     public MsgInfo renameGroup(int userID, String origin, String now) {
-        List<String> groupList = groupDao.getAllGroup(userID);
+        List<Group> groupList = groupDao.getAllGroup(userID);
 
         if (groupList.contains(origin)) {
             if (groupList.contains(now)) {

@@ -6,6 +6,7 @@ import com.vid.dao.GroupDao;
 import com.vid.dao.UserDao;
 import com.vid.model.AllContacts;
 import com.vid.model.Contact;
+import com.vid.model.Group;
 import com.vid.model.User;
 import com.vid.utils.SHA256;
 import com.vid.utils.mail.MailFactory;
@@ -74,7 +75,7 @@ public class UserService {
 
         if (SHA256.encrypt(password).equals(user.getPassword())) {
             List<Contact> contactList = contactsDao.getAllContacts(user.getId());
-            List<String> groupList = groupDao.getAllGroup(user.getId());
+            List<Group> groupList = groupDao.getAllGroup(user.getId());
 
             AllContacts allContacts = new AllContacts(user.getId(), user.getUsername(), contactList, groupList);
 
