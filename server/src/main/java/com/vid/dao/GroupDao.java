@@ -23,7 +23,7 @@ public interface GroupDao {
      * 获得分组的拥有者
      *
      * @param groupID groupID，对应id字段
-     * @return 拥有者的userID
+     * @return 拥有者的userID，若分组不存在，返回-1
      */
     int getOwner(int groupID);
 

@@ -18,18 +18,18 @@ public class Contact {
     private String group;
 
     /**
-     * 联系人系统用户名，若不是系统用户，此项为 ""
+     * userID
      */
-    private String username;
+    private int userID;
 
     public Contact() {
         /*do nothing*/
     }
 
-    public Contact(String noteName, String group, String username) {
+    public Contact(String noteName, String group, int userID) {
         this.noteName = noteName;
         this.group = group;
-        this.username = username;
+        this.userID = userID;
     }
 
     public String getNoteName() {
@@ -48,12 +48,12 @@ public class Contact {
         this.group = group;
     }
 
-    public String getUsername() {
-        return username;
+    public int getUserID() {
+        return userID;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserID(int userID) {
+        this.userID = userID;
     }
 
     @Override
@@ -61,7 +61,7 @@ public class Contact {
         return "Contact{" +
                 "noteName='" + noteName + '\'' +
                 ", group='" + group + '\'' +
-                ", username='" + username + '\'' +
+                ", userID='" + userID + '\'' +
                 '}';
     }
 }

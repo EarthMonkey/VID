@@ -13,8 +13,8 @@ public interface UserDao {
     /**
      * 新建用户
      *
-     * @param user 用户实体类，初始值仅包含三项
-     *             手机号/邮箱 + 用户名 + 密码
+     * @param user 用户实体类，初始值仅包含
+     *             手机号/邮箱 + 密码
      * @return 返回用户的id，插入失败返回 ""
      */
     String insertUser(User user);

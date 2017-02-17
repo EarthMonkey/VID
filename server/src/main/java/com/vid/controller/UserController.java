@@ -44,7 +44,7 @@ public class UserController {
     /**
      * 登录
      *
-     * @param id       邮箱/手机号/用户名
+     * @param id       邮箱/手机号
      * @param password 密码
      * @return 登录结果，包括
      * 1. 登录成功： MsgInfo{"status":true,"info":"登录成功","object": @code AllContacts}

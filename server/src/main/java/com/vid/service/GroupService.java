@@ -23,16 +23,6 @@ public class GroupService {
     @Resource
     private ContactsDao contactsDao;
 
-    private boolean hasGroupName(List<Group> groupList, String groupName) {
-        for (Group group : groupList) {
-            if (groupName.equals(group.getName())) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     /**
      * 添加分组
      *
@@ -54,42 +44,44 @@ public class GroupService {
     /**
      * 重命名分组
      *
-     * @param userID userID，对应id字段
-     * @param origin 原组名
-     * @param now    修改后的组名
+     * @param userID  userID，对应id字段
+     * @param groupID groupID
+     * @param name    修改后的组名
      */
-    public MsgInfo renameGroup(int userID, String origin, String now) {
-        List<Group> groupList = groupDao.getAllGroup(userID);
-
-        if (groupList.contains(origin)) {
-            if (groupList.contains(now)) {
-                return new MsgInfo(false, "组名已存在");
-            }
-
-            if (groupDao.renameGroup(userID, origin, now)) {
-                return new MsgInfo(true, "修改成功");
-            }
+    public MsgInfo renameGroup(int userID, int groupID, String name) {
+        if (!isOwner(userID, groupID)) {
+            return new MsgInfo(false, "分组不存在");
         }
 
-        return new MsgInfo(false, "原组不存在");
+        List<Group> groupList = groupDao.getAllGroup(userID);
+
+        if (hasGroupName(groupList, name)) {
+            return new MsgInfo(false, "已存在同名分组");
+        } else {
+            if (groupDao.renameGroup(groupID, name)) {
+                return new MsgInfo(true, "修改成功");
+            } else {
+                return new MsgInfo(false, "修改失败");
+            }
+        }
     }
 
     /**
      * 删除分组
      *
-     * @param userID    userID，对应id字段
-     * @param groupName 组名
+     * @param userID  userID，对应id字段
+     * @param groupID groupID
      */
-    public MsgInfo removeGroup(int userID, String groupName) {
-        List<String> groupList = groupDao.getAllGroup(userID);
-
-        if (groupList.contains(groupName)) {
-            if (groupDao.removeGroup(userID, groupName)) {
-                return new MsgInfo(true, "删除成功");
-            }
+    public MsgInfo removeGroup(int userID, int groupID) {
+        if (!isOwner(userID, groupID)) {
+            return new MsgInfo(false, "分组不存在");
         }
 
-        return new MsgInfo(false, "分组不存在");
+        if (groupDao.removeGroup(groupID)) {
+            return new MsgInfo(true, "删除成功");
+        } else {
+            return new MsgInfo(false, "删除失败");
+        }
     }
 
     /**
@@ -97,26 +89,24 @@ public class GroupService {
      *
      * @param userID    userID，对应id字段
      * @param contactID 联系人的userID
-     * @param groupName 组名
+     * @param groupID   groupID
      * @return 分组成功返回true，否则返回false
      */
-    public MsgInfo groupContact(int userID, int contactID, String groupName) {
+    public MsgInfo groupContact(int userID, int contactID, int groupID) {
         // 判断是否为联系人
         if (!contactsDao.isContacts(userID, contactID)) {
             return new MsgInfo(false, "非联系人");
         }
 
-        // 判断分组是否存在
-        List<String> groupList = groupDao.getAllGroup(userID);
-        if (!groupList.contains(groupName)) {
+        if (!isOwner(userID, groupID)) {
             return new MsgInfo(false, "分组不存在");
         }
 
-        if (groupDao.groupContact(userID, contactID, groupName)) {
+        if (groupDao.groupContact(userID, contactID, groupID)) {
             return new MsgInfo(true, "分组成功");
+        } else {
+            return new MsgInfo(false, "分组失败");
         }
-
-        return new MsgInfo(false, "分组失败");
     }
 
     /**
@@ -124,22 +114,22 @@ public class GroupService {
      *
      * @param userID    userID，对应id字段
      * @param contactID 联系人的userID
-     * @param origin    原分组
-     * @param target    目标分组
+     * @param origin    原分组groupID
+     * @param target    目标分组groupID
      * @return 移动成功返回true，否则返回false
      */
-    public MsgInfo moveContact(int userID, int contactID, String origin, String target) {
+    @Deprecated
+    public MsgInfo moveContact(int userID, int contactID, int origin, int target) {
         // 判断是否为联系人
         if (!contactsDao.isContacts(userID, contactID)) {
             return new MsgInfo(false, "非联系人");
         }
 
-        // 判断分组是否存在
-        List<String> groupList = groupDao.getAllGroup(userID);
-        if (!groupList.contains(origin)) {
-            return new MsgInfo(false, "原组不存在");
+        if (!isOwner(userID, origin)) {
+            return new MsgInfo(false, "原分组不存在");
         }
-        if (!groupList.contains(target)) {
+
+        if (!isOwner(userID, target)) {
             return new MsgInfo(false, "目标分组不存在");
         }
 
@@ -148,5 +138,35 @@ public class GroupService {
         }
 
         return new MsgInfo(false, "移动失败");
+    }
+
+    /**
+     * 判断用户是否有和groupName相同的分组
+     *
+     * @param groupList 分组列表
+     * @param groupName 待检验的组名
+     * @return 若存在同名，返回true，否则返回false
+     */
+    private boolean hasGroupName(List<Group> groupList, String groupName) {
+        for (Group group : groupList) {
+            if (groupName.equals(group.getName())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * 判断用户是否拥有groupID的分组
+     *
+     * @param userID  用户id
+     * @param groupID groupID
+     * @return 若是，返回true，否则返回false
+     */
+    private boolean isOwner(int userID, int groupID) {
+        int temp = groupDao.getOwner(groupID);
+
+        return temp == userID;
     }
 }
