@@ -60,4 +60,12 @@ public interface UserDao {
      * @return 设置成功返回true，否则返回false
      */
     boolean setPortraitURL(int userID, String portraitURL);
+
+    /**
+     * 判断用户账号是否激活
+     *
+     * @param userID userID，对应id字段
+     * @return 激活返回true， 否则返回false
+     */
+    boolean isActive(int userID);
 }

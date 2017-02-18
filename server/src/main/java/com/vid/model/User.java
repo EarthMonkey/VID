@@ -114,6 +114,9 @@ public class User {
         /*do nothing*/
     }
 
+    /**
+     * @param phoneNum 可能为null
+     */
     public User(String email, String phoneNum, String password, String name) {
         this.bindingemail = email;
         this.showemail = email;

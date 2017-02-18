@@ -42,6 +42,8 @@ public class UserController {
         return userService.register(email, phoneNum, password, name);
     }
 
+//    public MsgInfo activateAccount(@RequestMapping String email, String )
+
     /**
      * 登录
      *

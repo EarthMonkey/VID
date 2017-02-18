@@ -107,4 +107,9 @@ public class UserDaoImpl implements UserDao {
             return false;
         }
     }
+
+    @Override
+    public boolean isActive(int userID) {
+        return false;
+    }
 }
