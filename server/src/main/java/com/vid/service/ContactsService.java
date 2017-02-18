@@ -70,11 +70,15 @@ public class ContactsService {
             user.setIndustry(jsonObject.getString("industry"));
             user.setInterest(jsonObject.getString("interest"));
 
-            if (contactsDao.addContact(userID, noteName, user)) {
+            try {
+                contactsDao.addContact(userID, noteName, user);
                 return new MsgInfo(true, "新建成功");
-            } else {
+            }catch (Exception e){
+                e.printStackTrace();
                 return new MsgInfo(false, "新建失败");
             }
+
+
         } catch (JSONException e) {
             return new MsgInfo(false, "参数错误");
         }
