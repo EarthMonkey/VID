@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vid.mapper.ContactsMapper">
+    <!-- 这里namespace必须是UserMapper接口的路径” -->
+    <select id="getAllContacts"  resultType="Contact">
+        select relationship.notename as noteName ,friendgroup.name as group,relationship.friendid as userID from relationship
+         left outer join friendgroup  on relationship.groupid = friendgroup.id
+          where relationship.ownerid =#{0};
+    </select>
+
+    <select id="isContacts"  resultType="Relationship">
+        SELECT * FROM relationship WHERE ownerid = #{0} AND friendid = #{1}
+    </select>
+
+    <select id="getNoteName"  resultType="java.lang.String">
+        SELECT notename FROM relationship WHERE ownerid = #{0} AND friendid = #{1}  LIMIT 1
+    </select>
+
+    <select id="getAllVideos"  resultType="Video">
+       select vd.id as id  ,vd.ownerid as ownerid ,vd.name as name ,vd.size as size ,vd.url as url from video vd,
+       (select videoid from relationship where ownerid = #{0} and friendid = #{1}) re where re.videoid = vd.id;
+    </select>
+
+    <insert id="addContact">
+        INSERT INTO relationship (ownerid,friendid,notename,notetelephone,noteindustry,noteinterest,noteemail)
+        VALUES (#{0},#{2},#{1,jdbcType=VARCHAR},#{3,jdbcType=VARCHAR},#{6,jdbcType=VARCHAR},
+        #{4,jdbcType=VARCHAR},#{5,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="addContactWithVideo">
+        INSERT INTO relationship (ownerid,friendid,notename,notetelephone,noteindustry,noteinterest,noteemail,videoid)
+        VALUES (#{0},#{2},#{1,jdbcType=VARCHAR},#{3,jdbcType=VARCHAR},#{6,jdbcType=VARCHAR},
+        #{4,jdbcType=VARCHAR},#{5,jdbcType=VARCHAR},#{7,jdbcType=INTEGER})
+    </insert>
+
+    <update id="editContactProfile">
+        UPDATE relationship SET notename = #{2,jdbcType=VARCHAR},notetelephone = #{3,jdbcType=VARCHAR},noteemail = #{4,jdbcType=VARCHAR},noteindustry = #{5,jdbcType=VARCHAR},noteinterest = #{6,jdbcType=VARCHAR} WHERE ownerid = #{0} AND friendid = #{1}
+    </update>
+
+    <delete id="removeContact">
+        DELETE  FROM relationship WHERE ownerid = #{0} AND friendid = #{1}
+    </delete>
+</mapper>

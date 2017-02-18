@@ -1,6 +1,7 @@
 package com.vid.dao;
 
 import com.vid.model.Contact;
+import com.vid.model.Relationship;
 import com.vid.model.User;
 import com.vid.model.Video;
 import org.springframework.stereotype.Service;
@@ -62,7 +63,7 @@ public interface ContactsDao {
      * @param user     联系人对象，id、username、name等为null
      * @return 添加成功返回true，否则返回false
      */
-    boolean addContact(int userID, String noteName, User user);
+    boolean addContact(int userID, String noteName, User user) throws Exception;
 
     /**
      * 通过扫描视频添加联系人，联系人已经是系统用户
