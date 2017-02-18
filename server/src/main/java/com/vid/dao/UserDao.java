@@ -68,4 +68,13 @@ public interface UserDao {
      * @return 激活返回true， 否则返回false
      */
     boolean isActive(int userID);
+
+    /**
+     * 判断用户账号是否激活
+     *
+     * @param userID userID，对应id字段
+     * @return 激活返回true， 否则返回false
+     */
+    boolean activateAccount(int userID);
+
 }

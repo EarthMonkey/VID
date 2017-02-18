@@ -11,3 +11,5 @@ server/src/main/resources/db.properties
 server/src/main/java/com/vid/controller/TestController.java
 
 server/src/test/com/vid/model/Test.java
+
+server/src/test/com/vid/model/DaoTest.java

@@ -13,6 +13,21 @@ public class Group {
     String name;
 
 
+    public Group() {
+    }
+
+
+    public Group(int userid, String name){
+        this.userid = userid;
+        this.name = name;
+    }
+
+    public Group(int id, int userid, String name) {
+        this.id = id;
+        this.userid = userid;
+        this.name = name;
+    }
+
     public int getId() {
         return id;
     }

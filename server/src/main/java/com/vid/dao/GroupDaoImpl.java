@@ -1,8 +1,11 @@
 package com.vid.dao;
 
+import com.vid.mapper.GroupMapper;
 import com.vid.model.Group;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,43 +15,116 @@ import java.util.List;
  */
 @Repository
 public class GroupDaoImpl implements GroupDao {
+
+    @Resource
+    GroupMapper groupMapper;
+
     @Override
     public List<Group> getAllGroup(int userID) {
-        return null;
+
+        try {
+        return groupMapper.getAllGroup(userID);
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ArrayList<Group>();
+        }
+
     }
 
     @Override
     public int getOwner(int groupID) {
-        return 0;
+
+        try {
+            return groupMapper.getOwner(groupID);
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return -1;
+        }
+
     }
 
     @Override
     public Group getGroup(int userID, int contactID) {
-        return null;
+
+        try {
+            return groupMapper.getGroup(userID,contactID);
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
     public int addGroup(int userID, String groupName) {
-        return 0;
+        Group g = new Group(userID,groupName);
+        try {
+            if (groupMapper.addGroup(g)>0)
+                return g.getId();
+            else
+                return -1;
+        }catch (Exception e){
+            e.printStackTrace();
+            return -1;
+        }
+
     }
 
     @Override
     public boolean renameGroup(int groupID, String name) {
-        return false;
+
+        try {
+            if (groupMapper.renameGroup(groupID, name)>0)
+                return true;
+            else
+                return false;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
     public boolean removeGroup(int groupID) {
-        return false;
+        try {
+            if (groupMapper.removeGroup(groupID)>0)
+                return true;
+            else
+                return false;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+
     }
 
     @Override
     public boolean groupContact(int userID, int contactID, int groupID) {
-        return false;
+
+
+        try {
+            if (groupMapper.groupContact(userID, contactID, groupID)>0)
+                return true;
+            else
+                return false;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
     public boolean moveContact(int userID, int contactID, int origin, int target) {
-        return false;
+        try {
+            if (groupMapper.moveContact(userID, contactID, origin, target)>0)
+                return true;
+            else
+                return false;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
     }
 }

@@ -41,7 +41,7 @@ public interface GroupDao {
      *
      * @param userID    userID，对应id字段
      * @param groupName 组名
-     * @return groupID
+     * @return groupID 错误返回-1
      */
     int addGroup(int userID, String groupName);
 

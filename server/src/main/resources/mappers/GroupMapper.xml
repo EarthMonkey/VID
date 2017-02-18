@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vid.mapper.GroupMapper">
+    <select id="getAllGroup"  resultType="Group">
+        SELECT  g.id as id ,g.ownerid as userid,g.name as name FROM friendgroup g where ownerid = #{0}
+    </select>
+
+    <select id="getOwner"  resultType="java.lang.Integer">
+        SELECT ownerid FROM friendgroup where id = #{0}
+    </select>
+
+
+    <select id="getGroup"  resultType="Group">
+        SELECT g.id as id ,g.ownerid as userid,g.name as name FROM friendgroup g ,(select groupid from relationship where ownerid = #{0} AND friendid = #{1} LIMIT 1)r
+        WHERE g.id = r.groupid
+    </select>
+
+    <insert id="addGroup" parameterType="Group" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO friendgroup (ownerid,name) VALUE (#{userid},#{name})
+    </insert>
+
+    <update id="renameGroup">
+        UPDATE friendgroup SET name = #{1} WHERE id = #{0}
+    </update>
+
+    <delete id="removeGroup">
+        DELETE FROM friendgroup WHERE id = #{0}
+    </delete>
+
+    <update id="groupContact">
+        UPDATE relationship SET groupid = #{2} WHERE ownerid = #{0} AND friendid = #{1}
+    </update>
+
+    <update id="moveContact">
+        UPDATE relationship SET groupid = #{3} WHERE ownerid = #{0} AND friendid = #{1} AND groupid = #{2}
+    </update>
+</mapper>

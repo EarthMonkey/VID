@@ -23,4 +23,8 @@ public interface UserMapper {
     public User getUserById(int userID);
 
     public int setPortraitURL(int userID,String portraitURL);
+
+    public int isActive(int userID);
+
+    public int activateAccount(int userID);
 }

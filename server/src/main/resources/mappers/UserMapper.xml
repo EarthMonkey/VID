@@ -45,4 +45,13 @@
     <update id="setPortraitURL">
         UPDATE user SET imgpath = #{1} WHERE id = #{0}
     </update>
+
+
+    <select id="isActive"  resultType="java.lang.Integer">
+        SELECT state FROM user where id = #{0}
+    </select>
+
+    <update id="activateAccount">
+        UPDATE user SET  state = 1 WHERE id = #{0}
+    </update>
 </mapper>

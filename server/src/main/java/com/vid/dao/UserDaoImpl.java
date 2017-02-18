@@ -110,6 +110,29 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public boolean isActive(int userID) {
-        return false;
+
+        try{
+            if (userMapper.isActive(userID)==0)
+                return false;
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
+    @Override
+    public boolean activateAccount(int userID) {
+
+
+        try{
+            if (userMapper.activateAccount(userID)>0)
+                return true;
+            return false;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
     }
 }

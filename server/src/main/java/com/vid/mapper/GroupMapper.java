@@ -1,5 +1,7 @@
 package com.vid.mapper;
 
+import com.vid.model.Group;
+
 import java.util.List;
 
 /**
@@ -10,16 +12,21 @@ import java.util.List;
 
 public interface GroupMapper {
 
-    public List<String> getAllGroup(int userID);
+    public List<Group> getAllGroup(int userID);
 
-    String getGroup(int userID, int contactID);
+    public int getOwner(int groupID);
 
-    int addGroup(int userID, String groupName);
+    public Group getGroup(int userID, int contactID);
 
-    int renameGroup(int userID, String origin, String now);
+    public int addGroup(Group group);
 
-    int removeGroup(int userID, String groupName);
+    public int renameGroup(int groupID, String name);
 
+    public int removeGroup(int groupID);
+
+    public int groupContact(int userID, int contactID, int groupID);
+
+    public int moveContact(int userID, int contactID, int origin, int target);
 
 
 }
