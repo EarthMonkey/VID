@@ -40,19 +40,20 @@ public class UserService {
     /**
      * 用户注册
      *
-     * @param id       用户注册时使用的手机号或邮箱
+     * @param email    邮箱
+     * @param phoneNum 电话，可能为null
      * @param password 密码
      * @param name     用户名
      * @return 注册结果
      */
-    public MsgInfo register(String id, String password, String name) {
-        User user = userDao.getUser(id);
+    public MsgInfo register(String email, String phoneNum, String password, String name) {
+        User user = userDao.getUser(email);
 
         if (user != null) {
             return new MsgInfo(false, "用户名已存在");
         }
 
-        if (!"".equals(userDao.insertUser(new User(id, SHA256.encrypt(password), name)))) {
+        if (!"".equals(userDao.insertUser(new User(email, phoneNum, SHA256.encrypt(password), name)))) {
             return new MsgInfo(true, "注册成功");
         } else {
             return new MsgInfo(false, "注册失败");
@@ -77,7 +78,7 @@ public class UserService {
             List<Contact> contactList = contactsDao.getAllContacts(user.getId());
             List<Group> groupList = groupDao.getAllGroup(user.getId());
 
-            AllContacts allContacts = new AllContacts(user.getId(), user.getUsername(), contactList, groupList);
+            AllContacts allContacts = new AllContacts(user.getId(), user.getName(), contactList, groupList);
 
             return new MsgInfo(true, "登录成功", allContacts);
         } else {
@@ -101,7 +102,7 @@ public class UserService {
         String random = SHA256.encrypt(new Random().nextLong() + "");
 
         // 由于需要传userID和random，所以临时使用MsgInfo.info进行传值
-        if (MailFactory.findPass(user.getBindingemail(), user.getId(), user.getUsername(), random)) {
+        if (MailFactory.findPass(user.getBindingemail(), user.getId(), user.getName(), random)) {
             return new MsgInfo(true, "" + user.getId(), random);
         } else {
             return new MsgInfo(false, "邮件发送失败");

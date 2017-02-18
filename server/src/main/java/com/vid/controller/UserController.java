@@ -28,7 +28,8 @@ public class UserController {
     /**
      * 注册
      *
-     * @param id       邮箱/手机号
+     * @param email    邮箱
+     * @param phoneNum 手机号，可选
      * @param password 密码
      * @param name     用户名
      * @return 注册结果，包括
@@ -37,8 +38,8 @@ public class UserController {
      */
     @RequestMapping(value = "/register")
     @ResponseBody
-    public MsgInfo register(@RequestParam String id, @RequestParam String password, @RequestParam String name) {
-        return userService.register(id, password, name);
+    public MsgInfo register(@RequestParam String email, String phoneNum, @RequestParam String password, @RequestParam String name) {
+        return userService.register(email, phoneNum, password, name);
     }
 
     /**

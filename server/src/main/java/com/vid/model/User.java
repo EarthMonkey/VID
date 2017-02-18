@@ -9,8 +9,6 @@ package com.vid.model;
 public class User {
     private  int id;
 
-    private String username;
-
     //用户昵称
     private String name;
 //    密码
@@ -54,14 +52,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getImgpath() {
@@ -121,10 +111,14 @@ public class User {
     }
 
     public User() {
+        /*do nothing*/
     }
 
-    public User(String username, String password, String name) {
-        this.username = username;
+    public User(String email, String phoneNum, String password, String name) {
+        this.bindingemail = email;
+        this.showemail = email;
+        this.bindingtelephone = phoneNum;
+        this.showtelephone = phoneNum;
         this.password = password;
         this.name = name;
     }

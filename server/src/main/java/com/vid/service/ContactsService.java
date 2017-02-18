@@ -39,10 +39,16 @@ public class ContactsService {
      * @param userID userID，对应id字段
      */
     public MsgInfo getAllContacts(int userID) {
+        User user = userDao.getUserByID(userID);
+
+        if (user == null) {
+            return new MsgInfo(false, "用户不存在");
+        }
+
         List<Contact> contactList = contactsDao.getAllContacts(userID);
         List<Group> groupList = groupDao.getAllGroup(userID);
 
-        AllContacts allContacts = new AllContacts(userID, contactList, groupList);
+        AllContacts allContacts = new AllContacts(userID, user.getName(), contactList, groupList);
 
         return new MsgInfo(true, "", allContacts);
     }

@@ -19,9 +19,9 @@ public class AllContacts {
     private int userID;
 
     /**
-     * 系统用户名
+     * 用户姓名
      */
-    private String username;
+    private String name;
 
     /**
      * 用户所有分组组名列表
@@ -84,13 +84,9 @@ public class AllContacts {
         }
     }
 
-    public AllContacts(int userID, List<Contact> contactList, List<Group> groupList) {
-        this(userID, "", contactList, groupList);
-    }
-
-    public AllContacts(int userID, String userName, List<Contact> contactList, List<Group> groupList) {
+    public AllContacts(int userID, String name, List<Contact> contactList, List<Group> groupList) {
         this.userID = userID;
-        this.username = userName;
+        this.name = name;
         this.groupList = groupList;
 
         // 初始化
@@ -107,12 +103,12 @@ public class AllContacts {
         this.userID = userID;
     }
 
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return name;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public List<Group> getGroupList() {
@@ -135,7 +131,7 @@ public class AllContacts {
     public String toString() {
         return "AllContacts{" +
                 "userID=" + userID +
-                ", username='" + username + '\'' +
+                ", name='" + name + '\'' +
                 ", groupList=" + groupList +
                 ", contacts=" + Arrays.toString(contacts) +
                 '}';

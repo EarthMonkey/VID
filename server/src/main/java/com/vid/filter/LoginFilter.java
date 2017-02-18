@@ -79,7 +79,7 @@ public class LoginFilter implements Filter {
     private void injectUser(HttpServletRequest request) {
         HttpSession session = request.getSession();
 
-        User user = new User("username", "password", "tom");
+        User user = new User("username",  "", "password", "tom");
         session.setAttribute("user", user);
         session.setAttribute("username", "username");
     }
