@@ -5,6 +5,8 @@
 var last_contact_click = null;
 
 window.onload = function () {
+    $(".contacts_list").css("height", document.body.offsetHeight - 50);
+    $(".contact_detail").css("height", document.body.offsetHeight - 50);
     addIndex();
     initContacts();
     getVideos();
@@ -61,7 +63,8 @@ function addIndex() {
     parent.appendChild(diva);
 
     $(".contacts_list").on('scroll', function () {
-        parent.style.top = 90 + $(".contacts_list").scrollTop() + "px";
+
+        parent.style.top = 80 + $(".contacts_list").scrollTop() + "px";
     });
 }
 
@@ -346,4 +349,43 @@ function slideRight() {
             }, 300);
         });
     }
+}
+
+// 修改联系人详细信息
+function modDetail(node) {
+
+    if ($(node).html() == "取消") {
+        $("#detailMod").hide();
+        $("#detail").show();
+        $(node).html("编辑");
+        return;
+    }
+
+    $(node).html("取消");
+    $("#detail").hide();
+    $("#detailMod").show();
+
+    var inputs = $("#detailMod").find("input");
+    inputs[0].value = $("#detail").find(".contact_name").html();
+    var spans = $("#detail").find("span");
+    for (var i = 0; i < spans.length; i++) {
+        inputs[i + 1].value = spans[i].innerHTML;
+    }
+
+    // 视频
+}
+
+// 修改完成
+function comDetailMod() {
+
+    var inputs = $("#detailMod").find("input");
+    $("#detail").find(".contact_name").html(inputs[0].value);
+    var spans = $("#detail").find("span");
+    for (var i = 0; i < spans.length; i++) {
+        spans[i].innerHTML = inputs[i + 1].value;
+    }
+
+    $("#detailMod").hide();
+    $("#detail").show();
+    $("#detail_part").find(".edit_btn").html("编辑");
 }

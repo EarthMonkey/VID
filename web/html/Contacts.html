@@ -130,7 +130,7 @@
     <div id="detail_part" class="contact_detail">
 
         <div class="each_group first_bottom">
-            <div class="edit_btn">编辑</div>
+            <div class="edit_btn" onclick="modDetail(this);">编辑</div>
         </div>
 
         <div id="detail">
@@ -164,6 +164,48 @@
 
             </div>
         </div>
+
+        <div id="detailMod" style="display: none;">
+            <div class="photo_mod">
+                添加照片
+            </div>
+
+            <div class="info_mod">
+                <input class="info_field" type="text" placeholder="姓名">
+                <input class="info_field" type="text" placeholder="备注">
+                <input class="info_field" type="text" placeholder="电话">
+                <input class="info_field" type="text" placeholder="邮箱">
+            </div>
+
+            <div>
+
+                <div id="videosMod">
+                    <div id="vidMod_copy" >
+                        <div class="del_btn">
+                            <hr>
+                        </div>
+                        <div class="video_name_field">
+                            <input class="info_field" type="text" placeholder="视频名称">
+                        </div>
+                        <div class="video_div" style="height: auto;">
+                            <div class="enlarge_btn" onclick="enlarge(this);">放大</div>
+                            <video poster="../image/video_poster.png" controls preload>
+                                <source src="https://media.html5media.info/video.iphone.mp4">
+                            </video>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- 删除,完成 -->
+                <div class="bottom_div">
+                    <div class="del_contact">删除该联系人</div>
+                    <div class="com_contact" onclick="comDetailMod()">完成</div>
+                </div>
+            </div>
+
+        </div>
+
     </div>
 </div>
 

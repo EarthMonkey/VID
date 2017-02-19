@@ -8055,7 +8055,7 @@
                         if ( s.username ) {
                             xhr.open( s.type, s.url, s.async, s.username, s.password );
                         } else {
-                            xhr.open( s.type, s.url, s.async );
+                            // xhr.open( s.type, s.url, s.async );
                         }
 
                         // Apply custom fields if provided

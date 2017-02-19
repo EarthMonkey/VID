@@ -95,7 +95,7 @@ html, body {
     height: 100%;
     background-color: #f9f9f9;
     border-right: 1px solid #d4d6d6;
-    margin-left: -4px;
+    margin-left: -7px;
     display: inline-block;
     vertical-align: top;
     overflow-x: hidden;
@@ -214,8 +214,8 @@ html, body {
 .edit_btn {
     color: #1981fb;
     font-size: 20px;
-    font-family: "Microsoft Sans Serif", serif;
-    font-weight: lighter;
+    font-family: "Microsoft Sans Serif", "PingFang SC", serif;
+    font-weight: 300;
     display: inline;
     cursor: pointer;
 }
@@ -496,7 +496,121 @@ html, body {
 }
 
 @media screen and (max-width: 500px) {
-    .each_group i{
+    .each_group i {
         display: none;
     }
+}
+
+/* 编辑联系人 */
+.photo_mod {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 1px solid #d9d9d9;
+    text-align: center;
+    line-height: 90px;
+    font-size: 18px;
+    font-family: "PingFang SC", serif;
+    font-weight: 300;
+    color: #7db7fb;
+    margin-left: 60px;
+    margin-top: 30px;
+    display: inline-block;
+    vertical-align: top;
+    cursor: pointer;
+}
+
+.info_mod {
+    vertical-align: top;
+    display: inline-block;
+    margin-top: 50px;
+    margin-left: 40px;
+}
+
+.info_field {
+    width: 260px;
+    height: 30px;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    padding-left: 5px;
+    font-size: 16px;
+    font-family: "PingFang SC", serif;
+    font-weight: 300;
+    outline: none;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+    margin-bottom: 15px;
+}
+
+.info_field:focus,
+.info_field:hover {
+    border-color: #2283f7;
+    -webkit-box-shadow: 0 0 4px #6ba8f2;
+    -moz-box-shadow: 0 0 4px #6ba8f2;
+    box-shadow: 0 0 4px #6ba8f2;
+}
+
+.del_btn {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #fc3d39;
+    display: inline-block;
+    vertical-align: top;
+    cursor: pointer;
+}
+
+.del_btn hr {
+    width: 10px;
+    border: 1px solid #fff;
+    position: relative;
+    top: 1px;
+}
+
+.video_name_field {
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 55px;
+}
+
+.video_name_field .info_field {
+    width: 80px;
+}
+
+#videosMod {
+    padding-left: 26px;
+    margin-top: 30px;
+}
+
+.bottom_div {
+    width: 100%;
+    height: 50px;
+    border-top: 1px solid #d9d9d9;
+    border-bottom: 1px solid #d9d9d9;
+    margin-top: 30px;
+    position: relative;
+}
+
+.del_contact {
+    width: 135px;
+    font-size: 22px;
+    color: #f53e3f;
+    line-height: 50px;
+    font-family: "PingFang SC", serif;
+    font-weight: 300;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.com_contact {
+    font-size: 22px;
+    line-height: 50px;
+    font-family: "PingFang SC", serif;
+    color: #2283f7;
+    position: absolute;
+    right: 20px;
+    bottom: 0;
+    cursor: pointer;
 }
