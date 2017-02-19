@@ -47,16 +47,37 @@ public class UserService {
      * @return 注册结果
      */
     public MsgInfo register(String email, String phoneNum, String password, String name) {
-        User user = userDao.getUser(email);
+        User temp = userDao.getUser(email);
 
-        if (user != null) {
+        if (temp != null) {
             return new MsgInfo(false, "用户名已存在");
         }
 
-        if (!"".equals(userDao.insertUser(new User(email, phoneNum, SHA256.encrypt(password), name)))) {
-            return new MsgInfo(true, "注册成功");
+        int userID = userDao.insertUser(new User(email, phoneNum, SHA256.encrypt(password), name));
+
+        if (userID != -1) {
+            User user = userDao.getUserByID(userID);
+
+            String random = SHA256.encrypt(new Random().nextLong() + "");
+
+            if (MailFactory.activateAccount(email, userID, user.getName(), random)) {
+                return new MsgInfo(true, random, userID);
+            }
+        }
+
+        return new MsgInfo(false, "注册失败");
+    }
+
+    /**
+     * 激活账户
+     *
+     * @param userID userID
+     */
+    public MsgInfo activateAccount(int userID) {
+        if (userDao.activateAccount(userID)) {
+            return new MsgInfo(true, "激活成功");
         } else {
-            return new MsgInfo(false, "注册失败");
+            return new MsgInfo(false, "激活失败");
         }
     }
 
@@ -75,6 +96,10 @@ public class UserService {
         }
 
         if (SHA256.encrypt(password).equals(user.getPassword())) {
+            if (!userDao.isActive(user.getId())) {
+                return new MsgInfo(false, "账户未激活", user.getBindingemail());
+            }
+
             List<Contact> contactList = contactsDao.getAllContacts(user.getId());
             List<Group> groupList = groupDao.getAllGroup(user.getId());
 

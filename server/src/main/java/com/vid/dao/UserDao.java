@@ -15,9 +15,9 @@ public interface UserDao {
      *
      * @param user 用户实体类，初始值仅包含
      *             手机号/邮箱 + 密码
-     * @return 返回用户的id，插入失败返回 ""
+     * @return 返回用户的id，插入失败返回 -1
      */
-    String insertUser(User user);
+    int insertUser(User user);
 
     /**
      * 更新用户信息
@@ -70,11 +70,10 @@ public interface UserDao {
     boolean isActive(int userID);
 
     /**
-     * 判断用户账号是否激活
+     * 激活账户
      *
      * @param userID userID，对应id字段
      * @return 激活返回true， 否则返回false
      */
     boolean activateAccount(int userID);
-
 }

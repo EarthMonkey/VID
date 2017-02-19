@@ -73,12 +73,13 @@ public class MailFactory {
      * 发送激活账户邮件
      *
      * @param mail   收件人邮箱
+     * @param userID 用户id，用于链接识别
      * @param random 随机数，用于链接识别
      * @return 发送成功返回true，否则返回false
      */
-    public static boolean activateAccount(final String mail, final String random) {
+    public static boolean activateAccount(String mail, int userID, String userName, final String random) {
         Date date = new Date();
-        String content = String.format(activateContent, mail, random, date, date);
+        String content = String.format(activateContent, userName, userID, random, date, date);
 
         return MailHelper.sendHtmlMail(mail, activateSubject, content);
     }
@@ -118,7 +119,7 @@ public class MailFactory {
     }
 
     public static void main(String[] args) {
-        System.out.println(activateAccount("141250111@smail.nju.edu.cn", "123123"));
-        System.out.println(verifyMail("141250111@smail.nju.edu.cn", 141, "bedisdover", "123"));
+        System.out.println(activateAccount("141250111@smail.nju.edu.cn", 141250, "bedisdover", "123123"));
+//        System.out.println(verifyMail("141250111@smail.nju.edu.cn", 141, "bedisdover", "123"));
     }
 }

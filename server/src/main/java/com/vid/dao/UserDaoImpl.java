@@ -22,15 +22,15 @@ public class UserDaoImpl implements UserDao {
     UserMapper userMapper;
 
     @Override
-    public String insertUser(User user) {
+    public int insertUser(User user) {
         try {
             if (userMapper.insertUser(user) > 0)
-                return user.getId() + "";
+                return user.getId();
             else
-                return "";
+                return -1;
         } catch (Exception e) {
             e.printStackTrace();
-            return "";
+            return -1;
         }
 
     }
