@@ -4271,4 +4271,3 @@
         }))
     }(a, this)
 });
-//# sourceMappingURL=jquery.mobile-1.4.5.min.map

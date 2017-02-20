@@ -145,12 +145,16 @@ body, html {
 
 @media screen and (max-width: 990px) {
     .part_three {
-        padding-top: 10px;
-        padding-bottom: 10px;
+        padding-top: 0;
+        padding-bottom: 20px;
     }
 
     .ads_div {
-        margin-top: -20px;
+        margin-top: -25px;
+    }
+
+    .ad_detail {
+        margin-top: 5px;
     }
 
     .each_ad {
@@ -159,7 +163,7 @@ body, html {
 
     .ad_dot {
         display: inherit;
-        margin: 10px auto;
+        margin: -7px auto;
     }
 
     .pre_detail {

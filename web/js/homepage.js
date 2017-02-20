@@ -45,6 +45,7 @@ function slideCheck() {
 
     $(".part_three").on("swipeleft", function () {
         if ($(".ad_dot").css("display") != "none" && (LAST_AD + 1) < 5) {
+            // alert(LAST_AD)
             changeAd(LAST_AD + 1);
         }
     });

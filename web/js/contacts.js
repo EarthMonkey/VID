@@ -6,7 +6,8 @@ var last_contact_click = null;
 
 window.onload = function () {
     $(".contacts_list").css("height", document.body.offsetHeight - 50);
-    $(".contact_detail").css("height", document.body.offsetHeight - 50);
+    $("#left_part").css("height", document.body.offsetHeight - 50);
+    $("#mine").css("height", document.body.offsetHeight - 50);
     addIndex();
     initContacts();
     getVideos();
@@ -388,4 +389,9 @@ function comDetailMod() {
     $("#detailMod").hide();
     $("#detail").show();
     $("#detail_part").find(".edit_btn").html("编辑");
+}
+
+// 删除联系人
+function delContact() {
+    
 }
