@@ -328,6 +328,7 @@ function slideRight() {
 
     for (var i = 0; i < groups.length; i++) {
         swipeListener(groups[i]);
+        mouseSwiper(groups[i]);
     }
 }
 

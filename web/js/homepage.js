@@ -19,6 +19,8 @@ function changeDot(index) {
 }
 
 var LAST_AD = 0;
+var LEFT_ABLE = 0;
+var RIGHT_ABLE = 0;
 function changeAd(index) {
     var ads = $(".each_ad");
     var dots = $(".ad_dot").find(".each_dot");
@@ -43,15 +45,20 @@ function slideCheck() {
         changeDot(0);
     });
 
-    $(".part_three").on("swipeleft", function () {
+    $(".part_three").bind("swipeleft", function () {
         if ($(".ad_dot").css("display") != "none" && (LAST_AD + 1) < 5) {
-            // alert(LAST_AD)
-            changeAd(LAST_AD + 1);
+            LEFT_ABLE = (LEFT_ABLE + 1) % 2;
+            if (LEFT_ABLE == 1) {
+                changeAd(LAST_AD + 1);
+            }
         }
     });
     $(".part_three").on("swiperight", function () {
         if ($(".ad_dot").css("display") != "none" && (LAST_AD - 1) > -1) {
-            changeAd(LAST_AD - 1);
+            RIGHT_ABLE = (RIGHT_ABLE + 1) % 2;
+            if (RIGHT_ABLE == 1) {
+                changeAd(LAST_AD - 1);
+            }
         }
     });
 }
