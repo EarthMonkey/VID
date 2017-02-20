@@ -5,9 +5,6 @@
 var last_contact_click = null;
 
 window.onload = function () {
-    $(".contacts_list").css("height", document.body.offsetHeight - 50);
-    $("#left_part").css("height", document.body.offsetHeight - 50);
-    $("#mine").css("height", document.body.offsetHeight - 50);
     addIndex();
     initContacts();
     getVideos();
@@ -330,25 +327,7 @@ function slideRight() {
     var groups = $("#lbls").find(".each_group");
 
     for (var i = 0; i < groups.length; i++) {
-        $(groups[i]).on("swiperight", function () {
-            var tagI = $(this).find("i");
-            $(tagI[0]).animate({
-                width: "show"
-            }, 500);
-            $(tagI[1]).animate({
-                width: "show"
-            }, 500);
-        });
-
-        $(groups[i]).on("swipeleft", function () {
-            var tagI = $(this).find("i");
-            $(tagI[0]).animate({
-                width: "hide"
-            }, 300);
-            $(tagI[1]).animate({
-                width: "hide"
-            }, 300);
-        });
+        swipeListener(groups[i]);
     }
 }
 
