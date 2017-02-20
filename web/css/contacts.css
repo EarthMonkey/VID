@@ -531,6 +531,7 @@ html, body {
     display: inline-block;
     margin-top: 50px;
     margin-left: 40px;
+    width: 260px;
 }
 
 .info_field {

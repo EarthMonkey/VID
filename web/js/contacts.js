@@ -332,6 +332,9 @@ function slideRight() {
     }
 }
 
+var DELETE_QUEUE = [];
+var DELETE_INDEX = 0;
+
 // 修改联系人详细信息
 function modDetail(node) {
 
@@ -339,6 +342,10 @@ function modDetail(node) {
         $("#detailMod").hide();
         $("#detail").show();
         $(node).html("编辑");
+        clearVideoMod();
+        DELETE_INDEX = 0;
+        DELETE_QUEUE = [];
+
         return;
     }
 
@@ -354,11 +361,30 @@ function modDetail(node) {
     }
 
     // 视频
+    var videoParent = $("#videosMod");
+    var videoCopy = $("#vidMod_copy");
+    var videos = $("#videos").find(".video_div");
+    for (var i = 1; i < videos.length; i++) {
+        var div = $("<div></div>");
+        div.html(videoCopy.html());
+        div.find("source").attr("src", $(videos[i]).find("source").attr("src"));
+        div.find("input").val($(videos[i]).find(".video_name").html());
+
+        var delBtn = div.find(".del_btn");
+        delBtn.click(function () {
+            DELETE_QUEUE[DELETE_INDEX] = $("#videosMod").find("input").index($(this.parentNode).find("input"));
+            DELETE_INDEX++;
+            $(this.parentNode).hide();
+        });
+
+        videoParent.append(div);
+    }
 }
 
 // 修改完成
 function comDetailMod() {
 
+    // 修改信息
     var inputs = $("#detailMod").find("input");
     $("#detail").find(".contact_name").html(inputs[0].value);
     var spans = $("#detail").find("span");
@@ -366,6 +392,21 @@ function comDetailMod() {
         spans[i].innerHTML = inputs[i + 1].value;
     }
 
+    // 修改视频名称
+    var videoMods = $("#videosMod").find("input");
+    var videoNames = $("#videos").find(".video_div").find(".video_name");
+    for (var i = 1; i < videoMods.length; i++) {
+        $(videoNames[i]).html($(videoMods[i]).val());
+    }
+
+    // 删除视频
+    for (var i = 0; i < DELETE_INDEX; i++) {
+        $($("#videos").find(".video_div")[DELETE_QUEUE[i]]).remove();
+    }
+
+    DELETE_INDEX = 0;
+    DELETE_QUEUE = [];
+    clearVideoMod();
     $("#detailMod").hide();
     $("#detail").show();
     $("#detail_part").find(".edit_btn").html("编辑");
@@ -373,5 +414,15 @@ function comDetailMod() {
 
 // 删除联系人
 function delContact() {
-    
+
+    DELETE_INDEX = 0;
+    DELETE_QUEUE = [];
+}
+
+// 清空div
+function clearVideoMod() {
+    var videoMods = $("#videosMod").find(".del_btn");
+    for (var i = 1; i < videoMods.length; i++) {
+        $(videoMods[i].parentNode).remove();
+    }
 }

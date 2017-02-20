@@ -165,7 +165,7 @@
             </div>
         </div>
 
-        <div id="detailMod" style="display: none;">
+        <div id="detailMod" style="display: none; padding-bottom: 50px;">
             <div class="photo_mod">
                 添加照片
             </div>
@@ -178,9 +178,8 @@
             </div>
 
             <div>
-
                 <div id="videosMod">
-                    <div id="vidMod_copy" >
+                    <div id="vidMod_copy" style="display: none;">
                         <div class="del_btn">
                             <hr>
                         </div>
@@ -189,17 +188,16 @@
                         </div>
                         <div class="video_div" style="height: auto;">
                             <div class="enlarge_btn" onclick="enlarge(this);">放大</div>
-                            <video poster="../image/video_poster.png" controls preload>
-                                <source src="https://media.html5media.info/video.iphone.mp4">
+                            <video poster="../image/video_poster.png" controls preload="none">
+                                <source src="">
                             </video>
                         </div>
                     </div>
-
                 </div>
 
                 <!-- 删除,完成 -->
                 <div class="bottom_div">
-                    <div class="del_contact">删除该联系人</div>
+                    <div class="del_contact" onclick="delContact()">删除该联系人</div>
                     <div class="com_contact" onclick="comDetailMod()">完成</div>
                 </div>
             </div>
