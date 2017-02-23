@@ -52,7 +52,7 @@ function login() {
 
 // 注册
 function register() {
-    
+
     var email_field = $(".textfield")[0];
     var email = email_field.value;
     if (email == "") {
@@ -97,10 +97,30 @@ function register() {
         return;
     }
 
-    err_lbl.innerHTML = "邮箱或手机无效";
-    email_field.parentNode.appendChild(err_lbl);
-    $(email_field).focus(function () {
-        this.parentNode.removeChild(err_lbl);
+    $.ajax({
+        url: "/register",
+        async: true,
+        data: {
+            "email": email,
+            "phoneNum": "",
+            "password": pwd,
+            "name": name
+        },
+        dataType: "json",
+        success: function () {
+
+            alert("a");
+
+            // err_lbl.innerHTML = "邮箱或手机无效";
+            // email_field.parentNode.appendChild(err_lbl);
+            // $(email_field).focus(function () {
+            //     this.parentNode.removeChild(err_lbl);
+            // });
+
+        },
+        error: function () {
+            alert("连通失败")
+        }
     });
 
 }
