@@ -98,15 +98,15 @@ function register() {
     }
 
     $.ajax({
-        url: "/register",
-        async: true,
+        type: "post",
+        url: "http://115.28.210.167:8080/VID/register",
+        async: false,
         data: {
             "email": email,
             "phoneNum": "",
             "password": pwd,
             "name": name
         },
-        dataType: "json",
         success: function () {
 
             alert("a");
