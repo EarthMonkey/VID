@@ -135,4 +135,9 @@ public class UserDaoImpl implements UserDao {
             return false;
         }
     }
+
+    @Override
+    public boolean removeUser(int userID) {
+        return false;
+    }
 }

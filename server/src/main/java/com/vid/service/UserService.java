@@ -60,11 +60,17 @@ public class UserService {
             String random = SHA256.encrypt(new Random().nextLong() + "");
 
             if (MailFactory.activateAccount(email, userID, name, random)) {
+                // 临时传输random和userID，controller中返回客户端前进行处理
                 return new MsgInfo(true, random, userID);
+            } else {
+                // 邮件发送失败后，删除用户
+                userDao.removeUser(userID);
+
+                return new MsgInfo(false, "无效的邮箱地址");
             }
         }
 
-        return new MsgInfo(false, "无效的邮箱地址");
+        return new MsgInfo(false, "注册失败");
     }
 
     /**

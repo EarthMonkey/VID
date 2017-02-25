@@ -76,4 +76,12 @@ public interface UserDao {
      * @return 激活返回true， 否则返回false
      */
     boolean activateAccount(int userID);
+
+    /**
+     * 删除用户
+     *
+     * @param userID userID，对应id字段
+     * @return 删除成功返回true，否则返回false
+     */
+    boolean removeUser(int userID);
 }
