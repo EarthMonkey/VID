@@ -129,7 +129,7 @@ function register() {
         return;
     }
 
-	$.ajax({
+    $.ajax({
         type: "POST",
         url: SERVER_IP + "/register",
         async: false,
@@ -142,7 +142,7 @@ function register() {
         success: function (data) {
 
             if (data.status == true) {
-               $("#successModal").fadeIn();
+                $("#successModal").fadeIn();
                 $("#successModal").find("span").html(email);
             } else {
                 err_lbl.innerHTML = data.info;

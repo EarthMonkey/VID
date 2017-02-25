@@ -3,12 +3,13 @@
  */
 
 var last_contact_click = null;
+var CONTARCTS;
 
 window.onload = function () {
+    initGroups();
     addIndex();
     initContacts();
     getVideos();
-    initGroups();
     slideRight();
 };
 
@@ -195,7 +196,7 @@ function getVideos() {
     var parent = document.getElementById("videos");
     var copy = document.getElementById("video_copy");
 
-    var number = 3;
+    var number = 0;
     for (var i = 0; i < number; i++) {
 
         var div = document.createElement("div");
@@ -257,6 +258,14 @@ function addGroup() {
 
 
 function initGroups() {
+
+    var xhr = sendXML(SERVER_IP + "/contacts/all", "POST", "");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            CONTARCTS = xhr.response;
+            alert(CONTARCTS);
+        }
+    };
 
     var groupName = ["家人", "公司", "兴趣"];
 

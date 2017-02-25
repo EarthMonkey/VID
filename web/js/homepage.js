@@ -65,25 +65,15 @@ function slideCheck() {
 
 function judgeLogin() {
 
-    $.ajax({
-        type: "POST",
-        url: SERVER_IP + "/isLogin",
-        async: false,
-        // dataType: "json",
-        success: function (data) {
-
-            if (data.status == false) {
+    var xhr = sendXML(SERVER_IP + "/isLogin", "POST", "");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            var data = xhr.response;
+            if (data.status == true) {
                 $($(".nav_username_div")[1]).hide();
                 $($(".nav_username_div")[0]).show();
                 $($(".nav_username_div")[0]).find("span").html(data.info);
             }
-        },
-        error: function () {
-            alert("验证登录失败");
-            // console.log(xhr);
-            // console.log(status);
-            // console.log(error);
         }
-    });
-
+    }
 }
