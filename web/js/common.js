@@ -2,7 +2,7 @@
  * Created by L.H.S on 2017/2/24.
  */
 
-var SERVER_IP = "115.28.210.167:8080/VID";
+var SERVER_IP = "http://115.28.210.167:8080/VID";
 
 function showMenu() {
     $("#menu").slideDown(200);

@@ -20,5 +20,5 @@ function gotoTime() {
 }
 
 function gotoHomePage() {
-    location.href = "HomePage.html";
+    location.href = "Homepage.html";
 }
