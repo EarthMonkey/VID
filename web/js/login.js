@@ -42,10 +42,42 @@ function login() {
         return;
     }
 
-    err_lbl.innerHTML = "密码错误";
-    pwd_field.parentNode.appendChild(err_lbl);
-    $(pwd_field).focus(function () {
-        this.parentNode.removeChild(err_lbl);
+    $.ajax({
+        type: "POST",
+        url: SERVER_IP + "/login",
+        async: false,
+        data: {
+            id: username,
+            password: pwd
+        },
+        success: function (data) {
+
+            if (data.status == true) {
+
+                alert("登录成功")
+
+            } else {
+                if (data.info == "密码错误") {
+                    err_lbl.innerHTML = "密码错误";
+                    pwd_field.parentNode.appendChild(err_lbl);
+                    $(pwd_field).focus(function () {
+                        this.parentNode.removeChild(err_lbl);
+                    });
+                } else {
+                    err_lbl.innerHTML = data.info;
+                    name_field.parentNode.appendChild(err_lbl);
+                    $(name_field).focus(function () {
+                        this.parentNode.removeChild(err_lbl);
+                    });
+                }
+            }
+        },
+        error: function () {
+            alert("登录失败");
+            // console.log(xhr);
+            // console.log(status);
+            // console.log(error);
+        }
     });
 
 }
@@ -99,32 +131,34 @@ function register() {
 
 	$.ajax({
         type: "POST",
-        url: "http://115.28.210.167:8080/VID/register",
-        // async: false,
+        url: SERVER_IP + "/register",
+        async: false,
         data: {
-            email: '141250111@smail.nju.edu.cn',
+            email: email,
             phoneNum: '',
             password: pwd,
             name: name
         },
         success: function (data) {
-            console.log(data);
 
-            // err_lbl.innerHTML = "邮箱或手机无效";
-            // email_field.parentNode.appendChild(err_lbl);
-            // $(email_field).focus(function () {
-            //     this.parentNode.removeChild(err_lbl);
-            // });
-
+            if (data.status == true) {
+               $("#successModal").fadeIn();
+                $("#successModal").find("span").html(email);
+            } else {
+                err_lbl.innerHTML = data.info;
+                email_field.parentNode.appendChild(err_lbl);
+                $(email_field).focus(function () {
+                    this.parentNode.removeChild(err_lbl);
+                });
+            }
         },
-        error: function (xhr, status, error) {
-            // alert("连通失败");
-            console.log(xhr);
-            console.log(status);
-            console.log(error);
+        error: function () {
+            alert("注册失败");
+            // console.log(xhr);
+            // console.log(status);
+            // console.log(error);
         }
     });
-
 }
 
 // 忘记密码发送
@@ -141,9 +175,32 @@ function forget() {
         return;
     }
 
-    err_lbl.innerHTML = "邮箱地址无效";
-    email_field.parentNode.appendChild(err_lbl);
-    $(email_field).focus(function () {
-        this.parentNode.removeChild(err_lbl);
+    $.ajax({
+        type: "POST",
+        url: SERVER_IP + "/findPass",
+        async: false,
+        data: {
+            id: email
+        },
+        dataType: "json",
+        success: function (data) {
+
+            if (data.status == true) {
+                $("#successModal").fadeIn();
+            } else {
+
+                err_lbl.innerHTML = data.info;
+                email_field.parentNode.appendChild(err_lbl);
+                $(email_field).focus(function () {
+                    this.parentNode.removeChild(err_lbl);
+                });
+            }
+        },
+        error: function () {
+            alert("发送邮件失败");
+            // console.log(xhr);
+            // console.log(status);
+            // console.log(error);
+        }
     });
 }

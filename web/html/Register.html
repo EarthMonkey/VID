@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Register</title>
 
+    <link href="../css/emailverify.css" rel="stylesheet">
     <link href="../css/common.css" rel="stylesheet">
     <link href="../css/css_reset.css" rel="stylesheet">
     <link href="../css/login.css" rel="stylesheet">
@@ -67,8 +68,26 @@
         <div class="register_btn" onclick="window.location.href='Login.html'">登录</div>
     </div>
 </div>
+
+<!-- 注册发送邮件 -->
+<div id="successModal" class="modal_backdrop" style="display: none;">
+    <div class="modal" style="margin-top: 160px;">
+        <div class="title_img">
+            <img src="../image/check.svg">
+        </div>
+        <div style="display: inline-block; vertical-align: middle; margin-left: 20px;">
+            <div class="title_text" style="font-size: 32px;">
+                已成功向您的邮箱发送邮件
+            </div>
+        </div>
+
+        <div class="content_text">请到邮箱 <span>794637366@qq.com</span> 中点击链接确认</div>
+
+    </div>
+</div>
+
 <script src="../js/jquery-3.0.0.min.js"></script>
 <script src="../js/login.js"></script>
-<!--<script src="../js/jquery.js"></script>-->
+<script src="../js/common.js"></script>
 </body>
 </html>

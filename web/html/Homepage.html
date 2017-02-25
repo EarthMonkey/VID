@@ -19,7 +19,8 @@
         <div class="vid_div">VID</div>
     </div>
 
-    <div class="nav_username_div" onclick="showMenu()"><span>用户名</span> <i class="fa fa-angle-down"></i></div>
+    <div class="nav_username_div" onclick="showMenu()" style="display: none;"><span>用户名</span> <i class="fa fa-angle-down"></i></div>
+    <div class="nav_username_div" onclick="location.href='Login.html'">未登录</div>
 
     <div id="menu" class="dialog_div">
         <div class="triangle_div"></div>
@@ -125,10 +126,13 @@
 
 <div id="bottom" class="bottom_nav"></div>
 
-<script src="../js/jquery.js"></script>
+<script src="../js/jquery-3.0.0.min.js"></script>
 <script src="../js/homepage.js"></script>
-<script src="../js/jquery.mobile-1.4.5.js"></script>
+<!--<script src="../js/jquery.mobile-1.4.5.js"></script>-->
 <script src="../js/common.js"></script>
-<script>slideCheck();</script>
+<script>
+    judgeLogin();
+    slideCheck();
+</script>
 </body>
 </html>
