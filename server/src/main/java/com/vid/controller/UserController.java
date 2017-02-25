@@ -35,6 +35,7 @@ public class UserController {
      * @return 注册结果，包括
      * 1. 注册成功： MsgInfo{"status":true,"info":"邮件发送成功","object":null}
      * 2. 用户名已存在： MsgInfo{"status":false,"info":"用户名已存在","object":null}
+     * 3. 注册失败： MsgInfo{"status":false,"info":"注册失败","object":null}
      */
     @RequestMapping(value = "/register")
     @ResponseBody

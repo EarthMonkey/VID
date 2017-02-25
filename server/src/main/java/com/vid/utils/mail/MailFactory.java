@@ -119,7 +119,7 @@ public class MailFactory {
     }
 
     public static void main(String[] args) {
-        System.out.println(activateAccount("141250111@smail.nju.edu.cn", 141250, "bedisdover", "123123"));
+        System.out.println(activateAccount("141250", 141250, "bedisdover", "123123"));
 //        System.out.println(verifyMail("141250111@smail.nju.edu.cn", 141, "bedisdover", "123"));
     }
 }
