@@ -27,4 +27,6 @@ public interface UserMapper {
     public int isActive(int userID);
 
     public int activateAccount(int userID);
+
+    public int removeUser(int userID);
 }

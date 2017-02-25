@@ -138,6 +138,14 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public boolean removeUser(int userID) {
-        return false;
+
+        try{
+            if (userMapper.removeUser(userID)>0)
+                return true;
+            return false;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
     }
 }

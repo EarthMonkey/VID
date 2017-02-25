@@ -54,4 +54,9 @@
     <update id="activateAccount">
         UPDATE user SET  state = 1 WHERE id = #{0}
     </update>
+
+
+    <delete id="removeUser">
+        DELETE FROM user WHERE id = #{0}
+    </delete>
 </mapper>
