@@ -95,7 +95,6 @@ public class MailHelper {
             // 发送邮件
             Transport.send(message);
         } catch (MessagingException e) {
-            e.printStackTrace();
             return false;
         }
 

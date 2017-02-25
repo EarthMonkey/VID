@@ -50,22 +50,21 @@ public class UserService {
         User temp = userDao.getUser(email);
 
         if (temp != null) {
-            return new MsgInfo(false, "用户名已存在");
+            return new MsgInfo(false, "邮箱已被注册");
         }
 
         int userID = userDao.insertUser(new User(email, phoneNum, SHA256.encrypt(password), name));
 
+        // 插入成功，发送邮件
         if (userID != -1) {
-            User user = userDao.getUserByID(userID);
-
             String random = SHA256.encrypt(new Random().nextLong() + "");
 
-            if (MailFactory.activateAccount(email, userID, user.getName(), random)) {
+            if (MailFactory.activateAccount(email, userID, name, random)) {
                 return new MsgInfo(true, random, userID);
             }
         }
 
-        return new MsgInfo(false, "注册失败");
+        return new MsgInfo(false, "无效的邮箱地址");
     }
 
     /**
