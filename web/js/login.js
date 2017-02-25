@@ -97,19 +97,18 @@ function register() {
         return;
     }
 
-    $.ajax({
-        type: "post",
+	$.ajax({
+        type: "POST",
         url: "http://115.28.210.167:8080/VID/register",
-        async: false,
+        // async: false,
         data: {
-            "email": email,
-            "phoneNum": "",
-            "password": pwd,
-            "name": name
+            email: '141250111@smail.nju.edu.cn',
+            phoneNum: '',
+            password: pwd,
+            name: name
         },
-        success: function () {
-
-            alert("a");
+        success: function (data) {
+            console.log(data);
 
             // err_lbl.innerHTML = "邮箱或手机无效";
             // email_field.parentNode.appendChild(err_lbl);
@@ -118,8 +117,11 @@ function register() {
             // });
 
         },
-        error: function () {
-            alert("连通失败")
+        error: function (xhr, status, error) {
+            // alert("连通失败");
+            console.log(xhr);
+            console.log(status);
+            console.log(error);
         }
     });
 

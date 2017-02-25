@@ -19,7 +19,7 @@ import javax.servlet.http.HttpSession;
  * Change everywhere
  */
 @Controller
-@RequestMapping(method = RequestMethod.POST)
+//@RequestMapping(method = RequestMethod.POST)
 public class UserController {
 
     @Resource
