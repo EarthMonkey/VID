@@ -1,0 +1,247 @@
+<!-- Created by L.H.S on 2017/1/10. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Contacts</title>
+
+    <link href="../css/css_reset.css" rel="stylesheet">
+    <link href="../css/common.css" rel="stylesheet">
+    <link href="../css/contacts.css" rel="stylesheet">
+    <link href="http://cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="nav_bar">
+    <div class="logo_div">
+        <div><img src="../image/logo.png"></div>
+        <div class="vid_div">VID</div>
+    </div>
+</div>
+
+<div id="main_body">
+
+    <!-- 我的名片夹全展开 -->
+    <div id="left_part" class="mine_left" style="display: none">
+        <div class="each_group first_bottom">
+            <div class="edit_btn">编辑</div>
+        </div>
+
+        <div class="portrait_div">
+            <img src="../image/portrait_default.svg">
+        </div>
+
+        <div class="contact_name">李昊朔</div>
+
+    </div>
+
+    <!-- 我的名片夹 -->
+    <div id="mine" class="mine_div" style="display: none">
+
+        <div class="each_group first_bottom">
+            <div class="tip_text" onclick="showMyAll()">
+                <div class="fa fa-angle-double-left"></div>
+                展开全部
+            </div>
+
+            <div class="tip_text" style="float: right; margin-right: 110px; display: none;" onclick="hideMine()">
+                <div class="fa fa-angle-double-left"></div>
+                收起
+            </div>
+            <div class="mine_title">我的名片</div>
+        </div>
+
+        <div class="contact_info" style="margin-top: 10px;">
+
+            <div>备注:&nbsp;<span>南京大学</span></div>
+
+            <div>电话:&nbsp;<span>15250997793</span></div>
+
+            <div>邮箱:&nbsp;<span>howsurely@foxmail.com</span></div>
+
+        </div>
+
+        <div style="width: 100%; overflow: auto">
+            <div id="my_videos">
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 分组标签 -->
+    <div class="group_lbl">
+
+        <div class="each_group first_bottom" style="font-weight: bold; cursor: pointer" onclick="showMine()">
+            我的名片夹
+        </div>
+
+        <div class="each_group" style="font-weight: bold; border-bottom: 1.5px solid #c8c7c7;">所有联系人</div>
+
+        <div id="lbls">
+            <div id="group_copy" class="each_group" style="display: none;">
+                <i class="fa fa-pencil-square-o" onclick="modGroup(this.parentNode)"></i>
+                <i class="fa fa-trash-o" style="margin-right: 5px;" onclick="delGroup(this.parentNode)"></i>
+                <span>家人</span>
+            </div>
+        </div>
+
+        <div class="each_group" style="border-bottom: 2px solid #c8c7c7;">
+            <div class="lbl_add" onclick="addGroup()">
+                <hr class="plus_h">
+                <hr class="plus_v">
+            </div>
+        </div>
+
+        <div></div>
+
+    </div>
+
+    <!-- 联系人列表 -->
+    <div class="contacts_list">
+
+        <div class="each_group first_bottom">
+            <i class="fa fa-search"></i>
+            <input id="search" class="search_field" type="text" placeholder='搜索"所有联系人"' onkeyup="search()">
+            <div id="search_cancel"><i class="fa fa-times"></i></div>
+        </div>
+
+        <div id="lists" style="padding-bottom: 50px;">
+
+            <!-- 右侧索引 -->
+            <div id="indexA" class="index_A"></div>
+
+            <!--
+            <div class="each_idx">N</div>
+            <div class="each_contact">
+                NJU李昊朔<hr>
+            </div>
+            -->
+
+        </div>
+
+        <div id="search_list" style="padding-bottom: 50px; display: none;">
+            <div class="no_search">无搜索结果</div>
+
+        </div>
+    </div>
+
+    <!-- 联系人详情 -->
+    <div id="detail_part" class="contact_detail">
+
+        <div class="each_group first_bottom">
+            <div class="edit_btn" onclick="modDetail(this);">编辑</div>
+        </div>
+
+        <div id="detail">
+
+            <div class="portrait_div">
+                <img src="../image/portrait_default.svg">
+            </div>
+
+            <div class="contact_name">李昊朔</div>
+
+            <div class="contact_info">
+
+                <div>备注:&nbsp;<span>南京大学</span></div>
+
+                <div>电话:&nbsp;<span>15250997793</span></div>
+
+                <div>邮箱:&nbsp;<span>howsurely@foxmail.com</span></div>
+
+            </div>
+
+            <div id="videos">
+
+                <!-- copy样本 -->
+                <div class="video_div" id="video_copy" style="display: none;">
+                    <div class="enlarge_btn" onclick="enlarge(this);">放大</div>
+                    <video poster="../image/video_poster.png" controls preload>
+                        <source src="">
+                    </video>
+                    <div class="video_name">测试mp4视频</div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="detailMod" style="display: none; padding-bottom: 50px;">
+            <div class="photo_mod">
+                添加照片
+            </div>
+
+            <div class="info_mod">
+                <input class="info_field" type="text" placeholder="姓名">
+                <input class="info_field" type="text" placeholder="备注">
+                <input class="info_field" type="text" placeholder="电话">
+                <input class="info_field" type="text" placeholder="邮箱">
+            </div>
+
+            <div>
+                <div id="videosMod">
+                    <div id="vidMod_copy" style="display: none;">
+                        <div class="del_btn">
+                            <hr>
+                        </div>
+                        <div class="video_name_field">
+                            <input class="info_field" type="text" placeholder="视频名称">
+                        </div>
+                        <div class="video_div" style="height: auto;">
+                            <div class="enlarge_btn" onclick="enlarge(this);">放大</div>
+                            <video poster="../image/video_poster.png" controls preload="none">
+                                <source src="">
+                            </video>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 删除,完成 -->
+                <div class="bottom_div">
+                    <div class="del_contact" onclick="delContact()">删除该联系人</div>
+                    <div class="com_contact" onclick="comDetailMod()">完成</div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+<!-- 视频modal -->
+<div id="modal" class="modal_backdrop">
+    <div class="enlarge_modal">
+        <div class="enlarge_btn">关闭</div>
+    </div>
+</div>
+
+<!-- 增加/修改分组modal -->
+<div id="groupModal" class="modal_backdrop" style="background: rgba(255, 255, 255, 0.4);">
+    <div class="group_modal">
+        <input class="group_field" type="text" placeholder="请输入分组名称">
+        <div class="confirm_btn">
+            <i class="fa fa-check"></i>
+            <i class="fa fa-times" style="margin-left: 15px;"></i>
+        </div>
+    </div>
+</div>
+
+<!-- 是否确认删除分组 -->
+<div id="confirmModal" class="modal_backdrop" style="background: rgba(255, 255, 255, 0.4);">
+    <div class="group_modal" style="color: #2b2b2b">
+        <div style="padding-top: 10px; margin-left: 10px;">是否确认删除该分组?</div>
+        <div style="margin-left: 75px;">
+            <div class="con_modal_btn">删除</div>
+            <div class="con_modal_btn">取消</div>
+        </div>
+    </div>
+</div>
+
+<script src="../js/jquery.js"></script>
+<script src="../js/contacts.js"></script>
+<script src="../js/html5media.min.js"></script>
+<!--<script src="../js/jquery.mobile-1.4.5.js"></script>-->
+<script src="../js/swiperlistener.js"></script>
+<script src="../js/common.js"></script>
+</body>
+</html>

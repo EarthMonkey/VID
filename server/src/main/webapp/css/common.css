@@ -1,0 +1,98 @@
+/**
+ * Created by L.H.S on 2017/1/10.
+ */
+
+.nav_bar {
+    height: 50px;
+    width: 100%;
+    background-color: #266eb4;
+    z-index: 9999;
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+
+.logo_div {
+    width: 40px;
+    height: 40px;
+    margin-left: 15px;
+    margin-top: 5px;
+    font-size: 25px;
+    color: #fff;
+    font-family: "Arial Rounded MT Bold", serif;
+    line-height: 50px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.logo_div img {
+    width: 100%;
+}
+
+.vid_div {
+    position: absolute;
+    top: 0;
+    left: 60px;
+}
+
+.bottom_nav {
+    height: 60px;
+    width: 100%;
+    background-color: #266eb4;
+    margin-top: 0;
+}
+
+.nav_username_div {
+    line-height: 50px;
+    color: #fff;
+    font-family: "Arial Rounded MT Bold", "PingFang SC", serif;
+    font-size: 22px;
+    font-weight: 300;
+    float: right;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 30px;
+    cursor: pointer;
+}
+
+.dialog_div {
+    width: 130px;
+    height: 60px;
+    background-color: #fff;
+    border-radius: 1px;
+    font-size: 20px;
+    font-family: "PingFang SC", serif;
+    font-weight: 300;
+    position: fixed;
+    right: 20px;
+    top: 60px;
+    -webkit-box-shadow:  0 0 6px rgba(0, 0, 0, .5);
+    -moz-box-shadow:  0 0 6px rgba(0, 0, 0, .5);
+    box-shadow:  0 0 6px rgba(0, 0, 0, .5);
+    display: none;
+}
+
+.triangle_div {
+    width: 0;
+    height: 10px;
+    border: 15px solid transparent;
+    border-bottom: 15px solid #fff;
+    position: relative;
+    top:-40px;
+    left: 50px;
+}
+
+.dialog_btn {
+    font-size: 16px;
+    font-family: "PingFang SC", serif;
+    font-weight: 300;
+    line-height: 28px;
+    position: relative;
+    top: -38px;
+    padding-left: 15px;
+    cursor: default;
+}
+
+.dialog_btn:hover {
+    background-color: #e5f2fe;
+}

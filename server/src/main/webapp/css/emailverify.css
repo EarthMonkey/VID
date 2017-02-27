@@ -1,0 +1,63 @@
+body {
+    background-image: url("../image/email_verify_bg.png") ;
+    overflow: hidden;
+}
+
+.modal_backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1040;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.modal {
+    width: 70%;
+    padding: 40px 30px;
+    background-color: #fff;
+    margin: 130px auto;
+}
+
+.title_img {
+    margin-left: 30px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.title_text {
+    font-size: 36px;
+    display: inline-block;
+    vertical-align: middle;
+    font-family: "PingFang SC", serif;
+    color: #2692ea;
+}
+
+.content_text {
+    font-size: 20px;
+    font-family: "PingFang SC", serif;
+    margin-left: 50px;
+    margin-top: 40px;
+}
+
+.content_text span {
+    color: #2692ea;
+    font-weight: 500;
+}
+
+.goto_btn {
+    width: 180px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    background-color: #2692ea;
+    border-radius: 4px;
+    font-family: "PingFang SC", serif;
+    color: #fff;
+    font-size: 18px;
+    margin-left: 50px;
+    margin-top: 40px;
+    cursor: pointer;
+}

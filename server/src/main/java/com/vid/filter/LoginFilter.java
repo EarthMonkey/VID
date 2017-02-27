@@ -20,7 +20,7 @@ import java.util.StringTokenizer;
  * <p>
  * 登录过滤器，判断用户是否登录
  */
-@WebFilter(value = "/*")
+//@WebFilter(value = "/*")
 public class LoginFilter implements Filter {
 
     /**
@@ -56,7 +56,7 @@ public class LoginFilter implements Filter {
         // 判断url是否需要忽略
         // 若是，不做处理
         // 否则，判断用户是否登录
-        if (!ignoreURL.contains(url)) {
+        if (!url.endsWith("html") && !ignoreURL.contains(url)) {
             HttpSession session = request.getSession(false);
 
 //         TODO 删除桩数据

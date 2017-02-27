@@ -3,12 +3,11 @@ package com.vid.controller;
 import com.vid.config.MsgInfo;
 import com.vid.service.UserService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -17,7 +16,8 @@ import javax.servlet.http.HttpSession;
  * Change everywhere
  */
 @Controller
-//@RequestMapping(method = RequestMethod.POST)
+@RequestMapping(method = RequestMethod.POST)
+@SessionAttributes("userID")
 public class UserController {
 
     @Resource
@@ -95,6 +95,8 @@ public class UserController {
     @RequestMapping(value = "/login")
     @ResponseBody
     public MsgInfo login(HttpSession session, @RequestParam String id, @RequestParam String password) {
+        System.out.println("UserController.login");
+        System.out.println(session.getId());
         MsgInfo msgInfo = userService.login(id, password);
 
         if (msgInfo.getStatus()) {
@@ -116,6 +118,8 @@ public class UserController {
     @RequestMapping(value = "/isLogin")
     @ResponseBody
     public MsgInfo isLogin(HttpSession session) {
+        System.out.println("UserController.isLogin");
+        System.out.println(session.getId());
         if (session.getAttribute("userID") == null) {
             return new MsgInfo(false, "未登录");
         } else {

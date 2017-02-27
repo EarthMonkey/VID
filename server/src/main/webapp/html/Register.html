@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+
+    <link href="../css/emailverify.css" rel="stylesheet">
+    <link href="../css/common.css" rel="stylesheet">
+    <link href="../css/css_reset.css" rel="stylesheet">
+    <link href="../css/login.css" rel="stylesheet">
+
+    <style type="text/css">
+        body {
+            background-image: url("../image/register_bg.png");
+        }
+    </style>
+</head>
+<body>
+
+<div class="nav_bar">
+    <div class="logo_div">
+        <div><img src="../image/logo.png"></div>
+        <div class="vid_div">VID</div>
+    </div>
+</div>
+
+<div class="welcome" style="margin-top: 80px">CREATE A Vid ACCOUNT</div>
+
+<div class="center_div" style="width: 23%; margin-top: 20px">
+    <!-- 上半部分 -->
+    <div>
+        <div class="QQ_box" style="margin-bottom: 15px;">
+            <img src="../image/qq_icon.png">
+            用QQ登录
+        </div>
+
+        <div class="QQ_box" style="background: #75c138; margin-bottom: 15px;">
+            <img src="../image/wechat_icon.png">
+            用微信登录
+        </div>
+
+        <div class="QQ_box" style="background: #f3ce49; margin-bottom: 40px">
+            <img src="../image/sina_icon.png">
+            用新浪微博登录
+        </div>
+    </div>
+
+    <!-- 下半部分 -->
+    <div>
+        <div style="margin-bottom: 15px; position: relative;">
+            <input class="textfield" type="text" placeholder="Your E-mail">
+        </div>
+
+        <div style="margin-bottom: 15px; position: relative;">
+            <input class="textfield" type="password" placeholder="Create a password">
+        </div>
+
+        <div style="margin-bottom: 15px; position: relative;">
+            <input class="textfield" type="password" placeholder="Repeat your password">
+        </div>
+
+        <div style="margin-bottom: 15px; position: relative;">
+            <input class="textfield" type="text" placeholder="Your name">
+        </div>
+
+        <div class="QQ_box login_btn" onclick="register()">注册</div>
+
+        <div class="register_btn" onclick="window.location.href='Login.html'">登录</div>
+    </div>
+</div>
+
+<!-- 注册发送邮件 -->
+<div id="successModal" class="modal_backdrop" style="display: none;">
+    <div class="modal" style="margin-top: 160px;">
+        <div class="title_img">
+            <img src="../image/check.svg">
+        </div>
+        <div style="display: inline-block; vertical-align: middle; margin-left: 20px;">
+            <div class="title_text" style="font-size: 32px;">
+                已成功向您的邮箱发送邮件
+            </div>
+        </div>
+
+        <div class="content_text">请到邮箱 <span></span> 中点击链接确认</div>
+    </div>
+</div>
+
+<script src="../js/jquery-3.0.0.min.js"></script>
+<script src="../js/login.js"></script>
+<script src="../js/common.js"></script>
+</body>
+</html>
