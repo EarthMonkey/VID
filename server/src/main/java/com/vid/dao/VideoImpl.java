@@ -16,13 +16,13 @@ import java.util.List;
 public class VideoImpl implements VideoDao {
 
     @Resource
-    VideoMapper  videoMapper;
+    VideoMapper videoMapper;
 
     @Override
     public List<Video> getAllVideos(int userID) {
         try {
             return videoMapper.getAllVideos(userID);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
@@ -33,7 +33,7 @@ public class VideoImpl implements VideoDao {
     public Video getVideoByID(int videoID) {
         try {
             return videoMapper.getVideoByID(videoID);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
@@ -42,9 +42,12 @@ public class VideoImpl implements VideoDao {
     @Override
     public int insertVideo(int userID, String videoName, long size, String videoURL) {
         try {
-            Video video =new Video(userID,videoName,size,videoURL);
-            return videoMapper.insertVideo(video);
-        }catch (Exception e){
+            Video video = new Video(userID, videoName, size, videoURL);
+            if (videoMapper.insertVideo(video) > 0)
+                return video.getId();
+            else
+                return -1;
+        } catch (Exception e) {
             e.printStackTrace();
             return -1;
         }
@@ -52,7 +55,7 @@ public class VideoImpl implements VideoDao {
 
     @Override
     public boolean removeVideo(int videoID) {
-        if (videoMapper.removeVideo(videoID)>0)
+        if (videoMapper.removeVideo(videoID) > 0)
             return true;
         return false;
     }
