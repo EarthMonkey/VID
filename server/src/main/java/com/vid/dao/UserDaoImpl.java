@@ -84,7 +84,7 @@ public class UserDaoImpl implements UserDao {
     public User getUserByID(int userID) {
         try {
 
-            return getUserByID(userID);
+            return userMapper.getUserById(userID);
 
         } catch (Exception e) {
             e.printStackTrace();

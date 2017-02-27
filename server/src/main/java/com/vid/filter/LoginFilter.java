@@ -20,7 +20,7 @@ import java.util.StringTokenizer;
  * <p>
  * 登录过滤器，判断用户是否登录
  */
-//@WebFilter(value = "/*")
+@WebFilter(value = "/*")
 public class LoginFilter implements Filter {
 
     /**
@@ -53,26 +53,23 @@ public class LoginFilter implements Filter {
         // 访问的url
         String url = request.getServletPath();
 
-        System.out.println("LoginFilter.doFilter");
-        System.out.println(url);
-
         // 判断url是否需要忽略
         // 若是，不做处理
         // 否则，判断用户是否登录
-//        if (!ignoreURL.contains(url)) {
-//            HttpSession session = request.getSession(false);
+        if (!ignoreURL.contains(url)) {
+            HttpSession session = request.getSession(false);
 
 //         TODO 删除桩数据
 //        injectUser(request);
 
-//            if (session == null || session.getAttribute("user") == null) {
-//                PrintWriter out = servletResponse.getWriter();
-//
-//                out.print("{\"status\":false,\"info\":\"用户未登录\",\"object\":null}");
-//                return;
-//            }
-//        }
-//
+            if (session == null || session.getAttribute("userID") == null) {
+                PrintWriter out = servletResponse.getWriter();
+
+                out.print("{\"status\":false,\"info\":\"用户未登录\",\"object\":null}");
+                return;
+            }
+        }
+
         ((HttpServletResponse) servletResponse).setHeader("Access-Control-Allow-Origin", "*");
         filterChain.doFilter(servletRequest, servletResponse);
     }

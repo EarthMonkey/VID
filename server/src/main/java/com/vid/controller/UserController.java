@@ -1,11 +1,9 @@
 package com.vid.controller;
 
 import com.vid.config.MsgInfo;
-import com.vid.model.AllContacts;
 import com.vid.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -89,7 +87,7 @@ public class UserController {
      * @param id       邮箱/手机号
      * @param password 密码
      * @return 登录结果，包括
-     * 1. 登录成功： MsgInfo{"status":true,"info":"登录成功","object": @code AllContacts}
+     * 1. 登录成功： MsgInfo{"status":true,"info":"登录成功","object": null}
      * 2. 用户名不存在： MsgInfo{"status":false,"info":"用户名不存在","object":null}
      * 3. 密码错误： MsgInfo{"status":false,"info":"密码错误","object":null}
      * 4. 账户未激活： MsgInfo{"status":false,"info":"账户未激活","object":email}
@@ -100,7 +98,9 @@ public class UserController {
         MsgInfo msgInfo = userService.login(id, password);
 
         if (msgInfo.getStatus()) {
-            session.setAttribute("userID", ((AllContacts) msgInfo.getObject()).getUserID());
+            session.setAttribute("userID", msgInfo.getObject());
+            // 返回前删除不必要信息
+            msgInfo.setObject(null);
         }
 
         return msgInfo;
@@ -111,7 +111,7 @@ public class UserController {
      *
      * @return 登录状态，包括
      * 1. 未登录： MsgInfo{"status":false,"info":"未登录","object":null}
-     * 2. 已登录： MsgInfo{"status":true,"info":"已登录","object":null}
+     * 2. 已登录： MsgInfo{"status":true,"info":"已登录","object":name}
      */
     @RequestMapping(value = "/isLogin")
     @ResponseBody
@@ -119,7 +119,9 @@ public class UserController {
         if (session.getAttribute("userID") == null) {
             return new MsgInfo(false, "未登录");
         } else {
-            return new MsgInfo(true, "已登录");
+            int userID = (int) session.getAttribute("userID");
+
+            return new MsgInfo(true, "已登录", userService.getName(userID));
         }
     }
 

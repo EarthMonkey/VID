@@ -131,5 +131,16 @@
     <servlet-name>springMVC</servlet-name>
     <url-pattern>/</url-pattern>
   </servlet-mapping>
+
+  <!--添加跨域支持，详见https://tomcat.apache.org/tomcat-7.0-doc/config/filter.html#CORS_Filter-->
+  <!--idea可能会报错，请无视之-->
+  <filter>
+    <filter-name>CorsFilter</filter-name>
+    <filter-class>org.apache.catalina.filters.CorsFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>CorsFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
 </web-app>
 

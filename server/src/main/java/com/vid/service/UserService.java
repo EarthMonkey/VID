@@ -105,15 +105,22 @@ public class UserService {
                 return new MsgInfo(false, "账户未激活", user.getBindingemail());
             }
 
-            List<Contact> contactList = contactsDao.getAllContacts(user.getId());
-            List<Group> groupList = groupDao.getAllGroup(user.getId());
-
-            AllContacts allContacts = new AllContacts(user.getId(), user.getName(), contactList, groupList);
-
-            return new MsgInfo(true, "登录成功", allContacts);
+            return new MsgInfo(true, "登录成功", user.getId());
         } else {
             return new MsgInfo(false, "密码错误");
         }
+    }
+
+    /**
+     * 根据id获取用户姓名
+     *
+     * @param userID 用户id
+     * @return 姓名
+     */
+    public String getName(int userID) {
+        User user = userDao.getUserByID(userID);
+
+        return user.getName();
     }
 
     /**
