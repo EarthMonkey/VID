@@ -53,9 +53,7 @@ function login() {
         success: function (data) {
 
             if (data.status == true) {
-
-                alert("登录成功")
-
+                location.href = "Homepage.html";
             } else {
                 if (data.info == "密码错误") {
                     err_lbl.innerHTML = "密码错误";

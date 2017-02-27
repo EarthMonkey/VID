@@ -25,7 +25,7 @@
     <div id="menu" class="dialog_div">
         <div class="triangle_div"></div>
         <div class="dialog_btn" onclick="location.href='Contacts.html'">联系人列表</div>
-        <div class="dialog_btn" onclick="location.href='Login.html'">注销</div>
+        <div class="dialog_btn" onclick="logout()">注销</div>
     </div>
 
 </div>
@@ -105,10 +105,12 @@
 <!-- 第四部分 -->
 <div class="part_two" style="padding-top: 70px; padding-bottom: 70px;">
     <div style="font-size: 40px; line-height: 60px;">上传您的视频</div>
-    <div style="margin: 50px auto">
-        <img src="../image/upload_bg.png">
+    <div style="margin: 50px auto;">
+        <img src="../image/upload_bg.png" style="cursor: pointer;" onclick="uploadVideo()">
     </div>
-    <div class="upload_lbl">UPLOAD</div>
+    <div class="upload_lbl" onclick="uploadVideo()">UPLOAD</div>
+
+    <input type="file" accept="audio/mp4,video/mp4" name="fileupload" style="moz-opacity: 0; opacity: 0;"/>
 </div>
 
 <!-- 第五部分 -->

@@ -41,3 +41,39 @@ function sendXML(url, type, data) {
 
     return xhr;
 }
+
+// 上传视频
+function uploadVideo() {
+
+    var ie = !-[1,];
+    if (ie) {
+        $("input:file").trigger('click').trigger('change');
+    } else {
+        $("input:file").trigger('click');
+    }
+
+    $("input:file").change(function () {
+        var file = $("input:file")[0].files[0];
+
+        var fileName = file.name;
+        var fileSize = file.size;
+        var filePath = $("input:file").val();
+
+        var data = {
+            name: fileName,
+            size: fileSize,
+            url: filePath
+        };
+
+        var xhr = sendXML(SERVER_IP + "/video/upload", "POST", data);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var data = xhr.response;
+
+                alert(data.status)
+            }
+        };
+
+    });
+
+}
