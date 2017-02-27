@@ -53,7 +53,11 @@ function login() {
         success: function (data) {
 
             if (data.status == true) {
-                location.href = "Homepage.html";
+
+                // location.href = "Homepage.html"
+
+                isLogin()
+
             } else {
                 if (data.info == "密码错误") {
                     err_lbl.innerHTML = "密码错误";
@@ -77,6 +81,38 @@ function login() {
             // console.log(error);
         }
     });
+}
+
+function isLogin() {
+
+    $.ajax({
+        type: "POST",
+        url: SERVER_IP + "/isLogin",
+        async: false,
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+        success: function (data) {
+            alert(data.status + " info: " + data.info + " name:" + data.object);
+        },
+        error: function () {
+            alert("登录失败");
+            // console.log(xhr);
+            // console.log(status);
+            // console.log(error);
+        }
+    });
+
+    // var xhr = sendXML(SERVER_IP + "/isLogin", "POST", "");
+    // xhr.onreadystatechange = function () {
+    //     if (xhr.readyState == 4 && xhr.status == 200) {
+    //         var data = xhr.response;
+    //         alert(data.status + " info: " + data.info + " name:" + data.object);
+    //         if (data.status == true) {
+    //             $($(".nav_username_div")[1]).hide();
+    //             $($(".nav_username_div")[0]).show();
+    //             $($(".nav_username_div")[0]).find("span").html(data.info);
+    //         }
+    //     }
+    // }
 
 }
 

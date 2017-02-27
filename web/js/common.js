@@ -2,7 +2,8 @@
  * Created by L.H.S on 2017/2/24.
  */
 
-var SERVER_IP = "http://115.28.210.167:8080/VID";
+// var SERVER_IP = "http://115.28.210.167:8080/VID";
+var SERVER_IP = "http://172.19.131.63:8080";
 
 function showMenu() {
     $("#menu").slideDown(200);
@@ -27,6 +28,7 @@ function sendXML(url, type, data) {
     }
 
     xhr.open(type, url);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
     xhr.responseType = "json";
 
     xhr.onload = function () {
@@ -37,7 +39,7 @@ function sendXML(url, type, data) {
         alert("error");
     };
 
-    xhr.send(JSON.stringify(data));
+    xhr.send(data);
 
     return xhr;
 }
@@ -59,18 +61,14 @@ function uploadVideo() {
         var fileSize = file.size;
         var filePath = $("input:file").val();
 
-        var data = {
-            name: fileName,
-            size: fileSize,
-            url: filePath
-        };
+        var data = "name=" + fileName + "&size=" + fileSize + "&url=" + filePath;
 
         var xhr = sendXML(SERVER_IP + "/video/upload", "POST", data);
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 var data = xhr.response;
 
-                alert(data.status)
+                alert(data.status + " info: " + data.info + " name:" + data.object);
             }
         };
 
