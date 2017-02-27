@@ -15,6 +15,7 @@ window.onload = function () {
 
 function search() {
 
+    // 取消搜索
     if ($("#search_cancel").css("display") == "none" && $("#search").val() != "") {
         $("#search_cancel").show();
         $("#search_cancel").click(function () {
@@ -29,9 +30,11 @@ function search() {
         }
     }
 
+    // 搜索
     if ($("#lists").css("display") != "none" && $("#search").val() != "") {
         $("#lists").hide();
         $("#search_list").show();
+
     } else {
         if ($("#search").val() == "") {
             $("#search_list").hide();
@@ -39,6 +42,28 @@ function search() {
         }
     }
 
+    var key = $("#search").val()
+    if (key != "") {
+        searchKey(key);
+    }
+}
+
+function searchKey(key) {
+
+    var contactArray = CONTARCTS.contacts;
+    for (var i = 0; i < contactArray.length; i++) {
+        for (var j = 0; j < contactArray[i].length; j++) {
+            if (contactArray[i][j].noteName.contains(key)) {
+                // 搜索到
+                var copy = $("#group_copy");
+                var group = $("<div class='each_group'></div>");
+                group.html(copy.html());
+                group.find("span").html(contactArray[i][j].noteName);
+
+                $("#search_list").append(group);
+        }
+    }
+}
 
 }
 

@@ -18,11 +18,12 @@ function verify() {
 
     var xhr = sendXML(SERVER_IP + "/activate", "POST", data);
     xhr.onreadystatechange = function () {
-        alert(xhr.status + "adf" + xhr.readyState)
         if (xhr.readyState == 4 && xhr.status == 200) {
             var result = xhr.response;
-
-            alert(result.status);
+            alert(result.status)
+           if (result.status == true) {
+               gotoTime();
+           }
         }
     }
 
