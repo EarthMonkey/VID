@@ -11,16 +11,12 @@ function getParameter(name) {
 
 function verify() {
 
-    var data = {
-        userID: parseInt(getParameter("userID")),
-        random: getParameter("random")
-    };
+    var data = "userID=" + getParameter("userID") + "&random=" + getParameter("random");
 
     var xhr = sendXML(SERVER_IP + "/activate", "POST", data);
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {
             var result = xhr.response;
-            alert(result.status)
            if (result.status == true) {
                gotoTime();
            }

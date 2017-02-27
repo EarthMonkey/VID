@@ -69,7 +69,7 @@ function judgeLogin() {
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {
             var data = xhr.response;
-            // alert(data.status)
+            alert(data.status + " info: " + data.info + " name:" + data.object);
             if (data.status == true) {
                 $($(".nav_username_div")[1]).hide();
                 $($(".nav_username_div")[0]).show();
