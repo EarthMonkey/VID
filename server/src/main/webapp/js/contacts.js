@@ -18,6 +18,8 @@ function getAll() {
         if (xhr.readyState == 4 && xhr.status == 200) {
             CONTACTS = (xhr.response).object;
 
+            $(".nav_username_div").find("span").html(CONTACTS.name);
+
             initGroups(CONTACTS.groupList);
             initContacts(CONTACTS.contacts);
         }
@@ -158,6 +160,13 @@ function initContacts(contacts) {
             }
         }
     }
+
+    var ie = !-[1,];
+    if (ie) {
+        $($("#lists").find(".each_contact")[0]).trigger('click').trigger('change');
+    } else {
+        $($("#lists").find(".each_contact")[0]).trigger('click');
+    }
 }
 
 function appendContact(eachIndex, parent) {
@@ -180,6 +189,17 @@ function appendContact(eachIndex, parent) {
         // 展示该联系人详情；
         getContactDetail(this);
     });
+}
+
+function changeAllContact() {
+    $('#search_list').hide();
+    $('#groupContact').hide();
+    $('#lists').show();
+
+    if (LAST_GROUP != null) {
+        $(LAST_GROUP).css("background-color", "#d6d8db");
+        LAST_GROUP = null;
+    }
 }
 
 function getContactDetail(node) {
@@ -349,7 +369,6 @@ function addGroup() {
     $("#main_body").css("-webkit-filter", "blur(3px)");
 
 
-
     var tagI = $("#groupModal").find("i");
     $(tagI[1]).click(function () {
         $("#main_body").css("-webkit-filter", "");
@@ -366,16 +385,22 @@ function newGroup() {
     } else {
         // 存储新分组
 
-        var groupId = 0;
+        var data = "name=" + groupName;
+        var xhr = sendXML("/contacts/group/add", "POST", data);
+        xhr.onreadystatechange = function () {
 
-        var newGroup = {
-            "name": groupName,
-            "id": groupId
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var groupId = (xhr.response).object;
+                var newGroup = {
+                    "name": groupName,
+                    "id": groupId
+                };
+                setGroup(newGroup);
+                $("#main_body").css("-webkit-filter", "");
+                $("#groupModal").hide();
+                inputField.val("");
+            }
         };
-        setGroup(newGroup);
-        $("#main_body").css("-webkit-filter", "");
-        $("#groupModal").hide();
-        inputField.val("");
     }
 }
 
@@ -424,11 +449,8 @@ function getTheGroup(node) {
         var eachArray = allContact[i];
         for (var j = 0; j < eachArray.length; j++) {
             if (eachArray[j].group == groupName) {
-                hasContacts = 1;
-                $("#lists").hide();
-                $("#search_list").hide();
-                $("#groupContact").show();
 
+                hasContacts = 1;
                 appendContact(eachArray[j], $("#groupContact"));
             }
         }
@@ -440,56 +462,88 @@ function getTheGroup(node) {
         $(".no_search").hide();
     }
 
+    $("#lists").hide();
+    $("#search_list").hide();
+    $("#groupContact").show();
 }
 
-function modGroup(node) {
+function modGroup() {
 
-    var nameOld = $(node).find("span").html();
+    var nameOld = $(LAST_GROUP).find("span").html();
 
-    $("#groupModal").fadeIn();
+    $("#groupModModal").fadeIn();
     $("#main_body").css("-webkit-filter", "blur(3px)");
 
-    var inputField = $("#groupModal").find("input");
+    var inputField = $("#groupModModal").find("input");
     inputField.val(nameOld);
 
-    var tagI = $("#groupModal").find("i");
+    var tagI = $("#groupModModal").find("i");
+
     $(tagI[0]).click(function () {
         var groupName = inputField.val();
         if (groupName == "") {
             inputField.focus();
         } else {
             // 更新分组名称
+            var groupID = $(LAST_GROUP).find("a").html();
 
-            $(node).find("span").html(groupName);
-            $("#main_body").css("-webkit-filter", "");
-            $("#groupModal").hide();
+            var data = "groupID=" + groupID + "&name=" + groupName;
+            var xhr = sendXML("/contacts/group/rename", "POST", data);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var resp = xhr.response;
+
+                    if (resp.status == true) {
+                        $(LAST_GROUP).find("span").html(groupName);
+                        $("#main_body").css("-webkit-filter", "");
+                        $("#groupModModal").hide();
+                    } else {
+                        // 分组重名
+                        alert(resp.info);
+                    }
+                }
+            };
+
         }
     });
 
     $(tagI[1]).click(function () {
         $("#main_body").css("-webkit-filter", "");
-        $("#groupModal").hide();
+        $("#groupModModal").hide();
     });
 }
 
-function delGroup(node) {
+function delGroup() {
 
     $("#confirmModal").fadeIn();
     $("#main_body").css("-webkit-filter", "blur(3px)");
 
     var btn = $("#confirmModal").find(".con_modal_btn");
 
-    $(btn[0]).click(function () {
-        // 删除分组
-        $(node).remove();
-        $("#confirmModal").hide();
-        $("#main_body").css("-webkit-filter", "");
-    });
-
     $(btn[1]).click(function () {
         $("#confirmModal").hide();
         $("#main_body").css("-webkit-filter", "");
     });
+}
+
+function deleteG() {
+    // 删除分组
+    var groupID = $(LAST_GROUP).find("a").html();
+    var data = "groupID=" + groupID;
+    var xhr = sendXML("/contacts/group/remove", "POST", data);
+    xhr.onreadystatechange = function () {
+
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            var resp = xhr.response;
+            if (resp.status == true) {
+                $(LAST_GROUP).remove();
+                $("#confirmModal").hide();
+                $("#main_body").css("-webkit-filter", "");
+            } else {
+                alert(resp.info);
+            }
+        }
+    };
 }
 
 function slideRight() {
