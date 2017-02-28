@@ -2,8 +2,7 @@
  * Created by L.H.S on 2017/2/24.
  */
 
-// var SERVER_IP = "http://115.28.210.167:8080/VID";
-var SERVER_IP = '';
+var loginState = false;
 
 function showMenu() {
     $("#menu").slideDown(200);
@@ -28,6 +27,7 @@ function sendXML(url, type, data) {
     }
 
     xhr.open(type, url);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
     xhr.responseType = "json";
 
     xhr.onload = function () {
@@ -38,13 +38,42 @@ function sendXML(url, type, data) {
         alert("error");
     };
 
-    xhr.send(JSON.stringify(data));
+    xhr.send(data);
 
     return xhr;
 }
 
 // 上传视频
+//
+// function uploadVideo() {
+//
+//     var xhr1 = sendXML("/isLogin", "POST", "");
+//     xhr1.onreadystatechange = function () {
+//         if (xhr1.readyState == 4 && xhr1.status == 200) {
+//             var data = xhr1.response;
+//             var loginState = data.status;
+//
+//             if (loginState == false) {
+//
+//                 $(".remindness_div").html("您还未登录");
+//                 $(".remindness_div").fadeIn();
+//                 setTimeout("$('.remindness_div').fadeOut()", 3000);
+//             } else {
+//
+//                 upload();
+//             }
+//         }
+//     };
+// }
+
 function uploadVideo() {
+
+    if (loginState == false) {
+        $(".remindness_div").html("您还未登录");
+        $(".remindness_div").fadeIn();
+        setTimeout("$('.remindness_div').fadeOut()", 3000);
+        return;
+    }
 
     var ie = !-[1,];
     if (ie) {
@@ -60,21 +89,19 @@ function uploadVideo() {
         var fileSize = file.size;
         var filePath = $("input:file").val();
 
-        var data = {
-            name: fileName,
-            size: fileSize,
-            url: filePath
-        };
+        var data = "name=" + fileName + "&size=" + fileSize + "&url=" + filePath;
 
-        var xhr = sendXML(SERVER_IP + "/video/upload", "POST", data);
+        var xhr = sendXML("/video/upload", "POST", data);
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 var data = xhr.response;
-
-                alert(data.status)
+                if (data.status == true) {
+                    $(".remindness_div").html("上传成功");
+                    $(".remindness_div").fadeIn();
+                    setTimeout("$('.remindness_div').fadeOut()", 3000);
+                }
             }
         };
 
     });
-
 }

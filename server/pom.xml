@@ -8,7 +8,6 @@
   <!--<noteName>Server Maven Webapp</noteName>-->
   <url>http://maven.apache.org</url>
 
-
   <build>
     <finalName>Server</finalName>
       <plugins>

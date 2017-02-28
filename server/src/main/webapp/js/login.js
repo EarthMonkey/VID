@@ -44,7 +44,7 @@ function login() {
 
     $.ajax({
         type: "POST",
-        url: SERVER_IP + "/login",
+        url: "/login",
         async: false,
         data: {
             id: username,
@@ -129,7 +129,7 @@ function register() {
 
     $.ajax({
         type: "POST",
-        url: SERVER_IP + "/register",
+        url: "/register",
         async: false,
         data: {
             email: email,
@@ -175,7 +175,7 @@ function forget() {
 
     $.ajax({
         type: "POST",
-        url: SERVER_IP + "/findPass",
+        url: "/findPass",
         async: false,
         data: {
             id: email

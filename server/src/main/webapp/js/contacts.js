@@ -6,12 +6,25 @@ var last_contact_click = null;
 var CONTARCTS;
 
 window.onload = function () {
-    initGroups();
+    getAll();
+    slideRight();
     addIndex();
+};
+
+function getAll() {
+
+    var xhr = sendXML("/contacts/all", "POST", "");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            CONTARCTS = JSON.stringify(xhr.response);
+            alert(CONTARCTS);
+        }
+    };
+
+    initGroups(CONTARCTS.groupList);
     initContacts();
     getVideos();
-    slideRight();
-};
+}
 
 function search() {
 
@@ -282,28 +295,30 @@ function addGroup() {
 }
 
 
-function initGroups() {
-
-    var xhr = sendXML(SERVER_IP + "/contacts/all", "POST", "");
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            CONTARCTS = xhr.response;
-            alert(CONTARCTS);
-        }
-    };
-
-    var groupName = ["家人", "公司", "兴趣"];
+function initGroups(groupList) {
 
     var parent = $("#lbls");
     var copy = $("#group_copy");
 
-    for (var i = 0; i < 3; i++) {
+    for (var i=0; i<groupList.length; i++) {
         var group = $("<div class='each_group'></div>");
         group.html(copy.html());
-        group.find("span").html(groupName[i]);
-
+        group.find("span").html(groupList[i].name);
         parent.append(group);
+
+        var idStore = $("<a style='display: none;'></a>")
+        idStore.html(groupList[i].id);
+        idStore.append(idStore);
     }
+
+    //
+    // for (var i = 0; i < 3; i++) {
+    //     var group = $("<div class='each_group'></div>");
+    //     group.html(copy.html());
+    //     group.find("span").html(groupName[i]);
+    //
+    //     parent.append(group);
+    // }
 }
 
 function modGroup(node) {

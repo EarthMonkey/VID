@@ -65,15 +65,16 @@ function slideCheck() {
 
 function judgeLogin() {
 
-    var xhr = sendXML(SERVER_IP + "/isLogin", "POST", "");
+    var xhr = sendXML("/isLogin", "POST", "");
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {
             var data = xhr.response;
-            // alert(data.status)
+            loginState = data.status;
+
             if (data.status == true) {
                 $($(".nav_username_div")[1]).hide();
                 $($(".nav_username_div")[0]).show();
-                $($(".nav_username_div")[0]).find("span").html(data.info);
+                $($(".nav_username_div")[0]).find("span").html(data.object);
             }
         }
     }
@@ -81,14 +82,13 @@ function judgeLogin() {
 
 function logout() {
 
-    var xhr = sendXML(SERVER_IP + "/logout", "POST", "");
+    var xhr = sendXML("/logout", "POST", "");
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {
             var data = xhr.response;
             if (data.status == true) {
-                location.href = "../Login.html";
+                location.href = "Login.html";
             }
         }
     }
-
 }
