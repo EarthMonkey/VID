@@ -76,7 +76,9 @@
             我的名片夹
         </div>
 
-        <div class="each_group" style="font-weight: bold; border-bottom: 1.5px solid #c8c7c7;">所有联系人</div>
+        <div class="each_group" style="font-weight: bold; border-bottom: 1.5px solid #c8c7c7;"
+             onclick="$('#search_list').hide();$('#groupContact').hide();$('#lists').show();">所有联系人
+        </div>
 
         <div id="lbls">
             <div id="group_copy" class="each_group" style="display: none;">
@@ -122,7 +124,9 @@
 
         <div id="search_list" style="padding-bottom: 50px; display: none;">
             <div class="no_search">无搜索结果</div>
-
+        </div>
+        <div id="groupContact" style="padding-bottom: 50px; display: none;">
+            <div class="no_search">该分组暂无联系人</div>
         </div>
     </div>
 
@@ -152,17 +156,17 @@
             </div>
 
             <div id="videos">
-
-                <!-- copy样本 -->
-                <div class="video_div" id="video_copy" style="display: none;">
-                    <div class="enlarge_btn" onclick="enlarge(this);">放大</div>
-                    <video poster="../image/video_poster.png" controls preload>
-                        <source src="">
-                    </video>
-                    <div class="video_name">测试mp4视频</div>
-                </div>
-
+                <div class="no_video">尚未添加视频</div>
             </div>
+            <!-- copy样本 -->
+            <div class="video_div" id="video_copy" style="display: none;">
+                <div class="enlarge_btn" onclick="enlarge(this);">放大</div>
+                <video poster="../image/video_poster.png" controls preload>
+                    <source src="">
+                </video>
+                <div class="video_name">测试mp4视频</div>
+            </div>
+
         </div>
 
         <div id="detailMod" style="display: none; padding-bottom: 50px;">
@@ -183,15 +187,19 @@
                         <div class="del_btn">
                             <hr>
                         </div>
+
                         <div class="video_name_field">
-                            <input class="info_field" type="text" placeholder="视频名称">
+                            <div style="margin-bottom: -10px;">
+                                <input class="info_field" type="text" placeholder="视频名称">
+                            </div>
+                            <div class="video_div" style="height: auto;">
+                                <div class="enlarge_btn" onclick="enlarge(this);">放大</div>
+                                <video poster="../image/video_poster.png" controls preload="none">
+                                    <source src="">
+                                </video>
+                            </div>
                         </div>
-                        <div class="video_div" style="height: auto;">
-                            <div class="enlarge_btn" onclick="enlarge(this);">放大</div>
-                            <video poster="../image/video_poster.png" controls preload="none">
-                                <source src="">
-                            </video>
-                        </div>
+
                     </div>
                 </div>
 
@@ -220,7 +228,7 @@
     <div class="group_modal">
         <input class="group_field" type="text" placeholder="请输入分组名称">
         <div class="confirm_btn">
-            <i class="fa fa-check"></i>
+            <i class="fa fa-check" onclick="newGroup();"></i>
             <i class="fa fa-times" style="margin-left: 15px;"></i>
         </div>
     </div>

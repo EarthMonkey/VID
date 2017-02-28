@@ -338,9 +338,22 @@ html, body {
     position: relative;
 }
 
+.no_video {
+    font-size: 28px;
+    font-family: "PingFang SC", serif;
+    font-weight: 300;
+    color: #b3b3b4;
+    width: 100%;
+    text-align: center;
+    margin-top: 80px;
+}
+
 @media screen and (max-width: 680px) {
     .enlarge_modal {
         width: 99%;
+    }
+    .no_video {
+        text-align: left;
     }
 }
 
@@ -561,6 +574,7 @@ html, body {
     display: inline-block;
     vertical-align: top;
     cursor: pointer;
+    margin-left: 110px;
 }
 
 .del_btn hr {
@@ -571,13 +585,14 @@ html, body {
 }
 
 .video_name_field {
+    width: 200px;
     display: inline-block;
     vertical-align: top;
-    margin-left: 55px;
+    margin-left: 40px;
 }
 
 .video_name_field .info_field {
-    width: 80px;
+    width: 200px;
 }
 
 #videosMod {
