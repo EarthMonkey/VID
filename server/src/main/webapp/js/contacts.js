@@ -25,6 +25,7 @@ function getAll() {
     };
 }
 
+var LAST_SEARCH = "";
 function search() {
 
     // 取消搜索
@@ -35,6 +36,10 @@ function search() {
             $(this).hide();
             $("#search_list").hide();
             $("#lists").show();
+            if ($(".no_search").css("display") == "none") {
+                $(".no_search").show();
+            }
+            LAST_SEARCH = "";
         });
     } else {
         if ($("#search").val() == "") {
@@ -50,6 +55,11 @@ function search() {
     } else {
         if ($("#search").val() == "") {
             $("#search_list").hide();
+            if ($(".no_search").css("display") == "none") {
+                $(".no_search").show();
+            }
+            LAST_SEARCH = "";
+
             $("#lists").show();
         }
     }
@@ -62,6 +72,15 @@ function search() {
 
 function searchKey(key) {
 
+    if (key === LAST_SEARCH) {
+        return;
+    } else {
+        LAST_SEARCH = key;
+        $("#search_list").find(".each_contact").remove();
+    }
+
+    var hasResult = 0;
+
     var contactArray = CONTACTS.contacts;
 
     for (var i = 0; i < contactArray.length; i++) {
@@ -69,19 +88,24 @@ function searchKey(key) {
 
             var eachContact = contactArray[i][j];
 
-
-            if (eachContact.noteName.contains(key)) {
+            var conName = eachContact.noteName;
+            if (conName.indexOf(key) > -1 || makePy(conName).indexOf(key.toUpperCase()) > -1) {
+                hasResult = 1;
                 // 搜索到
-                var copy = $("#group_copy");
-                var group = $("<div class='each_group'></div>");
-                group.html(copy.html());
-                group.find("span").html(eachContact.noteName);
-
-                $("#search_list").append(group);
+                appendContact(eachContact, $("#search_list"));
             }
         }
     }
 
+    if (hasResult == 0) {
+        if ($(".no_search").css("display") == "none") {
+            $(".no_search").show();
+        }
+    } else {
+        if ($(".no_search").css("display") != "none") {
+            $(".no_search").hide();
+        }
+    }
 }
 
 function addIndex() {
@@ -127,28 +151,32 @@ function initContacts(contacts) {
 
             // 索引下联系人
             for (var j = 0; j < eachIndex.length; j++) {
-                var con_div = $("<div class='each_contact'></div>");
-                con_div.html(eachIndex[j].noteName + "<hr>");
-                parent.append(con_div);
-
-                var idStore = $("<a style='display: none;'></a>");
-                idStore.html(eachIndex[j].userID);
-                con_div.append(idStore);
-
-                con_div.click(function () {
-                    if (last_contact_click != null) {
-                        $(last_contact_click).css("background-color", "transparent");
-                    }
-                    $(this).css("background-color", "#d9eef9");
-                    last_contact_click = this;
-
-                    // 展示该联系人详情；
-                    getContactDetail(this);
-                });
+                appendContact(eachIndex[j], parent);
             }
-
         }
     }
+}
+
+function appendContact(eachIndex, parent) {
+
+    var con_div = $("<div class='each_contact'></div>");
+    con_div.html(eachIndex.noteName + "<hr>");
+    parent.append(con_div);
+
+    var idStore = $("<a style='display: none;'></a>");
+    idStore.html(eachIndex.userID);
+    con_div.append(idStore);
+
+    con_div.click(function () {
+        if (last_contact_click != null) {
+            $(last_contact_click).css("background-color", "transparent");
+        }
+        $(this).css("background-color", "#d9eef9");
+        last_contact_click = this;
+
+        // 展示该联系人详情；
+        getContactDetail(this);
+    });
 }
 
 function getContactDetail(node) {
@@ -158,7 +186,7 @@ function getContactDetail(node) {
     var data = "contactID=" + conId;
     var xhr = sendXML("/contacts/profile", "POST", data);
     xhr.onreadystatechange = function () {
-        if (xhr.readyState==4 && xhr.status==200) {
+        if (xhr.readyState == 4 && xhr.status == 200) {
 
             var resp = xhr.response;
             if (resp.status == true) {
@@ -167,7 +195,10 @@ function getContactDetail(node) {
                 // 头像链接
                 //
                 $("#detail").find(".contact_name").html(info.noteName);
-                $("#detail").find("span");
+                var spans = $("#detail").find(".contact_info").find("span");
+                $(spans[0]).html(info.interest);
+                $(spans[1]).html(info.phoneNum);
+                $(spans[2]).html(info.email);
 
             }
         }
