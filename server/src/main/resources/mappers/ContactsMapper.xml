@@ -5,7 +5,7 @@
 <mapper namespace="com.vid.mapper.ContactsMapper">
     <!-- 这里namespace必须是UserMapper接口的路径” -->
     <select id="getAllContacts"  resultType="Contact">
-        select relationship.notename as noteName ,friendgroup.name as group,relationship.friendid as userID from relationship
+        select relationship.notename as noteName ,friendgroup.name as `group`,relationship.friendid as userID from relationship
          left outer join friendgroup  on relationship.groupid = friendgroup.id
           where relationship.ownerid =#{0};
     </select>

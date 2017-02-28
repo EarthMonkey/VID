@@ -3,7 +3,7 @@
  */
 
 var last_contact_click = null;
-var CONTARCTS;
+var CONTACTS = {};
 
 window.onload = function () {
     getAll();
@@ -16,14 +16,13 @@ function getAll() {
     var xhr = sendXML("/contacts/all", "POST", "");
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {
-            CONTARCTS = JSON.stringify(xhr.response);
-            alert(CONTARCTS);
+            CONTACTS = (xhr.response).object;
+
+            initGroups(CONTACTS.groupList);
+            initContacts(CONTACTS.contacts);
+            getVideos();
         }
     };
-
-    initGroups(CONTARCTS.groupList);
-    initContacts();
-    getVideos();
 }
 
 function search() {
@@ -63,20 +62,25 @@ function search() {
 
 function searchKey(key) {
 
-    var contactArray = CONTARCTS.contacts;
+    var contactArray = CONTACTS.contacts;
+
     for (var i = 0; i < contactArray.length; i++) {
         for (var j = 0; j < contactArray[i].length; j++) {
-            if (contactArray[i][j].noteName.contains(key)) {
+
+            var eachContact = contactArray[i][j];
+
+
+            if (eachContact.noteName.contains(key)) {
                 // 搜索到
                 var copy = $("#group_copy");
                 var group = $("<div class='each_group'></div>");
                 group.html(copy.html());
-                group.find("span").html(contactArray[i][j].noteName);
+                group.find("span").html(eachContact.noteName);
 
                 $("#search_list").append(group);
+            }
         }
     }
-}
 
 }
 
@@ -105,34 +109,67 @@ function addIndex() {
     });
 }
 
-function initContacts() {
+function initContacts(contacts) {
 
-    var parent = document.getElementById("lists");
+    var parent = $("#lists");
 
     var a = 65;
-    for (var i = 0; i < 3; i++) {
-        var idx = document.createElement("div");
-        idx.className = "each_idx";
-        var idx_name = String.fromCharCode(a + i);
-        idx.innerHTML = idx_name;
-        $(idx).attr("id", idx_name);
-        parent.appendChild(idx);
+    for (var i = 0; i < contacts.length; i++) {
 
-        for (var j = 1; j < 6; j++) {
-            var con_div = document.createElement("div");
-            con_div.className = "each_contact";
-            con_div.innerHTML = idx_name + "姓联系人" + j + "<hr>"
-            parent.appendChild(con_div);
+        var eachIndex = contacts[i];
+        if (eachIndex.length > 0) {
+            // 索引
+            var idx = $("<div class='each_idx'></div>");
+            var idx_name = String.fromCharCode(a + i);
+            idx.html(idx_name);
+            idx.attr("id", idx_name);
+            parent.append(idx);
 
-            $(con_div).click(function () {
+            // 索引下联系人
+            for (var j = 0; j < eachIndex.length; j++) {
+                var con_div = $("<div class='each_contact'></div>");
+                con_div.html(eachIndex[j].noteName + "<hr>");
+                parent.append(con_div);
 
-                if (last_contact_click != null)
-                    $(last_contact_click).css("background-color", "transparent");
+                var idStore = $("<a style='display: none;'></a>");
+                idStore.html(eachIndex[j].userID);
+                con_div.append(idStore);
 
-                $(this).css("background-color", "#d9eef9");
-                last_contact_click = this;
-            });
+                con_div.click(function () {
+                    if (last_contact_click != null) {
+                        $(last_contact_click).css("background-color", "transparent");
+                    }
+                    $(this).css("background-color", "#d9eef9");
+                    last_contact_click = this;
 
+                    // 展示该联系人详情；
+                    getContactDetail(this);
+                });
+            }
+
+        }
+    }
+}
+
+function getContactDetail(node) {
+
+    var conId = $(node).find("a").html();
+
+    var data = "contactID=" + conId;
+    var xhr = sendXML("/contacts/profile", "POST", data);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState==4 && xhr.status==200) {
+
+            var resp = xhr.response;
+            if (resp.status == true) {
+                var info = resp.object;
+
+                // 头像链接
+                //
+                $("#detail").find(".contact_name").html(info.noteName);
+                $("#detail").find("span");
+
+            }
         }
     }
 }
@@ -300,7 +337,7 @@ function initGroups(groupList) {
     var parent = $("#lbls");
     var copy = $("#group_copy");
 
-    for (var i=0; i<groupList.length; i++) {
+    for (var i = 0; i < groupList.length; i++) {
         var group = $("<div class='each_group'></div>");
         group.html(copy.html());
         group.find("span").html(groupList[i].name);
@@ -308,17 +345,9 @@ function initGroups(groupList) {
 
         var idStore = $("<a style='display: none;'></a>")
         idStore.html(groupList[i].id);
-        idStore.append(idStore);
+        group.append(idStore);
     }
 
-    //
-    // for (var i = 0; i < 3; i++) {
-    //     var group = $("<div class='each_group'></div>");
-    //     group.html(copy.html());
-    //     group.find("span").html(groupName[i]);
-    //
-    //     parent.append(group);
-    // }
 }
 
 function modGroup(node) {

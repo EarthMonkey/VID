@@ -103,12 +103,6 @@ html, body {
     position: relative;
 }
 
-#lists {
-    height: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
-}
-
 .first_bottom i {
     font-size: 20px;
     color: #bfbfbf;
