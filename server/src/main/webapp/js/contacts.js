@@ -180,6 +180,16 @@ function appendContact(eachIndex, parent) {
     con_div.append(idStore);
 
     con_div.click(function () {
+
+        if ($("#detailMod").css("display") != "none") {
+            DELETE_INDEX = 0;
+            DELETE_QUEUE = [];
+            clearVideoMod();
+            $("#detailMod").hide();
+            $("#detail").show();
+            $("#detail_part").find(".edit_btn").html("编辑");
+        }
+
         if (last_contact_click != null) {
             $(last_contact_click).css("background-color", "transparent");
         }
@@ -562,9 +572,15 @@ function slideRight() {
 
 var DELETE_QUEUE = [];
 var DELETE_INDEX = 0;
+var LOOP_POS = 0;
 
 // 修改联系人详细信息
 function modDetail(node) {
+
+    DELETE_INDEX = 0;
+    LOOP_POS = 0;
+    DELETE_QUEUE = [];
+    clearVideoMod();
 
     if ($(node).html() == "取消") {
         $("#detailMod").hide();
@@ -592,6 +608,7 @@ function modDetail(node) {
     var videoParent = $("#videosMod");
     var videoCopy = $("#vidMod_copy");
     var videos = $("#videos").find(".video_div");
+
     for (var i = 0; i < videos.length; i++) {
         var div = $("<div></div>");
         div.html(videoCopy.html());
@@ -662,17 +679,19 @@ function comDetailMod() {
     // 删除视频
     for (var i = 0; i < DELETE_INDEX; i++) {
 
-        var theVideo = $("#videos").find(".video_div")[DELETE_QUEUE[i]];
-        var videoID = theVideo.find("a").html();
+        var theVideo = $("#videos").find(".video_div")[DELETE_QUEUE[i] - 1];
+        var videoID = $(theVideo).find("a").html();
 
         var videoData = "videoID=" + videoID;
         var xhr_vd = sendXML("/video/remove", "POST", videoData);
-        xhr_vd.onreadyStateChange = function () {
+        xhr_vd.onreadystatechange = function () {
             if (xhr_vd.readyState == 4 && xhr_vd.status == 200) {
-
                 var resp = xhr_vd.response;
+
                 if (resp.status == true) {
-                    $(theVideo).remove();
+                    // alert(DELETE_QUEUE[LOOP_POS])
+                    $($("#videos").find(".video_div")[DELETE_QUEUE[LOOP_POS] - 1]).remove();
+                    LOOP_POS++;
                 } else {
                     alert(resp.info);
                 }
@@ -680,9 +699,6 @@ function comDetailMod() {
         };
     }
 
-    DELETE_INDEX = 0;
-    DELETE_QUEUE = [];
-    clearVideoMod();
     $("#detailMod").hide();
     $("#detail").show();
     $("#detail_part").find(".edit_btn").html("编辑");
@@ -693,12 +709,35 @@ function delContact() {
 
     DELETE_INDEX = 0;
     DELETE_QUEUE = [];
+
+    var data = "contactID=" + $(last_contact_click).find("a").html();
+    var xhr = sendXML("/contacts/remove", "POST", data);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState==4 && xhr.status==200) {
+
+            $(last_contact_click).remove();
+            last_contact_click = null;
+
+            clearVideoMod();
+            $("#detailMod").hide();
+            $("#detail_part").find(".edit_btn").html("编辑");
+            $("#detail").show();
+
+            var ie = !-[1,];
+            if (ie) {
+                $($("#lists").find(".each_contact")[0]).trigger('click').trigger('change');
+            } else {
+                $($("#lists").find(".each_contact")[0]).trigger('click');
+            }
+        }
+    };
 }
 
 // 清空div
 function clearVideoMod() {
+
     var videoMods = $("#videosMod").find(".del_btn");
-    for (var i = 0; i < videoMods.length; i++) {
+    for (var i = 1; i < videoMods.length; i++) {
         $(videoMods[i].parentNode).remove();
     }
 }
