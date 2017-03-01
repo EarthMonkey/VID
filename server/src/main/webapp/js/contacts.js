@@ -7,7 +7,6 @@ var CONTACTS = {};
 
 window.onload = function () {
     getAll();
-    slideRight();
     addIndex();
 };
 
@@ -22,6 +21,7 @@ function getAll() {
 
             initGroups(CONTACTS.groupList);
             initContacts(CONTACTS.contacts);
+            slideRight();
         }
     };
 }
@@ -347,6 +347,10 @@ function setVideos(videoList) {
         div.find("source").attr("src", videoList[i].url);
         div.find(".video_name").html(videoList[i].name);
 
+        var idStore = $("<a style='display:none'></a>");
+        idStore.html(videoList[i].id);
+        div.append(idStore);
+
         $("#videos").append(div);
     }
 }
@@ -594,6 +598,10 @@ function modDetail(node) {
         div.find("source").attr("src", $(videos[i]).find("source").attr("src"));
         div.find("input").val($(videos[i]).find(".video_name").html());
 
+        var idStore = $("<a style='display: none'></a>");
+        idStore.html($(videos[i]).find("a").html());
+        div.append(idStore);
+
         var delBtn = div.find(".del_btn");
         delBtn.click(function () {
             DELETE_QUEUE[DELETE_INDEX] = $("#videosMod").find("input").index($(this.parentNode).find("input"));
@@ -610,22 +618,66 @@ function comDetailMod() {
 
     // 修改信息
     var inputs = $("#detailMod").find("input");
-    $("#detail").find(".contact_name").html(inputs[0].value);
-    var spans = $("#detail").find("span");
-    for (var i = 0; i < spans.length; i++) {
-        spans[i].innerHTML = inputs[i + 1].value;
-    }
+
+    var contactID = $(last_contact_click).find("a").html();
+    var profile = {
+        noteName: inputs[0].value,
+        phoneNum: inputs[2].value,
+        email: inputs[3].value,
+        industry: "",    // 不修改
+        interest: inputs[1].value
+    };
+
+    var data = "contactID=" + contactID + "&profile=" + JSON.stringify(profile);
+    var xhr = sendXML("/contacts/edit", "POST", data);
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            var resp = xhr.response;
+
+            if (resp.status == true) {
+
+                $("#detail").find(".contact_name").html(inputs[0].value);
+                var spans = $("#detail").find("span");
+                for (var i = 0; i < spans.length; i++) {
+                    spans[i].innerHTML = inputs[i + 1].value;
+                }
+            } else {
+                alert(resp.info);
+            }
+        } else {
+            console.log("xhr " + xhr.readyState)
+            console.log("status " + xhr.status);
+        }
+    };
 
     // 修改视频名称
     var videoMods = $("#videosMod").find("input");
     var videoNames = $("#videos").find(".video_div").find(".video_name");
     for (var i = 1; i < videoMods.length; i++) {
+
         $(videoNames[i - 1]).html($(videoMods[i]).val());
     }
 
     // 删除视频
     for (var i = 0; i < DELETE_INDEX; i++) {
-        $($("#videos").find(".video_div")[DELETE_QUEUE[i]]).remove();
+
+        var theVideo = $("#videos").find(".video_div")[DELETE_QUEUE[i]];
+        var videoID = theVideo.find("a").html();
+
+        var videoData = "videoID=" + videoID;
+        var xhr_vd = sendXML("/video/remove", "POST", videoData);
+        xhr_vd.onreadyStateChange = function () {
+            if (xhr_vd.readyState == 4 && xhr_vd.status == 200) {
+
+                var resp = xhr_vd.response;
+                if (resp.status == true) {
+                    $(theVideo).remove();
+                } else {
+                    alert(resp.info);
+                }
+            }
+        };
     }
 
     DELETE_INDEX = 0;

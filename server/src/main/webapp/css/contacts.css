@@ -42,8 +42,10 @@ html, body {
     height: 45px;
     border-bottom: 1px solid #afc7d9;
     padding-left: 15px;
+    padding-right: 15px;
+    box-sizing: border-box;
     background-color: #d6d8db;
-    font-family: "Microsoft Sans Serif", sans-serif;
+    font-family: "Microsoft Sans Serif", "PingFang SC", sans-serif;
     font-size: 18px;
     font-weight: lighter;
     line-height: 45px;
@@ -184,7 +186,7 @@ html, body {
     width: 100%;
     height: 50px;
     line-height: 50px;
-    font-family: "Microsoft Sans Serif", serif;
+    font-family: "Microsoft Sans Serif", "PingFang SC", serif;
     font-size: 18px;
     font-weight: bold;
     padding-left: 15px;
@@ -352,6 +354,7 @@ html, body {
     .enlarge_modal {
         width: 99%;
     }
+
     .no_video {
         text-align: left;
     }
