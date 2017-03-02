@@ -75,6 +75,8 @@ function judgeLogin() {
                 $($(".nav_username_div")[1]).hide();
                 $($(".nav_username_div")[0]).show();
                 $($(".nav_username_div")[0]).find("span").html(data.object);
+
+                $(".register_btn").hide();
             }
         }
     }
