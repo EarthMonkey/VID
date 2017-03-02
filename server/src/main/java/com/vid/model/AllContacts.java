@@ -1,6 +1,7 @@
 package com.vid.model;
 
 import com.github.stuxuhai.jpinyin.PinyinException;
+import com.github.stuxuhai.jpinyin.PinyinFormat;
 import com.github.stuxuhai.jpinyin.PinyinHelper;
 
 import java.util.*;
@@ -68,8 +69,8 @@ public class AllContacts {
             String pinyin1, pinyin2;
 
             try {
-                pinyin1 = PinyinHelper.getShortPinyin(contact1.getNoteName());
-                pinyin2 = PinyinHelper.getShortPinyin(contact2.getNoteName());
+                pinyin1 = PinyinHelper.convertToPinyinString(contact1.getNoteName(), "", PinyinFormat.WITHOUT_TONE);
+                pinyin2 = PinyinHelper.convertToPinyinString(contact2.getNoteName(), "", PinyinFormat.WITHOUT_TONE);
 
                 return pinyin1.compareTo(pinyin2);
             } catch (PinyinException e) {

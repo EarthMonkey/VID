@@ -153,12 +153,6 @@ public class ContactsService {
             return new MsgInfo(false, "非联系人");
         }
 
-        // 备注
-//        String noteName = contactsDao.getNoteName(userID, contactID);
-        // 分组列表
-//        Group group = groupDao.getGroup(userID, contactID);
-//        User user = userDao.getUserByID(contactID);
-//        List<Video> videoList = contactsDao.getAllVideos(userID, contactID);
         ContactProfile profile = contactsDao.getContactInfo(userID, contactID);
 
         return new MsgInfo(true, "", profile);
