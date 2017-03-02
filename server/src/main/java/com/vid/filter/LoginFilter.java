@@ -1,6 +1,7 @@
 package com.vid.filter;
 
 import com.vid.model.User;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -20,7 +21,7 @@ import java.util.StringTokenizer;
  * <p>
  * 登录过滤器，判断用户是否登录
  */
-//@WebFilter(value = "/*")
+@WebFilter(value = "/*")
 public class LoginFilter implements Filter {
 
     /**
@@ -50,23 +51,24 @@ public class LoginFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
             throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
-        // 访问的url
-        String url = request.getServletPath();
+        System.out.println(request.getMethod());
 
-        // 判断url是否需要忽略
-        // 若是，不做处理
-        // 否则，判断用户是否登录
-        if (!url.endsWith("html") && !ignoreURL.contains(url)) {
-            HttpSession session = request.getSession(false);
+        if (request.getMethod().equalsIgnoreCase("POST")) {
+            // 访问的url
+            String url = request.getServletPath();
 
-//         TODO 删除桩数据
-//        injectUser(request);
+            // 判断url是否需要忽略
+            // 若是，不做处理
+            // 否则，判断用户是否登录
+            if (!ignoreURL.contains(url)) {
+                HttpSession session = request.getSession(false);
 
-            if (session == null || session.getAttribute("userID") == null) {
-                PrintWriter out = servletResponse.getWriter();
+                if (session == null || session.getAttribute("userID") == null) {
+                    PrintWriter out = servletResponse.getWriter();
 
-                out.print("{\"status\":false,\"info\":\"用户未登录\",\"object\":null}");
-                return;
+                    out.print("{\"status\":false,\"info\":\"用户未登录\",\"object\":null}");
+                    return;
+                }
             }
         }
 
@@ -76,13 +78,5 @@ public class LoginFilter implements Filter {
 
     public void destroy() {
         /*do nothing*/
-    }
-
-    private void injectUser(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-
-        User user = new User("username",  "", "password", "tom");
-        session.setAttribute("user", user);
-        session.setAttribute("username", "username");
     }
 }
