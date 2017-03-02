@@ -20,6 +20,8 @@ public interface ContactsMapper {
 
     String getNoteName(int userID, int contactID);
 
+    List<Relationship> getContactInfo(int userID, int contactID);
+
     List<Video> getAllVideos(int userID, int contactID);
 
     int addContact(int userID, String noteName, int friendid,String telephone,String interest,String email,String industy);

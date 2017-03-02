@@ -95,8 +95,6 @@ public class UserController {
     @RequestMapping(value = "/login")
     @ResponseBody
     public MsgInfo login(HttpSession session, @RequestParam String id, @RequestParam String password) {
-        System.out.println("UserController.login");
-        System.out.println(session.getId());
         MsgInfo msgInfo = userService.login(id, password);
 
         if (msgInfo.getStatus()) {
@@ -118,8 +116,6 @@ public class UserController {
     @RequestMapping(value = "/isLogin")
     @ResponseBody
     public MsgInfo isLogin(HttpSession session) {
-        System.out.println("UserController.isLogin");
-        System.out.println(session.getId());
         if (session.getAttribute("userID") == null) {
             return new MsgInfo(false, "未登录");
         } else {

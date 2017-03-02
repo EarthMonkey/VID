@@ -1,11 +1,10 @@
 package com.vid.dao;
 
 import com.vid.mapper.ContactsMapper;
+import com.vid.mapper.GroupMapper;
 import com.vid.mapper.UserMapper;
-import com.vid.model.Contact;
-import com.vid.model.Relationship;
-import com.vid.model.User;
-import com.vid.model.Video;
+import com.vid.mapper.VideoMapper;
+import com.vid.model.*;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +26,10 @@ public class ContactsDaoImpl implements ContactsDao {
     ContactsMapper contactsMapper;
     @Resource
     UserMapper userMapper;
+    @Resource
+    VideoMapper videoMapper;
+    @Resource
+    GroupMapper groupMapper;
 
     @Override
     public List<Contact> getAllContacts(int userID) {
@@ -64,6 +67,30 @@ public class ContactsDaoImpl implements ContactsDao {
     }
 
     @Override
+    public ContactProfile getContactInfo(int userID, int contactID) {
+        try {
+            List<Relationship> relationshipList = contactsMapper.getContactInfo(userID, contactID);
+            // 至少存在一条记录
+            Relationship relationship = relationshipList.get(0);
+
+            Group group = groupMapper.getGroup(userID, contactID);
+
+            User user = new User();
+            user.setShowtelephone(relationship.getNotetelphone());
+            user.setShowemail(relationship.getNoteemail());
+            user.setIndustry(relationship.getNoteindustry());
+            user.setInterest(relationship.getNoteinterest());
+
+            List<Video> videoList = new ArrayList<>(relationshipList.size());
+            relationshipList.forEach(temp -> videoList.add(videoMapper.getVideoByID(temp.getVideoid())));
+
+            return new ContactProfile(relationship.getNotename(), group, user, videoList);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
     public List<Video> getAllVideos(int userID, int contactID) {
         try {
             return contactsMapper.getAllVideos(userID, contactID);
@@ -92,7 +119,7 @@ public class ContactsDaoImpl implements ContactsDao {
             User u = userMapper.getUserById(contactID);
             if (u == null)
                 return false;
-            if (contactsMapper.addContactWithVideo(userID,noteName,contactID,u.getBindingtelephone(),u.getInterest(),u.getBindingemail(),u.getIndustry(),videoID ) > 0)
+            if (contactsMapper.addContactWithVideo(userID, noteName, contactID, u.getBindingtelephone(), u.getInterest(), u.getBindingemail(), u.getIndustry(), videoID) > 0)
                 return true;
             return false;
         } catch (Exception e) {
@@ -104,7 +131,7 @@ public class ContactsDaoImpl implements ContactsDao {
     @Override
     public boolean editContactProfile(int userID, int contactID, String noteName, String phoneNum, String email, String industry, String interest) {
         try {
-            if (contactsMapper.editContactProfile(userID,contactID,noteName,phoneNum,email,industry,interest ) > 0)
+            if (contactsMapper.editContactProfile(userID, contactID, noteName, phoneNum, email, industry, interest) > 0)
                 return true;
             return false;
         } catch (Exception e) {
@@ -116,7 +143,7 @@ public class ContactsDaoImpl implements ContactsDao {
     @Override
     public boolean removeContact(int userID, int contactID) {
         try {
-            if (contactsMapper.removeContact(userID,contactID ) > 0)
+            if (contactsMapper.removeContact(userID, contactID) > 0)
                 return true;
             return false;
         } catch (Exception e) {

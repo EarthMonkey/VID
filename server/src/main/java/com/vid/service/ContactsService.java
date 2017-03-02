@@ -154,13 +154,14 @@ public class ContactsService {
         }
 
         // 备注
-        String noteName = contactsDao.getNoteName(userID, contactID);
+//        String noteName = contactsDao.getNoteName(userID, contactID);
         // 分组列表
-        Group group = groupDao.getGroup(userID, contactID);
-        User user = userDao.getUserByID(contactID);
-        List<Video> videoList = contactsDao.getAllVideos(userID, contactID);
+//        Group group = groupDao.getGroup(userID, contactID);
+//        User user = userDao.getUserByID(contactID);
+//        List<Video> videoList = contactsDao.getAllVideos(userID, contactID);
+        ContactProfile profile = contactsDao.getContactInfo(userID, contactID);
 
-        return new MsgInfo(true, "", new ContactProfile(noteName, group, user, videoList));
+        return new MsgInfo(true, "", profile);
     }
 
     /**

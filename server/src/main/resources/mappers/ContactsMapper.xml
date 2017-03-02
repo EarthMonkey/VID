@@ -18,6 +18,10 @@
         SELECT notename FROM relationship WHERE ownerid = #{0} AND friendid = #{1}  LIMIT 1
     </select>
 
+    <select id="getContactInfo" resultType="Relationship">
+        SELECT * FROM relationship WHERE ownerid = #{0} AND friendid = #{1}
+    </select>
+
     <select id="getAllVideos"  resultType="Video">
        select vd.id as id  ,vd.ownerid as ownerid ,vd.name as name ,vd.size as size ,vd.url as url from video vd,
        (select videoid from relationship where ownerid = #{0} and friendid = #{1}) re where re.videoid = vd.id;

@@ -1,10 +1,9 @@
 package com.vid.dao;
 
 import com.vid.model.Contact;
-import com.vid.model.Relationship;
+import com.vid.model.ContactProfile;
 import com.vid.model.User;
 import com.vid.model.Video;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -40,6 +39,15 @@ public interface ContactsDao {
      * @return 备注姓名
      */
     String getNoteName(int userID, int contactID);
+
+    /**
+     * 获取用户userID对联系人contactID的备注信息
+     *
+     * @param userID    userID，对应id字段
+     * @param contactID 联系人的userID
+     * @return 联系人备注信息
+     */
+    ContactProfile getContactInfo(int userID, int contactID);
 
     /**
      * 获取用户userID添加的所有属于contactID的视频
