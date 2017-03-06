@@ -96,3 +96,14 @@
 .dialog_btn:hover {
     background-color: #e5f2fe;
 }
+
+.err_lbl {
+    font-size: 14px;
+    line-height: 30px;
+    color: #f43636;
+    font-family: "PingFang SC", serif;
+    font-weight: 300;
+    position: absolute;
+    right: 5px;
+    top:0;
+}
