@@ -134,17 +134,6 @@ body {
     margin-bottom: 20px;
 }
 
-.err_lbl {
-    font-size: 14px;
-    line-height: 30px;
-    color: #f43636;
-    font-family: "PingFang SC", serif;
-    font-weight: 300;
-    position: absolute;
-    right: 5px;
-    top:0;
-}
-
 @media screen and (max-width: 1260px) {
     .center_div {
         width: 310px;
