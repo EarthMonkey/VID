@@ -1,5 +1,6 @@
 body {
-    background-image: url("../image/login_bg.png");
+    background: url("../image/login_bg.png") no-repeat;
+    /*background-repeat: no-repeat;*/
     overflow: hidden;
 }
 
