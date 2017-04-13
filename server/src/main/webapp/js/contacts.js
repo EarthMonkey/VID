@@ -233,6 +233,8 @@ function getContactDetail(node) {
                 $(spans[1]).html(info.phoneNum);
                 $(spans[2]).html(info.email);
 
+                var storages = $("#detail").find("storage").html(info.group.name);
+
                 // 视频
                 setVideos(info.videoList);
             }
@@ -334,11 +336,12 @@ function initMyVideos() {
 // 联系人的视频
 function setVideos(videoList) {
 
+
     $("#videos").find(".video_div").remove();
     var copy = $("#video_copy");
 
     var noVideo = $("#videos").find(".no_video");
-    if (videoList.length == 0) {
+    if (videoList[0] == null) {
         if (noVideo.css("display") == "none") {
             noVideo.show();
         }
@@ -420,8 +423,15 @@ function newGroup() {
 
 var LAST_GROUP;
 function initGroups(groupList) {
+    var modGroup = $("#modGroup");
+
     for (var i = 0; i < groupList.length; i++) {
         setGroup(groupList[i]);
+
+        var option = $("<option></option>");
+        option.html(groupList[i].name);
+        option.attr("Gid", groupList[i].id);
+        $(modGroup).append(option); // 修改分组
     }
 }
 
@@ -574,6 +584,8 @@ var DELETE_QUEUE = [];
 var DELETE_INDEX = 0;
 var LOOP_POS = 0;
 
+var OLD_GROUP;  // 原group，用来判断是否发生了分组变更
+
 // 修改联系人详细信息
 function modDetail(node) {
 
@@ -598,11 +610,16 @@ function modDetail(node) {
     $("#detailMod").show();
 
     var inputs = $("#detailMod").find("input");
-    inputs[0].value = $("#detail").find(".contact_name").html();
+    inputs[1].value = $("#detail").find(".contact_name").html();
     var spans = $("#detail").find("span");
     for (var i = 0; i < spans.length; i++) {
-        inputs[i + 1].value = spans[i].innerHTML;
+        inputs[i + 2].value = spans[i].innerHTML;
     }
+
+    // 分组选择
+    OLD_GROUP = $("#detail").find("storage").html();
+    $("#modGroup").val(OLD_GROUP);
+
 
     // 视频
     var videoParent = $("#videosMod");
@@ -638,12 +655,25 @@ function comDetailMod() {
 
     var contactID = $(last_contact_click).find("a").html();
     var profile = {
-        noteName: inputs[0].value,
-        phoneNum: inputs[2].value,
-        email: inputs[3].value,
+        noteName: inputs[1].value,
+        phoneNum: inputs[3].value,
+        email: inputs[4].value,
         industry: "",    // 不修改
-        interest: inputs[1].value
+        interest: inputs[2].value
     };
+
+    // 修改分组信息
+    var Gname = $("#modGroup").val();
+    if (Gname != OLD_GROUP) {
+        var Gdata = "contactID=" + contactID + "&groupID=" + $($("#modGroup").get(0).selectedOptions).attr("gid");
+        var Gxhr = sendXML("/contacts/group/group", "POST", Gdata);
+
+        Gxhr.onreadystatechange = function () {
+            if (Gxhr.readyState == 4 && Gxhr.status == 200) {
+                console.log(Gxhr.response);
+            }
+        }
+    }
 
     var data = "contactID=" + contactID + "&profile=" + JSON.stringify(profile);
     var xhr = sendXML("/contacts/edit", "POST", data);
@@ -654,17 +684,16 @@ function comDetailMod() {
 
             if (resp.status == true) {
 
-                $("#detail").find(".contact_name").html(inputs[0].value);
-                var spans = $("#detail").find("span");
+                var detail = $("#detail");
+                $(detail).find("img").eq(0).attr("src", inputs[0].value);
+                $(detail).find(".contact_name").html(inputs[1].value);
+                var spans = $(detail).find("span");
                 for (var i = 0; i < spans.length; i++) {
-                    spans[i].innerHTML = inputs[i + 1].value;
+                    spans[i].innerHTML = inputs[i + 2].value;
                 }
             } else {
                 alert(resp.info);
             }
-        } else {
-            console.log("xhr " + xhr.readyState)
-            console.log("status " + xhr.status);
         }
     };
 
@@ -713,7 +742,7 @@ function delContact() {
     var data = "contactID=" + $(last_contact_click).find("a").html();
     var xhr = sendXML("/contacts/remove", "POST", data);
     xhr.onreadystatechange = function () {
-        if (xhr.readyState==4 && xhr.status==200) {
+        if (xhr.readyState == 4 && xhr.status == 200) {
 
             $(last_contact_click).remove();
             last_contact_click = null;
@@ -740,4 +769,50 @@ function clearVideoMod() {
     for (var i = 1; i < videoMods.length; i++) {
         $(videoMods[i].parentNode).remove();
     }
+}
+
+// 上传头像
+function uploadImage(id) {
+
+    var input = $(id);
+    var ie = !-[1,];
+    if (ie) {
+        $(input).trigger('click').trigger('change');
+    } else {
+        $(input).trigger('click');
+    }
+}
+
+//使用IE条件注释来判断是否IE6，通过判断userAgent不一定准确
+if (document.all) document.write('<!--[if lte IE 6]><script type="text/javascript">window.ie6= true<\/script><![endif]-->');
+// var ie6 = /msie 6/i.test(navigator.userAgent);//不推荐，有些系统的ie6 userAgent会是IE7或者IE8
+function changePortrait(picId, fileId) {
+    var pic = document.getElementById(picId);
+    var file = document.getElementById(fileId);
+    if (window.FileReader) {//chrome,firefox7+,opera,IE10,IE9，IE9也可以用滤镜来实现
+        oFReader = new FileReader();
+        oFReader.readAsDataURL(file.files[0]);
+        oFReader.onload = function (oFREvent) {
+            pic.src = oFREvent.target.result;
+        };
+    }
+    else if (document.all) {//IE8-
+        file.select();
+        var reallocalpath = document.selection.createRange().text//IE下获取实际的本地文件路径
+        if (window.ie6) pic.src = reallocalpath; //IE6浏览器设置img的src为本地路径可以直接显示图片
+        else { //非IE6版本的IE由于安全问题直接设置img的src无法显示本地图片，但是可以通过滤镜来实现，IE10浏览器不支持滤镜，需要用FileReader来实现，所以注意判断FileReader先
+            pic.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod='image',src=\"" + reallocalpath + "\")";
+            pic.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';//设置img的src为base64编码的透明图片，要不会显示红xx
+        }
+    }
+    else if (file.files) {//firefox6-
+        if (file.files.item(0)) {
+            url = file.files.item(0).getAsDataURL();
+            pic.src = url;
+        }
+    }
+
+    // 文件路径
+    var filepath = file.value;
+
 }

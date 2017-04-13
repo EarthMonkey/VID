@@ -36,12 +36,15 @@
             <div class="edit_btn">编辑</div>
         </div>
 
-        <div class="portrait_div">
-            <img src="../image/portrait_default.png">
+        <div class="portrait_div my_portrait">
+            <img id="previewImg" src="../image/portrait_default.png" onclick="uploadImage('#fileInput');">
+            <div class="upload_lbl">更换头像</div>
+
+            <input id="fileInput" type="file" accept="image/*"
+                   onchange="changePortrait('previewImg', 'fileInput');">
         </div>
 
         <div class="contact_name">李昊朔</div>
-
     </div>
 
     <!-- 我的名片夹 -->
@@ -148,7 +151,7 @@
         <div id="detail">
 
             <div class="portrait_div">
-                <img src="../image/portrait_default.png">
+                <img src="" onerror="this.src='../image/portrait_default.png'">
             </div>
 
             <div class="contact_name"></div>
@@ -175,18 +178,28 @@
                 <div class="video_name">测试mp4视频</div>
             </div>
 
+            <storage style="display: none"></storage>
         </div>
 
         <div id="detailMod" style="display: none; padding-bottom: 50px;">
-            <div class="photo_mod">
-                添加照片
+            <div class="photo_mod" onclick="uploadImage('#eachImage')">
+                <img id="eachPhoto" class="photo_img" src="" onerror="this.src='../image/portrait_default.png'">
+                <div class="upload_lbl">更换头像</div>
             </div>
+
+            <input id="eachImage" type="file" accept="image/*"
+                   onchange="changePortrait('eachPhoto', 'eachImage');">
 
             <div class="info_mod">
                 <input class="info_field" type="text" placeholder="姓名">
                 <input class="info_field" type="text" placeholder="备注">
                 <input class="info_field" type="text" placeholder="电话">
                 <input class="info_field" type="text" placeholder="邮箱">
+
+                <select id="modGroup" class="info_field">
+                    <!--<option>朋友</option>-->
+                    <!--<option>家人</option>-->
+                </select>
             </div>
 
             <div>
