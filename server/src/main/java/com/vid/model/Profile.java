@@ -19,6 +19,8 @@ public class Profile {
 
     private String interest;
 
+    private String portrait;
+
     public Profile() {
         /*do nothing*/
     }
@@ -30,6 +32,7 @@ public class Profile {
         this.email = user.getShowemail();
         this.industry = user.getIndustry();
         this.interest = user.getInterest();
+        this.portrait = user.getImgpath();
     }
 
     public int getUserID() {
@@ -78,6 +81,14 @@ public class Profile {
 
     public void setInterest(String interest) {
         this.interest = interest;
+    }
+
+    public String getPortrait() {
+        return portrait;
+    }
+
+    public void setPortrait(String portrait) {
+        this.portrait = portrait;
     }
 
     @Override

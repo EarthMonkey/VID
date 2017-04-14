@@ -84,6 +84,7 @@ public class GroupController {
      * 3. {"status":false,"info":"分组不存在","object":null}
      */
     @RequestMapping("/group")
+    @ResponseBody
     public MsgInfo groupContact(HttpSession session, int contactID, int groupID) {
         int userID = (int) session.getAttribute("userID");
 

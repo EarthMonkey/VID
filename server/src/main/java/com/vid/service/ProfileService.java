@@ -48,6 +48,10 @@ public class ProfileService {
         try {
             JSONObject jsonObject = new JSONObject(profile);
 
+            if ("".equals(jsonObject.getString("name"))) {
+                return new MsgInfo(false, "姓名不能为空");
+            }
+
             user.setName(jsonObject.getString("name"));
             user.setShowemail(jsonObject.getString("email"));
             user.setShowtelephone(jsonObject.getString("phoneNum"));
