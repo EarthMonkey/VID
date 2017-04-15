@@ -4,11 +4,39 @@
 
 var last_contact_click = null;
 var CONTACTS = {};
+var ME;  // 我的信息
 
 window.onload = function () {
+    getMyInfo();
     getAll();
     addIndex();
 };
+
+function getMyInfo() {
+
+    var xhr = sendXML("/profile", "POST", "");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            var resp = xhr.response;
+            if (resp.status) {
+                var temp_me = resp.object;
+                // 我的信息
+                ME = {
+                    noteName: temp_me.name,
+                    userId: temp_me.userID,
+                    portrait: temp_me.portrait,
+                    interest: temp_me.interest,
+                    phoneNum: temp_me.phoneNum,
+                    email: temp_me.email
+                };
+                appendContact(ME, $("#lists"), "me");
+            } else {
+                alert(resp.info);
+            }
+        }
+    };
+
+}
 
 function getAll() {
 
@@ -18,10 +46,10 @@ function getAll() {
             CONTACTS = (xhr.response).object;
 
             $(".nav_username_div").find("span").html(CONTACTS.name);
-
             initGroups(CONTACTS.groupList);
             initContacts(CONTACTS.contacts);
             slideRight();
+
         }
     };
 }
@@ -141,7 +169,6 @@ function addIndex() {
 function initContacts(contacts) {
 
     var parent = $("#lists");
-
     var a = 65;
     for (var i = 0; i < contacts.length; i++) {
 
@@ -179,6 +206,10 @@ function appendContact(eachIndex, parent) {
     idStore.html(eachIndex.userID);
     con_div.append(idStore);
 
+    if (arguments.length > 2) {  // 用来标识自己的块
+        $(con_div).attr("isMe", "isMe");
+    }
+
     con_div.click(function () {
 
         if ($("#detailMod").css("display") != "none") {
@@ -197,7 +228,12 @@ function appendContact(eachIndex, parent) {
         last_contact_click = this;
 
         // 展示该联系人详情；
-        getContactDetail(this);
+        if ($(this).attr("isMe")) {
+            getContactDetail(this, "me");
+        } else {
+            getContactDetail(this);
+        }
+
     });
 }
 
@@ -214,6 +250,26 @@ function changeAllContact() {
 
 function getContactDetail(node) {
 
+    if (arguments.length > 1) { // 获取自己的信息，通过ME获得
+        $("#detail").find(".portrait_div").find("img").attr("src", ME.portrait);
+        // 其他信息
+        $("#detail").find(".contact_name").html(ME.noteName);
+        var spans = $("#detail").find(".contact_info").find("span");
+        $(spans[0]).html(ME.interest);
+        $(spans[1]).html(ME.phoneNum);
+        $(spans[2]).html(ME.email);
+        $("#detail").find("storage").html("未分组");
+
+        $("#detail").attr("isMe", true);  // 用来判断是否调用修改个人信息的url
+
+        // 视频
+        setVideos(ME.videoList);
+
+        return;
+    }
+
+    $("#detail").attr("isMe", false);
+
     var conId = $(node).find("a").html();
 
     var data = "contactID=" + conId;
@@ -226,14 +282,19 @@ function getContactDetail(node) {
                 var info = resp.object;
 
                 // 头像链接
-                //
+                $("#detail").find(".portrait_div").find("img").attr("src", info.portrait);
+                // 其他信息
                 $("#detail").find(".contact_name").html(info.noteName);
                 var spans = $("#detail").find(".contact_info").find("span");
                 $(spans[0]).html(info.interest);
                 $(spans[1]).html(info.phoneNum);
                 $(spans[2]).html(info.email);
 
-                var storages = $("#detail").find("storage").html(info.group.name);
+                if (info.group != null) {
+                    $("#detail").find("storage").html(info.group.name);
+                } else {
+                    $("#detail").find("storage").html("未分组");
+                }
 
                 // 视频
                 setVideos(info.videoList);
@@ -269,8 +330,19 @@ function enlarge(node) {
     $(video_copy)[0].play();
 }
 
+var MINE_FIRST = 0;  // 用来判断是否为第一次加载我的信息
 // 滑出我的名片夹
 function showMine() {
+
+    // 通过ME来加载数据
+    if (MINE_FIRST == 0) {
+        $("#previewImg").attr("src", ME.portrait);
+        $("#left_part").find(".contact_name").html(ME.noteName);
+        var myInfo = $("#mine").find(".contact_info").eq(0).find("span");
+        $(myInfo).eq(0).html(ME.interest).eq(1).html(ME.phoneNum).eq(2).html(ME.email);
+
+        MINE_FIRST = 1;
+    }
 
     $("#detail_part").hide();
 
@@ -303,10 +375,7 @@ function hideMine() {
         }, 200);
     }
 
-    var mine = document.getElementById("mine");
-    var tips = mine.getElementsByClassName("tip_text");
-    $(tips[0]).show();
-    $(tips[1]).hide();
+    $("#mine").find(".tip_text").show();
 }
 
 // 我的视频
@@ -335,7 +404,6 @@ function initMyVideos() {
 
 // 联系人的视频
 function setVideos(videoList) {
-
 
     $("#videos").find(".video_div").remove();
     var copy = $("#video_copy");
@@ -374,10 +442,7 @@ function showMyAll() {
         width: "show"
     }, 200);
 
-    var mine = document.getElementById("mine");
-    var tips = mine.getElementsByClassName("tip_text");
-    $(tips[1]).show();
-    $(tips[0]).hide();
+    $("#mine").find(".tip_text").hide();
 }
 
 // 增加分组
@@ -433,6 +498,11 @@ function initGroups(groupList) {
         option.attr("Gid", groupList[i].id);
         $(modGroup).append(option); // 修改分组
     }
+
+    var option_default = $("<option></option>");
+    option_default.html("未分组");
+    option_default.attr("Gid", -1);
+    $(modGroup).append(option_default);
 }
 
 function setGroup(groupList) {
@@ -610,10 +680,10 @@ function modDetail(node) {
     $("#detailMod").show();
 
     var inputs = $("#detailMod").find("input");
-    inputs[1].value = $("#detail").find(".contact_name").html();
+    inputs[0].value = $("#detail").find(".contact_name").html();
     var spans = $("#detail").find("span");
     for (var i = 0; i < spans.length; i++) {
-        inputs[i + 2].value = spans[i].innerHTML;
+        inputs[i + 1].value = spans[i].innerHTML;
     }
 
     // 分组选择
@@ -650,33 +720,36 @@ function modDetail(node) {
 // 修改完成
 function comDetailMod() {
 
+
     // 修改信息
     var inputs = $("#detailMod").find("input");
 
     var contactID = $(last_contact_click).find("a").html();
-    var profile = {
-        noteName: inputs[1].value,
-        phoneNum: inputs[3].value,
-        email: inputs[4].value,
-        industry: "",    // 不修改
-        interest: inputs[2].value
-    };
 
-    // 修改分组信息
-    var Gname = $("#modGroup").val();
-    if (Gname != OLD_GROUP) {
-        var Gdata = "contactID=" + contactID + "&groupID=" + $($("#modGroup").get(0).selectedOptions).attr("gid");
-        var Gxhr = sendXML("/contacts/group/group", "POST", Gdata);
+    var xhr;
 
-        Gxhr.onreadystatechange = function () {
-            if (Gxhr.readyState == 4 && Gxhr.status == 200) {
-                console.log(Gxhr.response);
-            }
-        }
+    if ($("#detail").attr("isMe") == true) { // 修改个人信息
+        var profile = {
+            name: inputs[0].value,
+            phoneNum: inputs[2].value,
+            email: inputs[3].value,
+            industry: "",    // 不修改
+            interest: inputs[1].value
+        };
+        var data = "profile=" + JSON.stringify(profile);
+        xhr = sendXML("/profile/edit", "POST", data);
+
+    } else {
+        var profile = {
+            noteName: inputs[0].value,
+            phoneNum: inputs[2].value,
+            email: inputs[3].value,
+            industry: "",    // 不修改
+            interest: inputs[1].value
+        };
+        var data = "contactID=" + contactID + "&profile=" + JSON.stringify(profile);
+        xhr = sendXML("/contacts/edit", "POST", data);
     }
-
-    var data = "contactID=" + contactID + "&profile=" + JSON.stringify(profile);
-    var xhr = sendXML("/contacts/edit", "POST", data);
 
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {
@@ -686,10 +759,10 @@ function comDetailMod() {
 
                 var detail = $("#detail");
                 $(detail).find("img").eq(0).attr("src", inputs[0].value);
-                $(detail).find(".contact_name").html(inputs[1].value);
+                $(detail).find(".contact_name").html(inputs[0].value);
                 var spans = $(detail).find("span");
                 for (var i = 0; i < spans.length; i++) {
-                    spans[i].innerHTML = inputs[i + 2].value;
+                    spans[i].innerHTML = inputs[i + 1].value;
                 }
             } else {
                 alert(resp.info);
@@ -702,6 +775,7 @@ function comDetailMod() {
     var videoNames = $("#videos").find(".video_div").find(".video_name");
     for (var i = 1; i < videoMods.length; i++) {
 
+        /** 修改视频名称 *********************************/
         $(videoNames[i - 1]).html($(videoMods[i]).val());
     }
 
@@ -726,6 +800,19 @@ function comDetailMod() {
                 }
             }
         };
+    }
+
+    // 修改分组信息
+    var Gname = $("#modGroup").val();
+    if (Gname != OLD_GROUP) {
+        var Gdata = "contactID=" + contactID + "&groupID=" + $($("#modGroup").get(0).selectedOptions).attr("gid");
+        var Gxhr = sendXML("/contacts/group/group", "POST", Gdata);
+
+        Gxhr.onreadystatechange = function () {
+            if (Gxhr.readyState == 4 && Gxhr.status == 200) {
+                console.log(Gxhr.response);
+            }
+        }
     }
 
     $("#detailMod").hide();
@@ -813,6 +900,15 @@ function changePortrait(picId, fileId) {
     }
 
     // 文件路径
-    var filepath = file.value;
+    var data = "url=" + file.value;
+    var xhr = sendXML("/profile/portrait/upload", "POST", data);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            var resp = xhr.response;
+            if (!resp.status) {
+                alert(resp.info);
+            }
+        }
+    }
 
 }

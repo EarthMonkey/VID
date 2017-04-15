@@ -560,7 +560,7 @@ html, body {
     margin-top: 30px;
     display: inline-block;
     vertical-align: top;
-    cursor: pointer;
+    cursor: default;
     overflow: hidden;
     position: relative;
 }
