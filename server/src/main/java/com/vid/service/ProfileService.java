@@ -2,13 +2,16 @@ package com.vid.service;
 
 import com.vid.config.MsgInfo;
 import com.vid.dao.UserDao;
+import com.vid.dao.VideoDao;
 import com.vid.model.Profile;
 import com.vid.model.User;
+import com.vid.model.Video;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by song on 17-2-11.
@@ -21,6 +24,9 @@ public class ProfileService {
     @Resource
     private UserDao userDao;
 
+    @Resource
+    private VideoDao videoDao;
+
     /**
      * 获取用户信息
      *
@@ -30,7 +36,9 @@ public class ProfileService {
         User user = userDao.getUserByID(userID);
 
         if (user != null) {
-            return new MsgInfo(true, "", new Profile(user));
+            List<Video> videoList = videoDao.getAllVideos(userID);
+
+            return new MsgInfo(true, "", new Profile(user, videoList));
         } else {
             return new MsgInfo(false, "用户不存在");
         }

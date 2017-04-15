@@ -1,5 +1,7 @@
 package com.vid.model;
 
+import java.util.List;
+
 /**
  * Created by song on 17-2-11.
  *
@@ -21,11 +23,13 @@ public class Profile {
 
     private String portrait;
 
+    private List<Video> videoList;
+
     public Profile() {
         /*do nothing*/
     }
 
-    public Profile(User user) {
+    public Profile(User user, List<Video> videoList) {
         this.userID = user.getId();
         this.name = user.getName();
         this.phoneNum = user.getShowtelephone();
@@ -33,6 +37,7 @@ public class Profile {
         this.industry = user.getIndustry();
         this.interest = user.getInterest();
         this.portrait = user.getImgpath();
+        this.videoList = videoList;
     }
 
     public int getUserID() {
@@ -89,6 +94,14 @@ public class Profile {
 
     public void setPortrait(String portrait) {
         this.portrait = portrait;
+    }
+
+    public List<Video> getVideoList() {
+        return videoList;
+    }
+
+    public void setVideoList(List<Video> videoList) {
+        this.videoList = videoList;
     }
 
     @Override
