@@ -258,7 +258,7 @@ function getContactDetail(node) {
         $(spans[0]).html(ME.interest);
         $(spans[1]).html(ME.phoneNum);
         $(spans[2]).html(ME.email);
-        $("#detail").find("storage").html("未分组");
+        $("#detail").find("storage").html("-1");
 
         $("#detail").attr("isMe", true);  // 用来判断是否调用修改个人信息的url
 
@@ -688,8 +688,14 @@ function modDetail(node) {
 
     // 分组选择
     OLD_GROUP = $("#detail").find("storage").html();
-    $("#modGroup").val(OLD_GROUP);
-
+    if (OLD_GROUP == -1) {
+        OLD_GROUP = "未分组";
+        $("#modGroup").val(OLD_GROUP);
+        $("#modGroup").attr("disabled", "disabled");
+    } else {
+        $("#modGroup").attr("disabled", false);
+        $("#modGroup").val(OLD_GROUP);
+    }
 
     // 视频
     var videoParent = $("#videosMod");
