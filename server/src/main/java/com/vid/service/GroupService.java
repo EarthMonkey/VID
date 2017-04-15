@@ -159,12 +159,17 @@ public class GroupService {
 
     /**
      * 判断用户是否拥有groupID的分组
+     * groupID = -1，表示无分组，返回true
      *
      * @param userID  用户id
      * @param groupID groupID
      * @return 若是，返回true，否则返回false
      */
     private boolean isOwner(int userID, int groupID) {
+        if (groupID == -1) {
+            return true;
+        }
+
         int temp = groupDao.getOwner(groupID);
 
         return temp == userID;

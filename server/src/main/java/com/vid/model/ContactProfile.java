@@ -49,6 +49,11 @@ public class ContactProfile {
      */
     private List<Video> videoList;
 
+    /**
+     * 头像url
+     */
+    private String portrait;
+
     public ContactProfile() {
         /*do nothing*/
     }
@@ -62,6 +67,7 @@ public class ContactProfile {
         this.industry = user.getIndustry();
         this.interest = user.getInterest();
         this.videoList = videoList;
+        this.portrait = user.getImgpath();
     }
 
     public String getNoteName() {
@@ -126,6 +132,14 @@ public class ContactProfile {
 
     public void setVideoList(List<Video> videoList) {
         this.videoList = videoList;
+    }
+
+    public String getPortrait() {
+        return portrait;
+    }
+
+    public void setPortrait(String portrait) {
+        this.portrait = portrait;
     }
 
     @Override

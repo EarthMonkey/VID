@@ -75,11 +75,15 @@ public class ContactsDaoImpl implements ContactsDao {
 
             Group group = groupMapper.getGroup(userID, contactID);
 
+            // 创建临时对象，存储ContactProfile初始化时所需的数据
             User user = new User();
-            user.setShowtelephone(relationship.getNotetelphone());
+            user.setId(relationship.getFriendid());
+            user.setShowtelephone(relationship.getNotetelephone());
             user.setShowemail(relationship.getNoteemail());
             user.setIndustry(relationship.getNoteindustry());
             user.setInterest(relationship.getNoteinterest());
+            // 设置头像
+            user.setImgpath(userMapper.getUserById(relationship.getFriendid()).getImgpath());
 
             List<Video> videoList = new ArrayList<>(relationshipList.size());
             relationshipList.forEach(temp -> videoList.add(videoMapper.getVideoByID(temp.getVideoid())));

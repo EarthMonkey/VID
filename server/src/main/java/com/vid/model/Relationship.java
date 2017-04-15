@@ -18,7 +18,7 @@ public class Relationship {
     //备注姓名
     String notename;
     //备注电话
-    String notetelphone;
+    String notetelephone;
     //备注行业
     String noteindustry;
     //备注兴趣
@@ -38,12 +38,12 @@ public class Relationship {
         this.notename = notename;
     }
 
-    public String getNotetelphone() {
-        return notetelphone;
+    public String getNotetelephone() {
+        return notetelephone;
     }
 
-    public void setNotetelphone(String notetelphone) {
-        this.notetelphone = notetelphone;
+    public void setNotetelephone(String notetelephone) {
+        this.notetelephone = notetelephone;
     }
 
     public String getNoteindustry() {
@@ -135,7 +135,7 @@ public class Relationship {
                 ", groupid=" + groupid +
                 ", videoid=" + videoid +
                 ", notename='" + notename + '\'' +
-                ", notetelphone='" + notetelphone + '\'' +
+                ", notetelephone='" + notetelephone + '\'' +
                 ", noteindustry='" + noteindustry + '\'' +
                 ", noteinterest='" + noteinterest + '\'' +
                 ", noteemail='" + noteemail + '\'' +

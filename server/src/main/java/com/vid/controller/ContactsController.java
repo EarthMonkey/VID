@@ -107,7 +107,8 @@ public class ContactsController {
      * 编辑联系人信息
      *
      * @param contactID 联系人的userID
-     * @param profile   json格式的联系人信息
+     * @param profile   json格式的联系人信息，包括：
+     *                  noteName, phoneNum, email, industry, interest
      * @return 包括：
      * 1. {"status":true,"info":"修改成功","object":null}
      * 2. {"status":false,"info":"联系人不存在","object":null}
