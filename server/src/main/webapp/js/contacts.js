@@ -27,7 +27,8 @@ function getMyInfo() {
                     portrait: temp_me.portrait,
                     interest: temp_me.interest,
                     phoneNum: temp_me.phoneNum,
-                    email: temp_me.email
+                    email: temp_me.email,
+                    videoList: temp_me.videoList
                 };
                 appendContact(ME, $("#lists"), "me");
             } else {
@@ -384,9 +385,9 @@ function initMyVideos() {
     var parent = document.getElementById("my_videos");
     var copy = document.getElementById("video_copy");
 
-    var number = 3;
-    $("#my_videos").css("width", 230 * number + "px");
-    for (var i = 0; i < number; i++) {
+    var videoList = ME.videoList;
+    $("#my_videos").css("width", 230 * videoList.length + "px");
+    for (var i = 0; i < videoList.length; i++) {
 
         var div = document.createElement("div");
         div.className = "video_div";
@@ -395,8 +396,12 @@ function initMyVideos() {
         var source = div.getElementsByTagName("source")[0];
         var name_div = div.getElementsByClassName("video_name")[0];
 
-        source.src = "https://media.html5media.info/video.iphone.mp4";
-        name_div.innerHTML = "我的视频" + (i + 1);
+        source.src = videoList[i].url;
+        name_div.innerHTML = videoList[i].name;
+
+        // 存储id
+        var aStore = $("<a style='display: none;'>" + videoList[i].id + "</a>");
+        $(div).append(aStore);
 
         parent.appendChild(div);
     }
@@ -679,6 +684,10 @@ function modDetail(node) {
     $("#detail").hide();
     $("#detailMod").show();
 
+    // 头像
+    var imgUrl = $("#detail").find(".portrait_div").find("img").attr("src");
+    $("#detailMod").find(".photo_mod").find("img").attr("src", imgUrl);
+
     var inputs = $("#detailMod").find("input");
     inputs[0].value = $("#detail").find(".contact_name").html();
     var spans = $("#detail").find("span");
@@ -688,13 +697,17 @@ function modDetail(node) {
 
     // 分组选择
     OLD_GROUP = $("#detail").find("storage").html();
-    if (OLD_GROUP == -1) {
+    if (OLD_GROUP == -1) {   // 用户自己
         OLD_GROUP = "未分组";
         $("#modGroup").val(OLD_GROUP);
         $("#modGroup").attr("disabled", "disabled");
-    } else {
+
+        $("#detailMod").find(".del_contact").hide();
+    } else {  // 联系人
         $("#modGroup").attr("disabled", false);
         $("#modGroup").val(OLD_GROUP);
+
+        $("#detailMod").find(".del_contact").show();
     }
 
     // 视频
