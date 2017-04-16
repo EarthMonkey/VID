@@ -2,6 +2,9 @@
  * Created by L.H.S on 2017/4/16.
  */
 
+var VIDEO_ID;  // 用来存储videoId
+var NOTE_NAME; // 用来存储name
+
 window.onload = function () {
     judgeLogin();
 };
@@ -56,21 +59,26 @@ function getVideoInfo(loginState) {
 
 function setVideoInfo(videoInfo) {
 
+    VIDEO_ID = videoInfo.id;
+
     // 填充视频信息
-    var data = "userID=" + videoInfo.ownerid;
-    var xhr = sendXML("/profile/other", "POST", data);
+    var data = "contactID=" + videoInfo.ownerid;
+    var xhr = sendXML("/profile/contact", "POST", data);
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {
             var resp = xhr.response;
             if (resp.status) {
                 var owner = resp.object;
 
+                console.log(owner)
+                $(".portrait_div").find("img").attr("src", owner.portrait);
                 $(".contact_name").html(owner.name);
                 var myInfo = $(".contact_info").find("span");
-                $(myInfo).eq(0).html(owner.name);  // 备注
+                $(myInfo).eq(0).html(owner.note);  // 备注
                 $(myInfo).eq(1).html(owner.phoneNum);
                 $(myInfo).eq(2).html(owner.mail);
 
+                NOTE_NAME = owner.name;
             }
         }
     };
@@ -152,4 +160,27 @@ function login() {
             }
         }
     };
+}
+
+function addContact() {
+
+    var data = "name=" + NOTE_NAME + "&videoID=" + VIDEO_ID;
+    var xhr = sendXML("/contacts/new/video", "POST", data);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            var resp = xhr.response;
+
+            var remindInfo;
+            if (resp.status) {
+                remindInfo = "添加成功";
+            } else {
+                remindInfo = resp.info;
+            }
+
+            var remind = $(".remind_div");
+            $(remind).html(remindInfo);
+            $(remind).slideDown("fast");
+            setTimeout("$('.remind_div').slideUp()", 2000);
+        }
+    }
 }

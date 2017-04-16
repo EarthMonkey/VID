@@ -13,7 +13,7 @@
     <link href="http://cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="../css/videoplay.css" rel="stylesheet">
 </head>
-<body style="background: none;">
+<body style="background: none; overflow: auto;">
 
 <div class="nav_bar">
     <div class="logo_div">
@@ -39,25 +39,27 @@
             <img src="" onerror="this.src='../image/portrait_default.png'">
         </div>
 
-        <div class="contact_name">sure</div>
+        <div class="contact_name"></div>
     </div>
 
     <div class="contact_info info_above">
-        <div>备注:&nbsp;<span>it's not me</span></div>
+        <div>备注:&nbsp;<span></span></div>
 
-        <div>电话:&nbsp;<span>not110</span></div>
+        <div>电话:&nbsp;<span></span></div>
 
-        <div>邮箱:&nbsp;<span>not123@qq.com</span></div>
+        <div>邮箱:&nbsp;<span></span></div>
     </div>
 </div>
 
 <div class="out_container">
 
-    <div class="add_contact"><i class="fa fa-plus"></i>添加到联系人</div>
+    <div class="add_contact" onclick="addContact()"><i class="fa fa-plus"></i>添加到联系人</div>
     <div class="tip_div">登录后可将视频添加到联系人列表</div>
+
+    <div class="remind_div"></div>
     <!-- 视频 -->
     <div class="videoPlay_div">
-        <video poster="../image/video_poster.png" controls preload="none">
+        <video poster="../image/video_poster.png" controls preload>
             <source src="">
         </video>
     </div>
@@ -66,7 +68,10 @@
 
 <!-- 登录 -->
 <div class="modal_backdrop" style="display: none;">
+
     <div id="loginModal">
+
+        <div class="close_modal" onclick="$('.modal_backdrop').fadeOut();$(this).hide();"><i class="fa fa-times"></i></div>
         <!-- 左半部分 -->
         <div class="video_left">
             <div class="QQ_box">
@@ -86,7 +91,7 @@
         </div>
 
         <!-- 右半部分 登录 -->
-        <div id = "login" class="video_left">
+        <div id="login" class="video_left">
 
             <div style="margin-bottom: 20px; position: relative;">
                 <input class="textfield" type="text" placeholder="Email or Mobilephone">

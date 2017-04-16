@@ -55,6 +55,22 @@
     top: -20px;
 }
 
+.remind_div {
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    margin-left: -65px;
+    width: 130px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    background-color: #1ab14a;
+    color: #fff;
+    font-size: 12px;
+    font-family: "PingFang SC", serif;
+    display: none;
+}
+
 .add_contact:hover {
     color: #266eb4;
 }
@@ -71,6 +87,7 @@
     position: relative;
     padding-top: 30px;
     padding-bottom: 20px;
+    position: relative;
     display: none;
 }
 
@@ -83,4 +100,21 @@
 .video_left {
     width: 305px;
     margin: auto auto;
+}
+
+.close_modal {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    cursor: pointer;
+    color: #afafaf;
+    font-size: 18px;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+}
+
+.close_modal:hover {
+    color: #3d3e3e;
 }
