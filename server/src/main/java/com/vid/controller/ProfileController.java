@@ -39,16 +39,21 @@ public class ProfileController {
     }
 
     /**
-     * 获取指定userID的名片夹信息
+     * 获取指定contactID的名片夹信息
      *
      * @return 包括：
      * 1. MsgInfo{"status":true,"info":"","object":profile}
      * 2. MsgInfo{"status":false,"info":"用户不存在","object":null}
      */
-    @RequestMapping("/other")
+    @RequestMapping("/contact")
     @ResponseBody
-    public MsgInfo getProfile(int userID) {
-        return profileService.getOtherProfile(userID);
+    public MsgInfo getProfile(HttpSession session, int contactID) {
+        int userID = -1;
+        if (session.getAttribute("userID") != null) {
+            userID = (Integer) session.getAttribute("userID");
+        }
+
+        return profileService.getContactProfile(userID, contactID);
     }
 
     /**

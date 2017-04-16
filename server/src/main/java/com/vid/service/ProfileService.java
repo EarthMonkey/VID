@@ -1,6 +1,7 @@
 package com.vid.service;
 
 import com.vid.config.MsgInfo;
+import com.vid.dao.ContactsDao;
 import com.vid.dao.UserDao;
 import com.vid.dao.VideoDao;
 import com.vid.model.Profile;
@@ -29,6 +30,9 @@ public class ProfileService {
     @Resource
     private VideoDao videoDao;
 
+    @Resource
+    private ContactsDao contactsDao;
+
     /**
      * 获取用户信息
      *
@@ -50,15 +54,22 @@ public class ProfileService {
      * 获取其他用户的信息，包括：
      * 姓名，电话，邮箱
      */
-    public MsgInfo getOtherProfile(int userID) {
-        User user = userDao.getUserByID(userID);
+    public MsgInfo getContactProfile(int userID, int contactID) {
+        Map<String, String> profile = new HashMap<>();
 
-        if (user != null) {
-            Map<String, String> profile = new HashMap<>(4);
+        User contact = userDao.getUserByID(contactID);
 
-            profile.put("name", user.getName());
-            profile.put("phoneNum", user.getBindingtelephone());
-            profile.put("mail", user.getBindingemail());
+        if (contact != null) {
+            profile.put("name", contact.getName());
+            profile.put("phoneNum", contact.getBindingtelephone());
+            profile.put("mail", contact.getBindingemail());
+            profile.put("portrait", contact.getImgpath());
+
+            if (userID != -1) {
+                String noteName = contactsDao.getContactInfo(userID, contactID).getNoteName();
+
+                profile.put("noteName", noteName);
+            }
 
             return new MsgInfo(true, "", profile);
         } else {
