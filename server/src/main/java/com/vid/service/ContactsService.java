@@ -99,6 +99,10 @@ public class ContactsService {
 
         int contactID = video.getOwnerid();
 
+        if (contactID == userID) {
+            return new MsgInfo(false, "无法添加自己为好友");
+        }
+
         if (contactsDao.addContactWithVideo(userID, contactID, name, videoID)) {
             Group group = groupDao.getGroup(userID, contactID);
             User contact = userDao.getUserByID(contactID);
