@@ -39,6 +39,19 @@ public class ProfileController {
     }
 
     /**
+     * 获取指定userID的名片夹信息
+     *
+     * @return 包括：
+     * 1. MsgInfo{"status":true,"info":"","object":profile}
+     * 2. MsgInfo{"status":false,"info":"用户不存在","object":null}
+     */
+    @RequestMapping("/other")
+    @ResponseBody
+    public MsgInfo getProfile(int userID) {
+        return profileService.getOtherProfile(userID);
+    }
+
+    /**
      * 编辑名片夹信息
      *
      * @param profile 修改后的名片夹信息, json格式

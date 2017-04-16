@@ -11,7 +11,9 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by song on 17-2-11.
@@ -39,6 +41,26 @@ public class ProfileService {
             List<Video> videoList = videoDao.getAllVideos(userID);
 
             return new MsgInfo(true, "", new Profile(user, videoList));
+        } else {
+            return new MsgInfo(false, "用户不存在");
+        }
+    }
+
+    /**
+     * 获取其他用户的信息，包括：
+     * 姓名，电话，邮箱
+     */
+    public MsgInfo getOtherProfile(int userID) {
+        User user = userDao.getUserByID(userID);
+
+        if (user != null) {
+            Map<String, String> profile = new HashMap<>(4);
+
+            profile.put("name", user.getName());
+            profile.put("phoneNum", user.getBindingtelephone());
+            profile.put("mail", user.getBindingemail());
+
+            return new MsgInfo(true, "", profile);
         } else {
             return new MsgInfo(false, "用户不存在");
         }
