@@ -1,0 +1,86 @@
+/*  Created by L.H.S on 2017/4/16.  */
+
+.out_container {
+    width: 600px;
+    margin: 60px auto;
+    position: relative;
+}
+
+@media screen and (max-width: 600px) {
+    .out_container {
+        width: 95%;
+    }
+
+    .info_above {
+        margin-top: -30px;
+    }
+}
+
+.info_above {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.videoPlay_div {
+    width: 100%;
+    background-color: #000;
+    position: relative;
+}
+
+.videoPlay_div video {
+    width: 100%;
+}
+
+.add_contact {
+    font-size: 14px;
+    font-family: "PingFang SC", serif;
+    color: #4f97de;
+    position: absolute;
+    left: 0;
+    top: -20px;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+    cursor: pointer;
+    display: none;
+}
+
+.tip_div {
+    font-size: 14px;
+    font-family: "PingFang SC", serif;
+    color: #afafaf;
+    position: absolute;
+    left: 0;
+    top: -20px;
+}
+
+.add_contact:hover {
+    color: #266eb4;
+}
+
+.add_contact i {
+    margin-right: 5px;
+}
+
+#loginModal {
+    width: 400px;
+    margin: 100px auto;
+    background-color: #d0e9fe;
+    border-radius: 4px;
+    position: relative;
+    padding-top: 30px;
+    padding-bottom: 20px;
+    display: none;
+}
+
+@media screen and (max-width: 400px) {
+    #loginModal {
+        width: 98%;
+    }
+}
+
+.video_left {
+    width: 305px;
+    margin: auto auto;
+}

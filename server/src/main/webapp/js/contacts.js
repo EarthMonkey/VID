@@ -340,7 +340,10 @@ function showMine() {
         $("#previewImg").attr("src", ME.portrait);
         $("#left_part").find(".contact_name").html(ME.noteName);
         var myInfo = $("#mine").find(".contact_info").eq(0).find("span");
-        $(myInfo).eq(0).html(ME.interest).eq(1).html(ME.phoneNum).eq(2).html(ME.email);
+        console.log(ME)
+        $(myInfo).eq(0).html(ME.interest);
+        $(myInfo).eq(1).html(ME.phoneNum);
+        $(myInfo).eq(2).html(ME.email);
 
         MINE_FIRST = 1;
     }

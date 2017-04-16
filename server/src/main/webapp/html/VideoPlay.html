@@ -1,0 +1,112 @@
+<!-- Created by L.H.S on 2017/4/16. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Video</title>
+
+    <link href="../css/css_reset.css" rel="stylesheet">
+    <link href="../css/login.css" rel="stylesheet">
+    <link href="../css/common.css" rel="stylesheet">
+    <link href="../css/contacts.css" rel="stylesheet">
+    <link href="http://cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/videoplay.css" rel="stylesheet">
+</head>
+<body style="background: none;">
+
+<div class="nav_bar">
+    <div class="logo_div">
+        <div><img src="../image/logo.png"></div>
+        <div class="vid_div">VID</div>
+    </div>
+
+    <div class="nav_username_div" onclick="showMenu()" style="display: none;"><span>用户名</span> <i
+            class="fa fa-angle-down"></i></div>
+    <div class="nav_username_div" onclick="videoLogin()">未登录</div>
+
+    <div id="menu" class="dialog_div">
+        <div class="triangle_div"></div>
+        <div class="dialog_btn" onclick="location.href='Contacts.html'">联系人</div>
+        <div class="dialog_btn" onclick="logout()">注销</div>
+    </div>
+</div>
+
+<div class="out_container">
+    <!-- 视频信息 -->
+    <div class="info_above">
+        <div class="portrait_div">
+            <img src="" onerror="this.src='../image/portrait_default.png'">
+        </div>
+
+        <div class="contact_name">sure</div>
+    </div>
+
+    <div class="contact_info info_above">
+        <div>备注:&nbsp;<span>it's not me</span></div>
+
+        <div>电话:&nbsp;<span>not110</span></div>
+
+        <div>邮箱:&nbsp;<span>not123@qq.com</span></div>
+    </div>
+</div>
+
+<div class="out_container">
+
+    <div class="add_contact"><i class="fa fa-plus"></i>添加到联系人</div>
+    <div class="tip_div">登录后可将视频添加到联系人列表</div>
+    <!-- 视频 -->
+    <div class="videoPlay_div">
+        <video poster="../image/video_poster.png" controls preload="none">
+            <source src="">
+        </video>
+    </div>
+    <div class="video_name">视频名称</div>
+</div>
+
+<!-- 登录 -->
+<div class="modal_backdrop" style="display: none;">
+    <div id="loginModal">
+        <!-- 左半部分 -->
+        <div class="video_left">
+            <div class="QQ_box">
+                <img style="width: 20px; margin-right: 11px;" src="../image/qq_icon.png">
+                用QQ登录
+            </div>
+
+            <div class="QQ_box" style="background: #75c138">
+                <img src="../image/wechat_icon.png">
+                用微信登录
+            </div>
+
+            <div class="QQ_box" style="background: #f3ce49">
+                <img src="../image/sina_icon.png">
+                用新浪微博登录
+            </div>
+        </div>
+
+        <!-- 右半部分 登录 -->
+        <div id = "login" class="video_left">
+
+            <div style="margin-bottom: 20px; position: relative;">
+                <input class="textfield" type="text" placeholder="Email or Mobilephone">
+            </div>
+
+            <div style="margin-bottom: 3px; position: relative;">
+                <input class="textfield" type="password" placeholder="password">
+            </div>
+
+            <div class="QQ_box login_btn" style="margin-top: 20px;" onclick="login()">登录</div>
+
+            <div class="register_btn" onclick="window.location.href='Register.html'">注册</div>
+
+        </div>
+    </div>
+</div>
+
+<script src="../js/jquery.js"></script>
+<script src="../js/common.js"></script>
+<script src="../js/html5media.min.js"></script>
+<script src="../js/videoplay.js"></script>
+</body>
+</html>
