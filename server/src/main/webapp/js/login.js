@@ -72,12 +72,8 @@ function login() {
         },
         error: function () {
             alert("登录失败");
-            // console.log(xhr);
-            // console.log(status);
-            // console.log(error);
         }
     });
-
 }
 
 // 注册

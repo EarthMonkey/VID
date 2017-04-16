@@ -90,6 +90,8 @@ function logout() {
             var data = xhr.response;
             if (data.status == true) {
                 location.href = "Login.html";
+            } else {
+                alert(data.info);
             }
         }
     }

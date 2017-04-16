@@ -43,29 +43,6 @@ function sendXML(url, type, data) {
     return xhr;
 }
 
-// 上传视频
-//
-// function uploadVideo() {
-//
-//     var xhr1 = sendXML("/isLogin", "POST", "");
-//     xhr1.onreadystatechange = function () {
-//         if (xhr1.readyState == 4 && xhr1.status == 200) {
-//             var data = xhr1.response;
-//             var loginState = data.status;
-//
-//             if (loginState == false) {
-//
-//                 $(".remindness_div").html("您还未登录");
-//                 $(".remindness_div").fadeIn();
-//                 setTimeout("$('.remindness_div').fadeOut()", 3000);
-//             } else {
-//
-//                 upload();
-//             }
-//         }
-//     };
-// }
-
 function uploadVideo() {
 
     if (loginState == false) {
