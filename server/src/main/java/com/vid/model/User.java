@@ -36,8 +36,6 @@ public class User {
         this.id = id;
     }
 
-
-
     public String getName() {
         return name;
     }
@@ -68,6 +66,7 @@ public class User {
 
     public void setBindingemail(String bindingemail) {
         this.bindingemail = bindingemail;
+        this.showemail = bindingemail;
     }
 
     public String getShowemail() {
@@ -76,6 +75,7 @@ public class User {
 
     public void setShowemail(String showemail) {
         this.showemail = showemail;
+        this.bindingemail = showemail;
     }
 
     public String getBindingtelephone() {
@@ -84,6 +84,7 @@ public class User {
 
     public void setBindingtelephone(String bindingtelephone) {
         this.bindingtelephone = bindingtelephone;
+        this.showtelephone = bindingtelephone;
     }
 
     public String getShowtelephone() {
@@ -92,6 +93,7 @@ public class User {
 
     public void setShowtelephone(String showtelephone) {
         this.showtelephone = showtelephone;
+        this.bindingtelephone = showtelephone;
     }
 
     public String getIndustry() {

@@ -47,13 +47,8 @@ public class ProfileController {
      */
     @RequestMapping("/contact")
     @ResponseBody
-    public MsgInfo getProfile(HttpSession session, int contactID) {
-        int userID = -1;
-        if (session.getAttribute("userID") != null) {
-            userID = (Integer) session.getAttribute("userID");
-        }
-
-        return profileService.getContactProfile(userID, contactID);
+    public MsgInfo getProfile(int contactID) {
+        return profileService.getContactProfile(contactID);
     }
 
     /**

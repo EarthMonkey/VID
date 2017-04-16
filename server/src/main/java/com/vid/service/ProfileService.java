@@ -54,22 +54,18 @@ public class ProfileService {
      * 获取其他用户的信息，包括：
      * 姓名，电话，邮箱
      */
-    public MsgInfo getContactProfile(int userID, int contactID) {
-        Map<String, String> profile = new HashMap<>();
-
+    public MsgInfo getContactProfile(int contactID) {
         User contact = userDao.getUserByID(contactID);
 
         if (contact != null) {
+            Map<String, String> profile = new HashMap<>();
+
             profile.put("name", contact.getName());
             profile.put("phoneNum", contact.getBindingtelephone());
             profile.put("mail", contact.getBindingemail());
             profile.put("portrait", contact.getImgpath());
-
-            if (userID != -1) {
-                String noteName = contactsDao.getContactInfo(userID, contactID).getNoteName();
-
-                profile.put("noteName", noteName);
-            }
+            // 备注， interest字段存储
+            profile.put("note", contact.getInterest());
 
             return new MsgInfo(true, "", profile);
         } else {
