@@ -20,6 +20,8 @@ function verify() {
         if (xhr.readyState == 4 && xhr.status == 200) {
             var result = xhr.response;
             if (result.status == true) {
+                var email = getParameter("email");
+                $(".content_text").find("span").html(email);
                 gotoTime($(".goto_btn").find("span"));
             }
         }
