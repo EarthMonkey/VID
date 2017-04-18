@@ -36,10 +36,19 @@ function judgeLogin() {
     }
 }
 
+// 获取地址栏videoId
+function getParameter(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return unescape(r[2]);
+    return null;
+}
+
 // 1，未登录；2，已登录
 function getVideoInfo(loginState) {
 
-    var videoID = 12;
+    var videoID = getParameter("videoId");
+    alert(videoID);
     var data = "videoID=" + videoID;
 
     var xhr = sendXML("/video/info/" + loginState, "POST", data);

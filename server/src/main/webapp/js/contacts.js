@@ -399,6 +399,13 @@ function initMyVideos() {
         var source = div.getElementsByTagName("source")[0];
         var name_div = div.getElementsByClassName("video_name")[0];
 
+        var qr_img = $("<img class='qr_img' src='../image/qrcode.png'>");
+        qr_img.attr("videoUrl", videoList[i].id);
+        $(div).append(qr_img);
+        $(qr_img).click(function () {
+            getQRCode(this);
+        });
+
         source.src = videoList[i].url;
         name_div.innerHTML = videoList[i].name;
 
@@ -933,4 +940,23 @@ function changePortrait(picId, fileId) {
         }
     }
 
+}
+
+function getQRCode(video) {
+    /* 应该传来videoId, 通过videoId跳转到videoPlay页面 */
+
+    var videoId = $(video).attr("videoId");
+    var url = "http://localhost:8082/html/VideoPlay.html?videoId=" + videoId;
+    var text =  "http://qr.liantu.com/api.php?logo=http://www.liantu.com/images/2013/sample.jpg&text=" + url;
+
+    var code = $("#QRCode");
+    $(code).fadeIn();
+    $(code).css("display", "flex");
+    $(code).find("img").attr("src", text);
+    $("#main_body").css("filter", "blur(3px)");
+
+    $(code).click(function () {
+        $(this).fadeOut();
+        $("#main_body").css("filter", "none");
+    });
 }

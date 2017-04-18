@@ -674,3 +674,36 @@ html, body {
     bottom: 0;
     cursor: pointer;
 }
+
+/* 二维码 */
+.QRcode_div {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    /*display: flex;*/
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+.QRcode_div img {
+    width: 150px;
+    height: 150px;
+
+    -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+}
+
+.qr_img {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    left: 0;
+    bottom: 7px;
+    cursor: pointer;
+}
