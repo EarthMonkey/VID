@@ -10,6 +10,7 @@ window.onload = function () {
     getMyInfo();
     getAll();
     addIndex();
+    mobileSwiper();
 };
 
 function getMyInfo() {
@@ -949,7 +950,7 @@ function getQRCode(video) {
 
     var videoId = $(video).attr("videoId");
     var url = "http://172.19.108.175:8082/html/VideoPlay.html?videoId=" + videoId;
-    var text =  "http://qr.liantu.com/api.php?logo=http://www.liantu.com/images/2013/sample.jpg&text=" + url;
+    var text = "http://qr.liantu.com/api.php?logo=http://www.liantu.com/images/2013/sample.jpg&text=" + url;
 
     var code = $("#QRCode");
     $(code).fadeIn();
@@ -960,5 +961,63 @@ function getQRCode(video) {
     $(code).click(function () {
         $(this).fadeOut();
         $("#main_body").css("filter", "none");
+    });
+}
+
+// 手机屏幕滑动
+function mobileSwiper() {
+
+    var cWidth = document.documentElement.clientWidth;
+    if (cWidth > 768) {
+        return;
+    }
+
+
+    swiper($(".mobile_left")[0], cWidth, 0, "showMine");
+    swiper($(".contact_detail")[0], 0, -cWidth);
+    swiper($("#mine")[0], 0, 0, "showMine");
+}
+
+function swiper(obj, left, right) {
+
+    var showMe = -1;
+    if (arguments.length > 3) {
+        showMe = 1;
+    }
+
+    obj.addEventListener("touchstart", function (event) {
+        var touch = event.targetTouches[0];
+
+        var x = touch.pageX;
+        obj.addEventListener('touchmove', function (event) {
+            // 如果这个元素的位置内只有一个手指的话
+            if (event.targetTouches.length == 1) {
+                event.preventDefault(); // 阻止浏览器默认事件，重要
+                var touch = event.targetTouches[0];
+
+                shift = touch.pageX - x;
+            }
+        }, false);
+
+    });
+
+    obj.addEventListener("touchend", function () {
+        if (shift > 0) {
+            // 右滑
+            if (right != 0) {
+                $("body").animate({scrollLeft: right}, 300);
+            }
+
+            if (showMe != -1 && left != 0) {
+                showMine();
+            }
+        } else if (shift < 0) {
+            // 左滑
+            if (left != 0) {
+                $("body").animate({scrollLeft: left}, 300);
+            } else if (showMe != -1) {
+                hideMine();
+            }
+        }
     });
 }
