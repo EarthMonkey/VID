@@ -400,7 +400,7 @@ function initMyVideos() {
         var name_div = div.getElementsByClassName("video_name")[0];
 
         var qr_img = $("<img class='qr_img' src='../image/qrcode.png'>");
-        qr_img.attr("videoUrl", videoList[i].id);
+        qr_img.attr("videoId", videoList[i].id);
         $(div).append(qr_img);
         $(qr_img).click(function () {
             getQRCode(this);
@@ -946,7 +946,7 @@ function getQRCode(video) {
     /* 应该传来videoId, 通过videoId跳转到videoPlay页面 */
 
     var videoId = $(video).attr("videoId");
-    var url = "http://localhost:8082/html/VideoPlay.html?videoId=" + videoId;
+    var url = "http://172.19.108.175:8082/html/VideoPlay.html?videoId=" + videoId;
     var text =  "http://qr.liantu.com/api.php?logo=http://www.liantu.com/images/2013/sample.jpg&text=" + url;
 
     var code = $("#QRCode");

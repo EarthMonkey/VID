@@ -48,7 +48,6 @@ function getParameter(name) {
 function getVideoInfo(loginState) {
 
     var videoID = getParameter("videoId");
-    alert(videoID);
     var data = "videoID=" + videoID;
 
     var xhr = sendXML("/video/info/" + loginState, "POST", data);
@@ -114,6 +113,14 @@ function videoLogin() {
 
     $(".modal_backdrop").show();
     $("#loginModal").slideDown();
+
+    $(".modal_backdrop").click(function () {
+        var target = event.target;
+        if (target.className && target.className == "modal_backdrop") {
+            $('.modal_backdrop').fadeOut();
+            $(this).hide();
+        }
+    });
 }
 
 var err_lbl = document.createElement("div");

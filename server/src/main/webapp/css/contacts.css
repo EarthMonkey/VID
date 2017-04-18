@@ -5,7 +5,7 @@
 html, body {
     height: 100%;
     overflow: hidden;
-    overflow-x: auto;
+    overflow-x: auto;!important;
 }
 
 #main_body {
@@ -691,9 +691,8 @@ html, body {
 }
 
 .QRcode_div img {
-    width: 150px;
-    height: 150px;
-
+    width: 200px;
+    height: 200px;
     -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
     -moz-box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
