@@ -79,7 +79,7 @@ public class MailFactory {
      */
     public static boolean activateAccount(String mail, int userID, String userName, final String random) {
         Date date = new Date();
-        String content = String.format(activateContent, userName, userID, random, date, date);
+        String content = String.format(activateContent, userName, userID, random, mail, date, date);
 
         return MailHelper.sendHtmlMail(mail, activateSubject, content);
     }
@@ -115,11 +115,11 @@ public class MailFactory {
 
         String content = String.format(verifyMailContent, userName, userID, random, date, date);
 
-        return MailHelper.sendHtmlMail(mail, findPassSubject, content);
+        return MailHelper.sendHtmlMail(mail, verifyMailSubject, content);
     }
 
     public static void main(String[] args) {
-        System.out.println(activateAccount("141250062@smail.nju.edu.cn", 141250, "bedisdover", "123123"));
+        System.out.println(activateAccount("141250111@smail.nju.edu.cn", 141250, "bedisdover", "123123"));
 //        System.out.println(verifyMail("141250111@smail.nju.edu.cn", 141, "bedisdover", "123"));
     }
 }
