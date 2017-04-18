@@ -19,20 +19,26 @@ html, body {
     position: relative;
 }
 
-@media screen and (max-width: 830px) {
-    #main_body {
-        width: 827px;
-    }
+.mobile_left {
+    width: 40%;
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
 }
 
 .group_lbl {
-    width: 17%;
-    min-width: 165px;
+    width: 39%;
     height: 100%;
     background-color: #e4e6e8;
     border-right: 1px solid #d4d6d6;
+    margin-right: 0;
     display: inline-block;
     vertical-align: top;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+#lists {
     overflow-x: hidden;
     overflow-y: auto;
 }
@@ -43,6 +49,8 @@ html, body {
     border-bottom: 1px solid #afc7d9;
     padding-left: 15px;
     padding-right: 15px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
     box-sizing: border-box;
     background-color: #d6d8db;
     font-family: "Microsoft Sans Serif", "PingFang SC", sans-serif;
@@ -92,12 +100,11 @@ html, body {
 }
 
 .contacts_list {
-    width: 27%;
-    min-width: 260px;
-    height: 100%;
+    width: 60%;
+    height: 50%;
     background-color: #f9f9f9;
     border-right: 1px solid #d4d6d6;
-    margin-left: -7px;
+    margin-left: -5px;
     display: inline-block;
     vertical-align: top;
     overflow-x: hidden;
@@ -154,7 +161,7 @@ html, body {
     height: 490px;
     border-radius: 10px;
     position: absolute;
-    top: 80px;
+    top: 50px;
     right: 10px;
     transition: 0.3s;
     color: #1981fb;
@@ -206,10 +213,9 @@ html, body {
 }
 
 .contact_detail {
-    width: 55.9%;
-    min-width: 510px;
+    width: 60%;
     height: 100%;
-    margin-left: -5px;
+    margin-left: -7px;
     display: inline-block;
     vertical-align: top;
     overflow-x: hidden;
@@ -377,16 +383,6 @@ html, body {
     margin-top: 80px;
 }
 
-@media screen and (max-width: 680px) {
-    .enlarge_modal {
-        width: 99%;
-    }
-
-    .no_video {
-        text-align: left;
-    }
-}
-
 .modal_backdrop {
     position: fixed;
     top: 0;
@@ -398,19 +394,8 @@ html, body {
     display: none;
 }
 
-@media screen and (max-width: 970px) {
-
-    .contact_detail {
-        position: absolute;
-        left: 430px;
-        right: 0;
-        height: 615px;
-    }
-}
-
 .mine_div {
-    width: 55.9%;
-    /*min-width: 400px;*/
+    width: 60%;
     height: 100%;
     display: inline-block;
     margin-right: -5px;
@@ -422,16 +407,6 @@ html, body {
     box-shadow: 10px 0 7px rgba(51, 51, 51, 0.7);
     position: relative;
     z-index: 1039;
-}
-
-@media screen and (max-width: 1100px) {
-    .mine_div {
-        -webkit-transition: 0.3s;
-        -moz-transition: 0.3s;
-        -o-transition: 0.3s;
-        transition: 0.3s;
-        width: 400px;
-    }
 }
 
 .mine_title {
@@ -616,9 +591,11 @@ html, body {
     border-radius: 50%;
     background-color: #fc3d39;
     display: inline-block;
-    vertical-align: top;
+    vertical-align: middle;
     cursor: pointer;
-    margin-left: 110px;
+    margin-left: 1px;
+    position: relative;
+    top: -2px;
 }
 
 .del_btn hr {
@@ -631,12 +608,12 @@ html, body {
 .video_name_field {
     width: 200px;
     display: inline-block;
-    vertical-align: top;
-    margin-left: 40px;
+    vertical-align: middle;
+    margin-left: 170px;
 }
 
 .video_name_field .info_field {
-    width: 200px;
+    width: 175px;
 }
 
 #videosMod {
@@ -705,4 +682,49 @@ html, body {
     left: 0;
     bottom: 7px;
     cursor: pointer;
+}
+
+/* 适配手机端 */
+@media screen and (max-width: 768px) {
+    #main_body {
+        width: 200%;
+        position: relative;
+    }
+    .contact_detail {
+        width: 49%;
+        margin-left: -5px;
+    }
+
+    .video_name_field {
+        margin-left: 30px;
+    }
+
+    .mobile_left {
+        width: 50%;
+        position: relative;
+    }
+
+    .mobile_left .group_lbl {
+        width: 40%;
+    }
+
+    .mobile_left .contacts_list {
+        width: 59%;
+    }
+
+    .enlarge_modal {
+        width: 99%;
+    }
+
+    .no_video {
+        text-align: left;
+    }
+
+    .mine_div {
+        width: 50%;
+        -webkit-transition: 0.3s;
+        -moz-transition: 0.3s;
+        -o-transition: 0.3s;
+        transition: 0.3s;
+    }
 }

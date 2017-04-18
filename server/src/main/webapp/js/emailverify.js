@@ -9,7 +9,6 @@ function getParameter(name) {
     return null;
 }
 
-
 /*
  * 邮箱验证
  * */

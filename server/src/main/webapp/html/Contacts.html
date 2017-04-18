@@ -14,7 +14,7 @@
 <body>
 
 <div class="nav_bar">
-    <div class="logo_div">
+    <div class="logo_div" onclick="location.href='Homepage.html'">
         <div><img src="../image/logo.png"></div>
         <div class="vid_div">VID</div>
     </div>
@@ -83,64 +83,66 @@
 
     </div>
 
-    <!-- 分组标签 -->
-    <div class="group_lbl">
+    <div class="mobile_left">
+        <!-- 分组标签 -->
+        <div class="group_lbl">
 
-        <div class="each_group first_bottom" style="font-weight: bold; cursor: pointer" onclick="showMine()">
-            我的名片夹
-        </div>
-
-        <div class="each_group" style="font-weight: bold; border-bottom: 1.5px solid #c8c7c7;"
-             onclick="changeAllContact()">所有联系人
-        </div>
-
-        <div id="lbls">
-            <div id="group_copy" class="each_group" style="display: none;">
-                <i class="fa fa-pencil-square-o" onclick="modGroup()"></i>
-                <i class="fa fa-trash-o" style="margin-right: 5px;" onclick="delGroup()"></i>
-                <span></span>
+            <div class="each_group first_bottom" style="font-weight: bold; cursor: pointer" onclick="showMine()">
+                我的名片夹
             </div>
-        </div>
 
-        <div class="each_group" style="border-bottom: 2px solid #c8c7c7;">
-            <div class="lbl_add" onclick="addGroup()">
-                <hr class="plus_h">
-                <hr class="plus_v">
+            <div class="each_group" style="font-weight: bold; border-bottom: 1.5px solid #c8c7c7;"
+                 onclick="changeAllContact()">所有联系人
             </div>
-        </div>
 
-        <div></div>
-
-    </div>
-
-    <!-- 联系人列表 -->
-    <div class="contacts_list">
-
-        <div class="each_group first_bottom">
-            <i class="fa fa-search"></i>
-            <input id="search" class="search_field" type="text" placeholder='搜索"所有联系人"' onkeyup="search()">
-            <div id="search_cancel"><i class="fa fa-times"></i></div>
-        </div>
-
-        <div id="lists" style="padding-bottom: 50px;">
-
-            <!-- 右侧索引 -->
-            <div id="indexA" class="index_A"></div>
-
-            <!--
-            <div class="each_idx">N</div>
-            <div class="each_contact">
-                NJU李昊朔<hr>
+            <div id="lbls">
+                <div id="group_copy" class="each_group" style="display: none;">
+                    <i class="fa fa-pencil-square-o" onclick="modGroup()"></i>
+                    <i class="fa fa-trash-o" style="margin-right: 5px;" onclick="delGroup()"></i>
+                    <span></span>
+                </div>
             </div>
-            -->
+
+            <div class="each_group" style="border-bottom: 2px solid #c8c7c7;">
+                <div class="lbl_add" onclick="addGroup()">
+                    <hr class="plus_h">
+                    <hr class="plus_v">
+                </div>
+            </div>
+
+            <div></div>
 
         </div>
 
-        <div id="search_list" style="padding-bottom: 50px; display: none;">
-            <div class="no_search">无搜索结果</div>
-        </div>
-        <div id="groupContact" style="padding-bottom: 50px; display: none;">
-            <div class="no_search">该分组暂无联系人</div>
+        <!-- 联系人列表 -->
+        <div class="contacts_list">
+
+            <div class="each_group first_bottom">
+                <i class="fa fa-search"></i>
+                <input id="search" class="search_field" type="text" placeholder='搜索"所有联系人"' onkeyup="search()">
+                <div id="search_cancel"><i class="fa fa-times"></i></div>
+            </div>
+
+            <div id="lists" style="padding-bottom: 50px;">
+
+                <!-- 右侧索引 -->
+                <div id="indexA" class="index_A"></div>
+
+                <!--
+                <div class="each_idx">N</div>
+                <div class="each_contact">
+                    NJU李昊朔<hr>
+                </div>
+                -->
+
+            </div>
+
+            <div id="search_list" style="padding-bottom: 50px; display: none;">
+                <div class="no_search">无搜索结果</div>
+            </div>
+            <div id="groupContact" style="padding-bottom: 50px; display: none;">
+                <div class="no_search">该分组暂无联系人</div>
+            </div>
         </div>
     </div>
 
@@ -205,13 +207,14 @@
             <div>
                 <div id="videosMod">
                     <div id="vidMod_copy" style="display: none;">
-                        <div class="del_btn">
-                            <hr>
-                        </div>
 
                         <div class="video_name_field">
                             <div style="margin-bottom: -10px;">
                                 <input class="info_field" type="text" placeholder="视频名称">
+
+                                <div class="del_btn">
+                                    <hr>
+                                </div>
                             </div>
                             <div class="video_div" style="height: auto;">
                                 <div class="enlarge_btn" onclick="enlarge(this);">放大</div>

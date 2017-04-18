@@ -151,8 +151,8 @@ function addIndex() {
 
         $(div).click(function () {
             if ($("#" + this.innerHTML).length > 0) {
-                var pos = $("#" + this.innerHTML).offset().top;
-                $(".contacts_list").animate({scrollTop: pos}, 500);
+                var pos = $("#" + this.innerHTML).offset().top - 95;
+                $("#lists").animate({scrollTop: pos}, 500);
             }
         });
     }
@@ -163,13 +163,15 @@ function addIndex() {
 
     $(".contacts_list").on('scroll', function () {
 
-        parent.style.top = 80 + $(".contacts_list").scrollTop() + "px";
+        parent.style.top = 50 + $(".contacts_list").scrollTop() + "px";
     });
 }
 
 function initContacts(contacts) {
 
     var parent = $("#lists");
+    parent.css("height", document.documentElement.clientHeight - "95" + "px");
+    console.log(parent.css("height"));
     var a = 65;
     for (var i = 0; i < contacts.length; i++) {
 
