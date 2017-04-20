@@ -17,6 +17,11 @@ function showMenu() {
 // xhr.readyState == 4 && xhr.status == 200
 function sendXML(url, type, data) {
 
+    var qiniu = 0;
+    if (arguments.length > 3) {  // 七牛云不用设置contenttype
+        qiniu = 1;
+    }
+
     var xhr;
     if (window.ActiveXObject) {
         //如果是IE浏览器
@@ -27,7 +32,9 @@ function sendXML(url, type, data) {
     }
 
     xhr.open(type, url);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+    if (qiniu != 1) {
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+    }
     xhr.responseType = "json";
 
     xhr.onload = function () {
@@ -35,7 +42,7 @@ function sendXML(url, type, data) {
     };
 
     xhr.onerror = function () {
-        alert("error");
+        console.log("error");
     };
 
     xhr.send(data);
@@ -64,21 +71,47 @@ function uploadVideo() {
 
         var fileName = file.name;
         var fileSize = file.size;
-        var filePath = $("input:file").val();
 
-        var data = "name=" + fileName + "&size=" + fileSize + "&url=" + filePath;
+        if (fileSize > 10*1024*1024) {  // 10MB
+            alert(fileSize)
+            $(".remindness_div").html("视频要小于10MB");
+            $(".remindness_div").fadeIn();
+            setTimeout("$('.remindness_div').fadeOut()", 3000);
+            return;
+        }
 
-        var xhr = sendXML("/video/upload", "POST", data);
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                var data = xhr.response;
-                if (data.status == true) {
-                    $(".remindness_div").html("上传成功");
-                    $(".remindness_div").fadeIn();
-                    setTimeout("$('.remindness_div').fadeOut()", 3000);
-                }
+        var xhr_token = sendXML("/auth/token", "POST", "");
+        xhr_token.onreadystatechange = function () {
+            if (xhr_token.readyState == 4 && xhr_token.status == 200) {
+                var resp = xhr_token.response;
+                var token = resp.object;
+
+                var formData = new FormData();
+                formData.append('token', token);
+                formData.append('file', file);
+
+                var xhr_QiNiu = sendXML("http://up.qiniu.com", "POST", formData , "qiniu");
+                xhr_QiNiu.onreadystatechange = function () {
+                    if (xhr_QiNiu.readyState == 4 && xhr_QiNiu.status == 200) {
+                        var resp_QiNiu = xhr_QiNiu.response;
+
+                        var data = "name=" + fileName + "&size=" + fileSize +
+                            "&url=" + "http://ooosh9wza.bkt.clouddn.com/" + resp_QiNiu.key;
+                        console.log(data);
+                        var xhr = sendXML("/video/upload", "POST", data);
+                        xhr.onreadystatechange = function () {
+                            if (xhr.readyState == 4 && xhr.status == 200) {
+                                var data = xhr.response;
+                                if (data.status == true) {
+                                    $(".remindness_div").html("上传成功");
+                                    $(".remindness_div").fadeIn();
+                                    setTimeout("$('.remindness_div').fadeOut()", 3000);
+                                }
+                            }
+                        };
+                    }
+                };
             }
         };
-
     });
 }

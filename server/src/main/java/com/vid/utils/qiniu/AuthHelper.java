@@ -41,6 +41,7 @@ public class AuthHelper {
      * 获取普通上传的凭证
      */
     public static String getToken() {
+
         Auth auth = Auth.create(accessKey, secretKey);
 
         return auth.uploadToken(bucket);

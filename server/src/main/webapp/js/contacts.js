@@ -931,26 +931,44 @@ function changePortrait(picId, fileId) {
         }
     }
 
-    // 文件路径
-    var data = "url=" + file.value;
-    var xhr = sendXML("/profile/portrait/upload", "POST", data);
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            var resp = xhr.response;
-            if (!resp.status) {
-                alert(resp.info);
-            }
-        }
-    }
+    var xhr_token = sendXML("/auth/token", "POST", "");
+    xhr_token.onreadystatechange = function () {
+        if (xhr_token.readyState == 4 && xhr_token.status == 200) {
+            var resp = xhr_token.response;
+            var token = resp.object;
 
+            var formData = new FormData();
+            formData.append('token', token);
+            formData.append('file', file.files[0]);
+
+            var xhr_QiNiu = sendXML("http://up.qiniu.com", "POST", formData, "qiniu");
+            xhr_QiNiu.onreadystatechange = function () {
+                if (xhr_QiNiu.readyState == 4 && xhr_QiNiu.status == 200) {
+                    var resp = xhr_QiNiu.response;
+
+                    var data = "url=http://ooosh9wza.bkt.clouddn.com/" + resp.key;
+                    var xhr = sendXML("/profile/portrait/upload", "POST", data);
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState == 4 && xhr.status == 200) {
+                            var resp = xhr.response;
+                            if (!resp.status) {
+                                alert(resp.info);
+                            }
+                        }
+                    };
+
+                }
+            };
+        }
+    };
 }
 
 function getQRCode(video) {
     /* 应该传来videoId, 通过videoId跳转到videoPlay页面 */
 
     var videoId = $(video).attr("videoId");
-    var url = "http://172.19.108.175:8082/html/VideoPlay.html?videoId=" + videoId;
-    var text = "http://qr.liantu.com/api.php?logo=http://www.liantu.com/images/2013/sample.jpg&text=" + url;
+    var url = "http://192.168.1.108:8082/html/VideoPlay.html?videoId=" + videoId;
+    var text = "http://qr.liantu.com/api.php?logo=http://ooosh9wza.bkt.clouddn.com/code-logo.png&text=" + url;
 
     var code = $("#QRCode");
     $(code).fadeIn();
@@ -985,24 +1003,29 @@ function swiper(obj, left, right) {
         showMe = 1;
     }
 
+    var shiftX = 0;
+    var shiftY = 0;
+
     obj.addEventListener("touchstart", function (event) {
         var touch = event.targetTouches[0];
 
         var x = touch.pageX;
+        var y = touch.pageY;
         obj.addEventListener('touchmove', function (event) {
             // 如果这个元素的位置内只有一个手指的话
             if (event.targetTouches.length == 1) {
                 event.preventDefault(); // 阻止浏览器默认事件，重要
                 var touch = event.targetTouches[0];
 
-                shift = touch.pageX - x;
+                shiftX = touch.pageX - x;
+                shiftY = touch.pageY - y;
             }
         }, false);
 
     });
 
     obj.addEventListener("touchend", function () {
-        if (shift > 0) {
+        if (shiftX > 100) {
             // 右滑
             if (right != 0) {
                 $("body").animate({scrollLeft: right}, 300);
@@ -1011,7 +1034,7 @@ function swiper(obj, left, right) {
             if (showMe != -1 && left != 0) {
                 showMine();
             }
-        } else if (shift < 0) {
+        } else if (shiftX < -100) {
             // 左滑
             if (left != 0) {
                 $("body").animate({scrollLeft: left}, 300);
@@ -1019,5 +1042,18 @@ function swiper(obj, left, right) {
                 hideMine();
             }
         }
+
+        if ($(event.target).attr("id") == "detail" || $(event.target).attr("id") == "detailMod") {
+
+            if (shiftY > 20) { // 手指向下滑
+                $(".contact_detail").animate({scrollTop: -100}, 300);
+            } else if (shiftY < -20){ // 手指向上滑
+                $(".contact_detail").animate({scrollTop: 100}, 300);
+            }
+
+        } else if (event.target.className == "each_contact") {
+
+        }
+
     });
 }

@@ -41,6 +41,7 @@ html, body {
 #lists {
     overflow-x: hidden;
     overflow-y: auto;
+    background-color: #f9f9f9;
 }
 
 .each_group {
