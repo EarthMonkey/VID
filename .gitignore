@@ -8,6 +8,8 @@
 
 server/src/main/resources/db.properties
 
+server/src/main/resources/qiniu.properties
+
 server/src/main/java/com/vid/controller/TestController.java
 
 server/src/test/com/vid/model/Test.java
