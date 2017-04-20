@@ -303,8 +303,8 @@ html, body {
     margin-top: 100px;
     margin-left: 30px;
     padding-bottom: 40px;
-    height: 315px;
-    overflow-y: auto
+    /*height: 315px;*/
+    /*overflow-y: auto*/
 }
 
 .video_div {
@@ -431,10 +431,9 @@ html, body {
 
 #my_videos {
     margin-top: 70px;
-    /*width: 690px;*/
-    height: 200px;
-    overflow-x: auto;
-    overflow-y: hidden;
+    height: 260px;
+    padding-bottom: 40px;
+    overflow: auto;
     margin-left: 20px;
 }
 
@@ -685,6 +684,10 @@ html, body {
     cursor: pointer;
 }
 
+.swiper {
+    display: none;
+}
+
 /* 适配手机端 */
 @media screen and (max-width: 768px) {
     #main_body {
@@ -727,5 +730,30 @@ html, body {
         -moz-transition: 0.3s;
         -o-transition: 0.3s;
         transition: 0.3s;
+    }
+
+    /* 左右切屏 */
+    .swiper {
+        display: block;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        color: #fff;
+        font-size: 28px;
+        background-color: rgba(216, 216, 216, 0.6);
+        position: fixed;
+        bottom: 10px;
+        left: 10px;
+        z-index: 1100;
+    }
+
+    .swiper:hover {
+        background-color: rgba(216, 216, 216, 1);
+    }
+
+    #Left, #Right {
+        display: none;
     }
 }

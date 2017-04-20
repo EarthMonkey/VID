@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1" >
     <title>Contacts</title>
 
     <link href="../css/css_reset.css" rel="stylesheet">
@@ -34,7 +34,7 @@
     <div id="left_part" class="mine_left" style="display: none">
         <div class="each_group first_bottom">
             <!--<div class="edit_btn">编辑</div>-->
-            <div class="tip_text" style="color: #000; float: left;" onclick="hideMine()">
+            <div class="tip_text" style="color: #000; float: left;" onclick="hideMine(); left2middle();">
                 <div class="fa fa-angle-double-left"></div>
                 收起
             </div>
@@ -87,7 +87,7 @@
         <!-- 分组标签 -->
         <div class="group_lbl">
 
-            <div class="each_group first_bottom" style="font-weight: bold; cursor: pointer" onclick="showMine()">
+            <div class="each_group first_bottom" style="font-weight: bold; cursor: pointer" onclick="showMine(); middle2left();">
                 我的名片夹
             </div>
 
@@ -283,6 +283,12 @@
 <div id="QRCode" class="QRcode_div">
     <img src="" onerror="this.src='../image/logo.png'">
 </div>
+
+<!-- 左右切屏 -->
+<div id="Right" onclick="left2middle()" class="swiper"><i class="fa fa-angle-double-right"></i></div>
+<div id="middleLeft" onclick="middle2left()" class="swiper"><i class="fa fa-angle-double-left"></i></div>
+<div id="middleRight" onclick="middle2right()" class="swiper" style="left: 60px;"><i class="fa fa-angle-double-right"></i></div>
+<div id="Left" onclick="right2middle()" class="swiper"><i class="fa fa-angle-double-left"></i></div>
 
 <script src="../js/jquery.js"></script>
 <script src="../js/contacts.js"></script>

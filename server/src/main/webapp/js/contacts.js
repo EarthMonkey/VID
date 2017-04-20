@@ -10,7 +10,6 @@ window.onload = function () {
     getMyInfo();
     getAll();
     addIndex();
-    mobileSwiper();
 };
 
 function getMyInfo() {
@@ -348,12 +347,13 @@ function showMine() {
         $(myInfo).eq(1).html(ME.phoneNum);
         $(myInfo).eq(2).html(ME.email);
 
+        initMyVideos();
+
         MINE_FIRST = 1;
     }
 
     $("#detail_part").hide();
 
-    initMyVideos();
     $("#mine").animate({
         width: "show"
     }, 200);
@@ -392,7 +392,6 @@ function initMyVideos() {
     var copy = document.getElementById("video_copy");
 
     var videoList = ME.videoList;
-    $("#my_videos").css("width", 230 * videoList.length + "px");
     for (var i = 0; i < videoList.length; i++) {
 
         var div = document.createElement("div");
@@ -982,78 +981,32 @@ function getQRCode(video) {
     });
 }
 
-// 手机屏幕滑动
-function mobileSwiper() {
+function middle2left() {
+    $(".swiper").hide();
+    showMine();
+    $("#Right").fadeIn();
+}
 
+function middle2right() {
     var cWidth = document.documentElement.clientWidth;
-    if (cWidth > 768) {
-        return;
-    }
-
-
-    swiper($(".mobile_left")[0], cWidth, 0, "showMine");
-    swiper($(".contact_detail")[0], 0, -cWidth);
-    swiper($("#mine")[0], 0, 0, "showMine");
+    $(".swiper").hide();
+    $("body").animate({scrollLeft: cWidth}, 300);
+    $("#Left").fadeIn();
 }
 
-function swiper(obj, left, right) {
+function left2middle() {
 
-    var showMe = -1;
-    if (arguments.length > 3) {
-        showMe = 1;
-    }
-
-    var shiftX = 0;
-    var shiftY = 0;
-
-    obj.addEventListener("touchstart", function (event) {
-        var touch = event.targetTouches[0];
-
-        var x = touch.pageX;
-        var y = touch.pageY;
-        obj.addEventListener('touchmove', function (event) {
-            // 如果这个元素的位置内只有一个手指的话
-            if (event.targetTouches.length == 1) {
-                event.preventDefault(); // 阻止浏览器默认事件，重要
-                var touch = event.targetTouches[0];
-
-                shiftX = touch.pageX - x;
-                shiftY = touch.pageY - y;
-            }
-        }, false);
-
-    });
-
-    obj.addEventListener("touchend", function () {
-        if (shiftX > 100) {
-            // 右滑
-            if (right != 0) {
-                $("body").animate({scrollLeft: right}, 300);
-            }
-
-            if (showMe != -1 && left != 0) {
-                showMine();
-            }
-        } else if (shiftX < -100) {
-            // 左滑
-            if (left != 0) {
-                $("body").animate({scrollLeft: left}, 300);
-            } else if (showMe != -1) {
-                hideMine();
-            }
-        }
-
-        if ($(event.target).attr("id") == "detail" || $(event.target).attr("id") == "detailMod") {
-
-            if (shiftY > 20) { // 手指向下滑
-                $(".contact_detail").animate({scrollTop: -100}, 300);
-            } else if (shiftY < -20){ // 手指向上滑
-                $(".contact_detail").animate({scrollTop: 100}, 300);
-            }
-
-        } else if (event.target.className == "each_contact") {
-
-        }
-
-    });
+    $("#Right").hide();
+    hideMine();
+    $("#middleLeft").fadeIn();
+    $("#middleRight").fadeIn();
 }
+
+function right2middle() {
+
+    $("#Left").hide();
+    $("body").animate({scrollLeft: 0}, 300);
+    $("#middleLeft").fadeIn();
+    $("#middleRight").fadeIn();
+}
+
