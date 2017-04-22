@@ -104,7 +104,7 @@
 
 <!-- 第四部分 -->
 <div class="part_two" style="padding-top: 70px; padding-bottom: 70px; position: relative;">
-    <div class="remindness_div" style="margin-top: 60px;margin-bottom: -90px;">上传成功</div>
+
     <div style="font-size: 40px; line-height: 60px;">上传您的视频</div>
     <div style="margin: 50px auto;">
         <img src="../image/upload_bg.png" style="cursor: pointer;" onclick="uploadVideo()">
@@ -112,6 +112,30 @@
     <div class="upload_lbl" onclick="uploadVideo()">UPLOAD</div>
 
     <input type="file" accept="audio/mp4,video/mp4" name="fileupload" style="moz-opacity: 0; opacity: 0;"/>
+
+    <div class="remindness_div">上传成功</div>
+    <div id="progressBar" class="spinner">
+        <div class="uploading_lbl">上传中，请稍等</div>
+        <div class="spinner-container container1">
+            <div class="circle1"></div>
+            <div class="circle2"></div>
+            <div class="circle3"></div>
+            <div class="circle4"></div>
+        </div>
+        <div class="spinner-container container2">
+            <div class="circle1"></div>
+            <div class="circle2"></div>
+            <div class="circle3"></div>
+            <div class="circle4"></div>
+        </div>
+        <div class="spinner-container container3">
+            <div class="circle1"></div>
+            <div class="circle2"></div>
+            <div class="circle3"></div>
+            <div class="circle4"></div>
+        </div>
+    </div>
+
 </div>
 
 <!-- 第五部分 -->

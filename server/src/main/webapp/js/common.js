@@ -80,6 +80,10 @@ function uploadVideo() {
             return;
         }
 
+        $("#progressBar").fadeIn();
+
+        var upload_syb = 0;
+
         var xhr_token = sendXML("/auth/token", "POST", "");
         xhr_token.onreadystatechange = function () {
             if (xhr_token.readyState == 4 && xhr_token.status == 200) {
@@ -91,24 +95,34 @@ function uploadVideo() {
                 formData.append('file', file);
 
                 var xhr_QiNiu = sendXML("http://up.qiniu.com", "POST", formData , "qiniu");
+
                 xhr_QiNiu.onreadystatechange = function () {
                     if (xhr_QiNiu.readyState == 4 && xhr_QiNiu.status == 200) {
                         var resp_QiNiu = xhr_QiNiu.response;
 
                         var data = "name=" + fileName + "&size=" + fileSize +
                             "&url=" + "http://ooosh9wza.bkt.clouddn.com/" + resp_QiNiu.key;
-                        console.log(data);
-                        var xhr = sendXML("/video/upload", "POST", data);
-                        xhr.onreadystatechange = function () {
-                            if (xhr.readyState == 4 && xhr.status == 200) {
-                                var data = xhr.response;
-                                if (data.status == true) {
-                                    $(".remindness_div").html("上传成功");
-                                    $(".remindness_div").fadeIn();
-                                    setTimeout("$('.remindness_div').fadeOut()", 3000);
+
+                        if (upload_syb == 0) {
+                            var xhr = sendXML("/video/upload", "POST", data);
+                            xhr.onreadystatechange = function () {
+                                if (xhr.readyState == 4 && xhr.status == 200) {
+                                    $("#progressBar").hide();
+                                    var data = xhr.response;
+                                    if (data.status == true) {
+                                        $(".remindness_div").html("上传成功");
+                                        $(".remindness_div").fadeIn();
+                                        setTimeout("$('.remindness_div').fadeOut()", 3000);
+                                    } else {
+                                        $(".remindness_div").html(data.info);
+                                        $(".remindness_div").fadeIn();
+                                        setTimeout("$('.remindness_div').fadeOut()", 3000);
+                                    }
                                 }
-                            }
-                        };
+                            };
+                            upload_syb = 1; // 防止重复上传
+                        }
+
                     }
                 };
             }

@@ -739,7 +739,7 @@ function modDetail(node) {
         delBtn.click(function () {
             DELETE_QUEUE[DELETE_INDEX] = $("#videosMod").find("input").index($(this.parentNode).find("input"));
             DELETE_INDEX++;
-            $(this.parentNode).hide();
+            $(this.parentNode.parentNode).hide();
         });
 
         videoParent.append(div);

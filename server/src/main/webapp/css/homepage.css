@@ -241,6 +241,9 @@ body, html {
     font-family: "PingFang SC", serif;
     font-size: 16px;
     background-color: #6aad20;
-    margin: 0 auto;
+    position: relative;
+    float: left;
+    left: 50%;
+    margin-left: -90px;
     display: none;
 }
