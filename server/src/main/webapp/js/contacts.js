@@ -10,6 +10,10 @@ window.onload = function () {
     getMyInfo();
     getAll();
     addIndex();
+
+    $(".group_lbl").css("height", document.documentElement.clientHeight + "px");
+    $(".contacts_list").css("height", document.documentElement.clientHeight + "px");
+
 };
 
 function getMyInfo() {
@@ -159,11 +163,6 @@ function addIndex() {
     var diva = document.createElement("div");
     diva.innerHTML = "#";
     parent.appendChild(diva);
-
-    $(".contacts_list").on('scroll', function () {
-
-        parent.style.top = 50 + $(".contacts_list").scrollTop() + "px";
-    });
 }
 
 function initContacts(contacts) {
