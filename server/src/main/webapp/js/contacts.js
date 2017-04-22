@@ -36,7 +36,8 @@ function getMyInfo() {
                 };
                 appendContact(ME, $("#lists"), "me");
             } else {
-                alert(resp.info);
+                // 未登录跳转到首页
+                location.href = "Homepage.html";
             }
         }
     };
