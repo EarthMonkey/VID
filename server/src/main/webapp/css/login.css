@@ -1,7 +1,13 @@
 body {
     background: url("../image/login_bg.png") no-repeat;
-    /*background-repeat: no-repeat;*/
-    overflow: hidden;
+    overflow: auto;
+}
+
+@media screen and (min-width: 1240px){
+    body {
+        -webkit-background-size: 100%;
+        background-size: 100%;
+    }
 }
 
 .welcome {
@@ -15,7 +21,7 @@ body {
 }
 
 .center_div {
-    width: 55%;
+    width: 680px;
     min-width: 300px;
     padding-top: 10px;
     padding-bottom: 20px;
@@ -138,6 +144,6 @@ body {
 @media screen and (max-width: 1260px) {
     .center_div {
         width: 310px;
-        margin:40px auto;
+        margin: 40px auto;
     }
 }

@@ -961,9 +961,10 @@ function changePortrait(picId, fileId) {
 }
 
 function getQRCode(video) {
-    /* 应该传来videoId, 通过videoId跳转到videoPlay页面 */
 
     var videoId = $(video).attr("videoId");
+
+    /******* 跳转地址 **********/
     var url = "http://115.28.210.167:8080/VID/html/VideoPlay.html?videoId=" + videoId;
     var text = "http://qr.liantu.com/api.php?logo=http://ooosh9wza.bkt.clouddn.com/code-logo.png&text=" + url;
 
