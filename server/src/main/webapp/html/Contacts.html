@@ -61,7 +61,6 @@
                 展开全部
             </div>
 
-
             <div class="mine_title">我的名片</div>
         </div>
 
@@ -238,7 +237,6 @@
     </div>
 </div>
 
-
 <!-- 视频modal -->
 <div id="modal" class="modal_backdrop">
     <div class="enlarge_modal">
@@ -249,10 +247,15 @@
 <!-- 增加分组modal -->
 <div id="groupModal" class="modal_backdrop" style="background: rgba(255, 255, 255, 0.4);">
     <div class="group_modal">
-        <input class="group_field" type="text" placeholder="请输入分组名称">
-        <div class="confirm_btn">
-            <i class="fa fa-check" onclick="newGroup();"></i>
-            <i class="fa fa-times" style="margin-left: 15px;"></i>
+        <div class="top_lay">
+            请输入分组名称
+        </div>
+        <div class="middle_lay">
+            <input class="group_field" type="text" placeholder="分组名称">
+        </div>
+        <div class="top_lay">
+            <div class="con_modal_btn" style="margin-left: 190px;" onclick="newGroup();">确认</div>
+            <div class="con_modal_btn">取消</div>
         </div>
     </div>
 </div>
@@ -260,20 +263,30 @@
 <!-- 修改分组modal -->
 <div id="groupModModal" class="modal_backdrop" style="background: rgba(255, 255, 255, 0.4);">
     <div class="group_modal">
-        <input class="group_field" type="text" placeholder="请输入分组名称">
-        <div class="confirm_btn">
-            <i class="fa fa-check" onclick=""></i>
-            <i class="fa fa-times" style="margin-left: 15px;"></i>
+        <div class="top_lay">
+            请输入分组名称
+        </div>
+        <div class="middle_lay">
+            <input class="group_field" type="text" placeholder="分组名称">
+        </div>
+        <div class="top_lay">
+            <div class="con_modal_btn" style="margin-left: 190px;">确认</div>
+            <div class="con_modal_btn">取消</div>
         </div>
     </div>
 </div>
 
 <!-- 是否确认删除分组 -->
 <div id="confirmModal" class="modal_backdrop" style="background: rgba(255, 255, 255, 0.4);">
-    <div class="group_modal" style="color: #2b2b2b">
-        <div style="padding-top: 10px; margin-left: 10px;">是否确认删除该分组?</div>
-        <div style="margin-left: 75px;">
-            <div class="con_modal_btn" onclick="deleteG();">删除</div>
+    <div class="group_modal">
+        <div class="top_lay">
+            删除确认
+        </div>
+        <div class="middle_lay">
+            删除分组不会删除组内联系人，是否确认删除？
+        </div>
+        <div class="top_lay">
+            <div class="con_modal_btn" onclick="deleteG();" style="margin-left: 190px;">删除</div>
             <div class="con_modal_btn">取消</div>
         </div>
     </div>

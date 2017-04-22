@@ -5,7 +5,8 @@
 html, body {
     height: 100%;
     overflow: hidden;
-    overflow-x: auto;!important;
+    overflow-x: auto;
+!important;
 }
 
 #main_body {
@@ -454,34 +455,70 @@ html, body {
     color: #3d3e3e;
 }
 
+/* 分组修改确认框 */
 .group_modal {
-    width: 275px;
-    height: 100px;
-    background-color: #e4e6e8;
-    margin: 200px auto;
-    border-radius: 2px;
+    width: 330px;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    background-color: #eaeaea;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -165px;
+    margin-top: -70px;
+    font-size: 16px;
     font-family: "PingFang SC", serif;
-    color: #afafaf;
-    -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
-    box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+    color: #000;
+}
+
+.top_lay {
+    width: 100%;
+    height: 35px;
+    line-height: 35px;
+    font-weight: 500;
+    padding-left: 15px;
+    padding-right: 15px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.middle_lay {
+    width: 100%;
+    height: 70px;
+    line-height: 70px;
+    background-color: #fff;
+    border-top: 1px solid #aaa;
+    border-bottom: 1px solid #aaa;
+    padding-left: 20px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    font-size: 14px;
+    font-weight: 400;
 }
 
 .group_field {
     width: 245px;
-    height: 40px;
-    font-size: 18px;
-    margin: 15px 15px;
-    border: none;
+    height: 30px;
+    font-size: 14px;
+    margin: 15px 0;
     padding-left: 5px;
     box-sizing: border-box;
     outline: none;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
 }
 
 .group_field:hover,
 .group_field:focus {
-    -webkit-box-shadow: 0 0 8px 3px #79a3c3;
-    -moz-box-shadow: 0 0 8px 3px #79a3c3;
-    box-shadow: 0 0 8px 3px #79a3c3;
+    -webkit-box-shadow: 0 0 4px 3px #79a3c3;
+    -moz-box-shadow: 0 0 4px 3px #79a3c3;
+    box-shadow: 0 0 4px 3px #79a3c3;
 }
 
 .confirm_btn {
@@ -500,16 +537,16 @@ html, body {
 }
 
 .con_modal_btn {
-    width: 35px;
+    width: 50px;
     height: 20px;
     line-height: 20px;
+    font-size: 12px;
+    font-weight: 400;
     text-align: center;
-    border-bottom: 1px solid #2b2b2b;
-    color: #2b2b2b;
+    border: 1px solid #888;
+    border-radius: 4px;
     display: inline-block;
     vert-align: top;
-    margin-left: 15px;
-    margin-top: 20px;
     cursor: pointer;
 }
 
@@ -694,6 +731,7 @@ html, body {
         width: 200%;
         position: relative;
     }
+
     .contact_detail {
         width: 49%;
         margin-left: -5px;

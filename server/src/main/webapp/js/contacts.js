@@ -50,7 +50,6 @@ function getAll() {
             initGroups(CONTACTS.groupList);
             initContacts(CONTACTS.contacts);
             slideRight();
-
         }
     };
 }
@@ -468,7 +467,7 @@ function addGroup() {
     $("#main_body").css("-webkit-filter", "blur(3px)");
 
 
-    var tagI = $("#groupModal").find("i");
+    var tagI = $("#groupModal").find(".con_modal_btn");
     $(tagI[1]).click(function () {
         $("#main_body").css("-webkit-filter", "");
         $("#groupModal").hide();
@@ -588,7 +587,7 @@ function modGroup() {
     var inputField = $("#groupModModal").find("input");
     inputField.val(nameOld);
 
-    var tagI = $("#groupModModal").find("i");
+    var tagI = $("#groupModModal").find(".con_modal_btn");
 
     $(tagI[0]).click(function () {
         var groupName = inputField.val();
