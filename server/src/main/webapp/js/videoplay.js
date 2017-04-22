@@ -93,6 +93,7 @@ function setVideoInfo(videoInfo) {
 
     $(".video_name").html(videoInfo.name);
     $("video").find("source").attr("src", videoInfo.url);
+    $("video").attr("src", videoInfo.url);
 }
 
 function logout() {

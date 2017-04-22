@@ -407,6 +407,7 @@ function initMyVideos() {
             getQRCode(this);
         });
 
+        div.getElementsByTagName("video")[0].setAttribute("src", videoList[i].url);
         source.src = videoList[i].url;
         name_div.innerHTML = videoList[i].name;
 
@@ -441,6 +442,7 @@ function setVideos(videoList) {
         var div = $("<div class='video_div'></div>");
         div.html(copy.html());
 
+        div.find("video").attr("src", videoList[i].url);
         div.find("source").attr("src", videoList[i].url);
         div.find(".video_name").html(videoList[i].name);
 
@@ -729,6 +731,7 @@ function modDetail(node) {
     for (var i = 0; i < videos.length; i++) {
         var div = $("<div></div>");
         div.html(videoCopy.html());
+        div.find("video").attr("src", $(videos[i]).find("source").attr("src"));
         div.find("source").attr("src", $(videos[i]).find("source").attr("src"));
         div.find("input").val($(videos[i]).find(".video_name").html());
 
