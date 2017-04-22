@@ -964,7 +964,7 @@ function getQRCode(video) {
     /* 应该传来videoId, 通过videoId跳转到videoPlay页面 */
 
     var videoId = $(video).attr("videoId");
-    var url = "http://192.168.1.108:8082/html/VideoPlay.html?videoId=" + videoId;
+    var url = "http://115.28.210.167:8080/VID/html/VideoPlay.html?videoId=" + videoId;
     var text = "http://qr.liantu.com/api.php?logo=http://ooosh9wza.bkt.clouddn.com/code-logo.png&text=" + url;
 
     var code = $("#QRCode");
