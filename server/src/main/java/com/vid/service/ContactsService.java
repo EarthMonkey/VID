@@ -103,6 +103,11 @@ public class ContactsService {
             return new MsgInfo(false, "无法添加自己为好友");
         }
 
+        // 已为好友，判断videoID的视频是否添加
+        if (contactsDao.isContacts(userID, contactID, videoID)) {
+            return new MsgInfo(false, "已添加该视频");
+        }
+
         if (contactsDao.addContactWithVideo(userID, contactID, name, videoID)) {
             Group group = groupDao.getGroup(userID, contactID);
             User contact = userDao.getUserByID(contactID);

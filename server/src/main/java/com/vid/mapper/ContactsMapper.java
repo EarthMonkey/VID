@@ -18,6 +18,8 @@ public interface ContactsMapper {
 
     Relationship isContacts(int userID, int contactID);
 
+    Relationship isContactsWithVideo(int userID, int contactID, int videoID);
+
     String getNoteName(int userID, int contactID);
 
     List<Relationship> getContactInfo(int userID, int contactID);

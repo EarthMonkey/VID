@@ -32,6 +32,16 @@ public interface ContactsDao {
     boolean isContacts(int userID, int contactID);
 
     /**
+     * 判断id为contactID的用户是否是id为userID的用户的联系人(videoID)
+     *
+     * @param userID    userID，对应id字段
+     * @param contactID 联系人的userID
+     * @param videoID   videoID
+     * @return 若是，返回true，否则返回false
+     */
+    boolean isContacts(int userID, int contactID, int videoID);
+
+    /**
      * 获取用户userID对联系人contactID的备注姓名
      *
      * @param userID    userID，对应id字段

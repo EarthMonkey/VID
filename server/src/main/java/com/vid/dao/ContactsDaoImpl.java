@@ -56,6 +56,20 @@ public class ContactsDaoImpl implements ContactsDao {
     }
 
     @Override
+    public boolean isContacts(int userID, int contactID, int videoID) {
+        try {
+            if (contactsMapper.isContactsWithVideo(userID, contactID, videoID) != null) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
     public String getNoteName(int userID, int contactID) {
         try {
             return contactsMapper.getNoteName(userID, contactID);
