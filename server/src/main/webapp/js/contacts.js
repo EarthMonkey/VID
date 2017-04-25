@@ -746,7 +746,7 @@ function comDetailMod() {
 
     var xhr;
 
-    if ($("#detail").attr("isMe") == true) { // 修改个人信息
+    if ($("#detail").attr("isMe") == "true") { // 修改个人信息
         var profile = {
             name: inputs[0].value,
             phoneNum: inputs[2].value,
@@ -777,7 +777,8 @@ function comDetailMod() {
             if (resp.status == true) {
 
                 var detail = $("#detail");
-                $(detail).find("img").eq(0).attr("src", inputs[0].value);
+                var imgUrl = $("#detailMod").find(".photo_img").find("img").attr("src");
+                $(detail).find("img").eq(0).attr("src", imgUrl);
                 $(detail).find(".contact_name").html(inputs[0].value);
                 var spans = $(detail).find("span");
                 for (var i = 0; i < spans.length; i++) {
