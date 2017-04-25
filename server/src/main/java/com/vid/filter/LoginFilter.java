@@ -1,8 +1,5 @@
 package com.vid.filter;
 
-import com.vid.model.User;
-import org.springframework.web.bind.annotation.RequestMethod;
-
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
@@ -51,7 +48,6 @@ public class LoginFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
             throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
-        System.out.println(request.getMethod());
 
         if (request.getMethod().equalsIgnoreCase("POST")) {
             // 访问的url
