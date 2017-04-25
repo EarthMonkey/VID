@@ -401,7 +401,7 @@ html, body {
 }
 
 .mine_div {
-    width: 60%;
+    width: 59%;
     height: 100%;
     display: inline-block;
     margin-right: -5px;
@@ -424,14 +424,10 @@ html, body {
     right: 25px;
 }
 
-.mine_left {
-    width: 280px;
-    height: 100%;
+#left_part {
+    width: 300px;
     display: inline-block;
-    margin-right: -5px;
     vertical-align: top;
-    overflow-x: hidden;
-    overflow-y: auto;
 }
 
 #my_videos {
@@ -647,7 +643,7 @@ html, body {
 }
 
 .video_name_field {
-    width: 200px;
+    width: 220px;
     display: inline-block;
     vertical-align: middle;
     margin-left: 170px;
