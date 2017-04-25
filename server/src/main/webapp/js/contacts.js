@@ -375,12 +375,6 @@ function hideMine() {
         $("#detail_part").show();
     }
 
-    if ($("#left_part").css("display") != "none") {
-        $("#left_part").animate({
-            width: "hide"
-        }, 200);
-    }
-
     $("#mine").find(".tip_text").show();
 }
 
@@ -452,15 +446,6 @@ function setVideos(videoList) {
 
         $("#videos").append(div);
     }
-}
-
-// 展开我的左半边
-function showMyAll() {
-    $("#left_part").animate({
-        width: "show"
-    }, 200);
-
-    $("#mine").find(".tip_text").hide();
 }
 
 // 增加分组
@@ -780,6 +765,7 @@ function comDetailMod() {
             industry: "",    // 不修改
             interest: inputs[1].value
         };
+        console.log(profile)
         var data = "contactID=" + contactID + "&profile=" + JSON.stringify(profile);
         xhr = sendXML("/contacts/edit", "POST", data);
     }
@@ -887,7 +873,7 @@ function clearVideoMod() {
 
     var videoMods = $("#videosMod").find(".del_btn");
     for (var i = 1; i < videoMods.length; i++) {
-        $(videoMods[i].parentNode).remove();
+        $(videoMods[i].parentNode.parentNode).remove();
     }
 }
 
